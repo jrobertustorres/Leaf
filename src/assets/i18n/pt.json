@@ -1,0 +1,68 @@
+{
+    "AJUSTES": "Ajustes",
+    "TITLE_SOCIAL_SHARING": "Olá, estou gostando muito do Leaf - Sons para relaxar e dormir. Junte-se a nós! :)",
+    "HOME": {
+    },
+    "TABS": {
+        "CATEGORIA": {
+            "CHUVA": "Chuva",
+            "PASSAROS": "Pássaros",
+            "FOGO": "Fogo",
+            "VENTO": "Vento",
+            "SYNTHWAVE": "Synthwave",
+            "ENERGIA_POSITIVA": "Energia Positiva"
+            },
+            "NOME_SOM_CHUVA": {
+                "CHUVA_TROVOADAS": "CHUVA_TROVOADAS",
+                "CHUVA_CALMA": "CHUVA_CALMA"
+            },
+            "NOME_SOM_PASSAROS": {
+                "PASSAROS_LOWERCASE": "Pássaros",
+                "PASSAROS_LAGO": "PASSAROS_LAGO",
+                "PASSAROS_FLORESTA": "PASSAROS_FLORESTA"
+            },
+            "NOME_SOM_FOGO": {
+                "FOGUEIRA": "FOGUEIRA"
+            },
+            "NOME_SOM_VENTO": {
+                "VENTANIA_NO_CAMPO": "VENTANIA_NO_CAMPO",
+                "FLORESTA_CONGELADA": "FLORESTA_CONGELADA"
+            },
+            "NOME_SOM_SYNTHWAVE": {
+                "RETRO1": "RETRO1",
+                "RETRO2": "RETRO2"
+            },
+            "NOME_SOM_ENERGIA_POSITIVA": {
+                "FREQUENCIA_RECONEXAO": "FREQUENCIA_RECONEXAO",
+                "FREQUENCIA_432": "FREQUENCIA_432"
+            },
+        "SONS": "Sons",
+        "TODOS": "Todos",
+        "CHUVA_LOWERCASE": "Chuva",
+        "CHUVA_TROVOADAS": "Chuva com trovoadas",
+        "CHUVA_CALMA": "Chuva calma",
+        "PASSAROS_LOWERCASE": "Pássaros",
+        "PASSAROS_LAGO": "Pássaros no lago",
+        "PASSAROS_FLORESTA": "Pássaros na floresta",
+        "FOGO": "Fogo",
+        "FOGUEIRA": "Fogueira",
+        "VENTO": "Vento",
+        "VENTANIA_NO_CAMPO": "Ventania na montanha",
+        "FLORESTA_CONGELADA": "Floresta congelada",
+        "SYNTHWAVE": "Synthwave",
+        "RETRO1": "Retro1",
+        "RETRO2": "Cyber Edge",
+        "ENERGIA_POSITIVA": "Energia Positiva",
+        "FREQUENCIA_RECONEXAO": "Frequência de Reconexão com a Fonte",
+        "FREQUENCIA_432": "Energia positiva - Frequência 432 Hz"
+    },
+    "TAB3": {
+        "IDIOMA": "Idioma",
+        "IDIOMA_INGLES": "Inglês",
+        "IDIOMA_PORTUGUES": "Português",
+        "COMPARTILHAR": "Compartilhar",
+        "HORA_DE_DORMIR": "Hora de dormir",
+        "IMG_FUNDO_HOME": "Imagem de fundo da Home"
+    }
+
+}

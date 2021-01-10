@@ -1,0 +1,150 @@
+<!-- <ion-header no-border>
+  <ion-header style="background-color: #222428;">
+    <ion-toolbar color="dark">
+        <ion-title>
+        </ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="closeModal()">
+              <ion-icon name="chevron-down-outline"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+    
+  <ion-content>
+    <ion-list>
+      <ion-item button *ngFor="let track of playlist" (click)="start(track)">
+        <ion-label [color]="track == activeTrack ? 'success' : 'light'">
+          {{ track.name }}
+        </ion-label>
+      </ion-item> 
+    </ion-list>
+  
+  </ion-content>
+  
+  <ion-footer *ngIf="activeTrack" style="background-color: #222428;">
+    <ion-toolbar color="dark">
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          {{ currentTime }}
+          {{ activeTrack.name }}
+          {{ totalSoundDuration }}
+        </ion-col>
+        <ion-col size="12">
+          <ion-range #range [(ngModel)]="progress" max="100" color="success" (touchend)="seek()" (mouseup)="seek()"></ion-range>
+        </ion-col>
+        <ion-col size="12" class="ion-text-center">
+  
+          <ion-button fill="clear" (click)="togglePlayer(false)" *ngIf="!isPlaying" color="light">
+            <ion-icon slot="icon-only" name="play"></ion-icon>
+          </ion-button>
+  
+          <ion-button fill="clear" (click)="togglePlayer(true)" *ngIf="isPlaying" color="light">
+            <ion-icon slot="icon-only" name="pause"></ion-icon>
+          </ion-button>
+  
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-footer>
+  
+
+
+  -->
+
+
+  <ion-header class="ion-no-border">
+    <ion-toolbar color="light">
+      <ion-buttons slot="start">
+        <ion-button color="medium" (click)="closeModal()">
+          <ion-icon slot="icon-only" name="chevron-down"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  
+      <!-- <ion-title>Daily Mix 3</ion-title> -->
+  
+      <!-- <ion-buttons slot="end">
+        <ion-button color="medium">
+          <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
+        </ion-button>
+      </ion-buttons> -->
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="bg-gradient">
+
+    <ion-list>
+      <ion-item button *ngFor="let track of playlist" (click)="start(track)">
+        <ion-label [color]="track == activeTrack ? 'success' : 'light'">
+          {{ track.name }}
+        </ion-label>
+      </ion-item> 
+    </ion-list>
+
+    <div class="album-cover">
+      <ion-thumbnail>
+        <img src="{{'assets/imgs/album_art.png'}}" alt="">
+      </ion-thumbnail>
+    </div>
+  
+    <div class="song-info ion-padding" style="color: #fff;">
+      <div class="song-title">
+        {{ activeTrack.name }}
+      </div>
+      <!-- <div class="artist-name">
+        <ion-text color="medium">Multiple Artists</ion-text>
+      </div> -->
+    </div>
+  
+    <div class="song-timeline ion-padding">
+      <!-- <ion-progress-bar value="0.25"></ion-progress-bar> -->
+      <ion-range #range [(ngModel)]="progress" max="100" color="success" (touchend)="seek()" (mouseup)="seek()"></ion-range>
+      <ion-row class="grid-no-padding ion-justify-content-between" style="color: #fff;">
+        <ion-col size="auto">
+          {{ currentTime }}
+        </ion-col>
+        <ion-col size="auto">
+          {{ totalSoundDuration }}
+        </ion-col>
+      </ion-row>
+    </div>
+  
+    <div class="buttons ion-padding">
+      <ion-button fill="clear" (click)="togglePlayer(false)" *ngIf="!isPlaying" color="light">
+        <ion-icon slot="icon-only" name="play"></ion-icon>
+      </ion-button>
+
+      <ion-button fill="clear" (click)="togglePlayer(true)" *ngIf="isPlaying" color="light">
+        <ion-icon slot="icon-only" name="pause"></ion-icon>
+      </ion-button>
+      <!-- <ion-button color="dark" fill="clear" size="small">
+        <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
+      </ion-button> -->
+      <!-- <ion-button color="dark" fill="clear" size="small">
+        <ion-icon slot="icon-only" name="play-skip-back-sharp"></ion-icon>
+      </ion-button> -->
+      <!-- <ion-fab-button color="dark">
+        <ion-icon name="play-sharp"></ion-icon>
+      </ion-fab-button> -->
+      <!-- <ion-button color="dark" fill="clear" size="small">
+        <ion-icon slot="icon-only" name="play-skip-forward-sharp"></ion-icon>
+      </ion-button> -->
+      <!-- <ion-button color="dark" fill="clear" size="small">
+        <ion-icon slot="icon-only" name="repeat-outline"></ion-icon>
+      </ion-button> -->
+    </div>
+  </ion-content>
+  
+  <!-- <ion-footer class="ion-no-border">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button color="medium">
+          <ion-icon slot="icon-only" name="desktop-outline" size="small"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-icon slot="icon-only" name="share-outline" size="small"></ion-icon>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer> -->

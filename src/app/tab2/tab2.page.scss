@@ -1,0 +1,84 @@
+// ion-content {
+//     --background: none;
+//     background-image: url('/assets/imgs/home-bg.jpg');
+//     background-position: center top;
+//     background-repeat: no-repeat;
+//     background-size: cover;
+// }
+
+.bg-class{
+  --background: rgb(2,0,36);
+  --background: linear-gradient(197deg, rgba(0,212,255,1) 0%, rgba(0,61,74,1) 35%, rgba(2,0,36,1) 100%) !important;
+}
+
+ion-content {
+  --background: linear-gradient(to top, #060606, #007988);
+}
+
+ion-header {
+  display: block;
+  position: unset;
+  -ms-flex-order: -1;
+  order: -1;
+  width: 100%;
+  z-index: 10;
+}
+
+  .card-background-page {
+    
+    ion-card {
+    position: relative;
+    text-align: center;
+    margin: 10px auto;
+    // height: 13%;
+  }
+
+  .card-title {
+    position: absolute;
+    top: 50%;
+    // top: 36%;
+    font-size: 1.2em;
+    width: 100%;
+    // font-weight: bold;
+    color: #fff;
+    padding: 1px;  
+  }
+
+  .card-subtitle {
+    font-size: 1.0em;
+    position: absolute;
+    top: 52%;
+    width: 100%;
+    color: #fff;
+  }
+
+  .title-style {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    text-shadow: 2px 2px #333;
+  }
+
+  .thumbnail-card-style {
+    border-radius: 5px;
+    max-height: 240px;
+    min-width: 100%;
+    min-height: 240px;
+  }
+
+}
+
+.img-wrapper {
+  min-height: 200px;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.ion-color-primary {
+  --ion-color-base: #333333!important;
+}

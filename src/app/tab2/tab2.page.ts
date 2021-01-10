@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+
+import { EventService } from '../../utilitarios/EventService';
+import { NowPlayingPage } from '../now-playing/now-playing.page';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +11,30 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  segmentModel = "all";
+  @Input() soundValue: string;
+
+  constructor(private eventService: EventService,
+              public modalCtrl: ModalController) {
+              }
+
+  ngOnInit() {
+  }
+  
+  async openMusicPlayer(som: string, id: number) {
+
+    // chamando aqui o publish event informando que é para fechar o modal antes de abrir novamente.
+    // pego esse evento lá na página do modal
+    this.eventService.publishCloseModal({
+      buttonClicked: true
+    });
+    
+    const modal = await this.modalCtrl.create({
+      component: NowPlayingPage,
+      cssClass: 'my-custom-modal-css',
+      componentProps: { soundValue: som, idSound: id }
+    });
+    return await modal.present();
+  }
 
 }

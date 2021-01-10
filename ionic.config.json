@@ -1,5 +1,7 @@
 {
   "name": "audioPlayerV2",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

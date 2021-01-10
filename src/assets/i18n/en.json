@@ -1,0 +1,67 @@
+{
+    "AJUSTES": "Settings",
+    "TITLE_SOCIAL_SHARING": "Hello, I'm really enjoying Leaf - Sons to relax and sleep. Join us! :)",
+    "HOME": {
+    },
+    "TABS": {
+        "CATEGORIA": {
+            "CHUVA": "Rain",
+            "PASSAROS": "Birds",
+            "FOGO": "Fire",
+            "VENTO": "Wind",
+            "SYNTHWAVE": "Synthwave",
+            "ENERGIA_POSITIVA": "Positive Energy"
+        },
+        "NOME_SOM_CHUVA": {
+            "CHUVA_TROVOADAS": "CHUVA_TROVOADAS",
+            "CHUVA_CALMA": "CHUVA_CALMA"
+        },
+        "NOME_SOM_PASSAROS": {
+            "PASSAROS_LOWERCASE": "Birds",
+            "PASSAROS_LAGO": "PASSAROS_LAGO",
+            "PASSAROS_FLORESTA": "PASSAROS_FLORESTA"
+        },
+        "NOME_SOM_FOGO": {
+            "FOGUEIRA": "FOGUEIRA"
+        },
+        "NOME_SOM_VENTO": {
+            "VENTANIA_NO_CAMPO": "VENTANIA_NO_CAMPO",
+            "FLORESTA_CONGELADA": "FLORESTA_CONGELADA"
+        },
+        "NOME_SOM_SYNTHWAVE": {
+            "RETRO1": "RETRO1",
+            "RETRO2": "RETRO2"
+        },
+        "NOME_SOM_ENERGIA_POSITIVA": {
+            "FREQUENCIA_RECONEXAO": "FREQUENCIA_RECONEXAO",
+            "FREQUENCIA_432": "FREQUENCIA_432"
+        },
+        "SONS": "Sounds",
+        "TODOS": "All",
+        "CHUVA_LOWERCASE": "Rain",
+        "CHUVA_TROVOADAS": "Thunderstorm",
+        "CHUVA_CALMA": "Calm rain",
+        "PASSAROS_LOWERCASE": "Birds",
+        "PASSAROS_LAGO": "Birds on the lake",
+        "PASSAROS_FLORESTA": "Birds in the forest",
+        "FOGO": "Fire",
+        "FOGUEIRA": "Fire pit",
+        "VENTO": "Wind",
+        "VENTANIA_NO_CAMPO": "Windstorm in the mountain",
+        "FLORESTA_CONGELADA": "Frozen forest",
+        "SYNTHWAVE": "Synthwave",
+        "RETRO1": "Retro1",
+        "RETRO2": "Cyber Edge",
+        "ENERGIA_POSITIVA": "Positive Energy",
+        "FREQUENCIA_RECONEXAO": "Frequency of Reconnection to the Source",
+        "FREQUENCIA_432": "Positive energy - 432 Hz frequency"
+    },
+    "TAB3": {
+        "IDIOMA": "Language",
+        "IDIOMA_INGLES": "English",
+        "IDIOMA_PORTUGUES": "Portuguese",
+        "COMPARTILHAR": "Share",
+        "HORA_DE_DORMIR": "Time to sleep",
+        "IMG_FUNDO_HOME": "Home background image"
+    }
+}

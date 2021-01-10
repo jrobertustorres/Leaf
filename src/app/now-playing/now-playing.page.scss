@@ -1,0 +1,127 @@
+.album-cover {
+  text-align: center;
+  padding: 8px 16px;
+
+  ion-thumbnail {
+    // width: 240px;
+    // height: 240px;
+    width: 100%;
+    height: 480px;
+    margin: 0 auto;
+  }
+}
+
+.song-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.song-timeline {
+  font-size: 12px;
+
+  ion-progress-bar {
+    margin-bottom: 8px;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ion-button {
+    margin: 0 4px;
+  }
+
+  ion-fab-button {
+    min-width: 56px;
+  }
+}
+
+// ion-content {
+//   --background: linear-gradient(to top, #060606, #007988);
+// }
+
+ion-content {
+  --background: linear-gradient(to top, #060606, #007988);
+}
+
+// ion-toolbar {
+  // --background: #007988;
+  // --background: #00685b;
+// }
+
+.playing-bar {
+  background-color: var(--ion-color-light);
+  color: var(--ion-color-light-contrast);
+  border-bottom: 0.55px solid var(--ion-color-light-shade);
+
+  .playing-info {
+    padding: 4px 12px;
+    font-size: 13px;
+    line-height: 1.5;
+
+    .device-info {
+      font-size: 11px;
+    }
+  }
+}
+
+.center {
+  text-align: center;
+  line-height: 190px;
+}
+
+
+
+
+ion-content {
+  --background: none;
+  // background-image: url('https://media.giphy.com/media/wKnqovL33x9in9ci6X/giphy.gif');
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.background{
+  height: 100%; 
+  // background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.6;
+}
+
+.control {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+// .navi,
+.control img {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.container {
+  color: #fff;
+    margin: auto;
+    position: absolute;
+    // top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.corBranca {
+  color: #ffffff;
+}
+
+.corAmarela {
+  color: yellow;
+}

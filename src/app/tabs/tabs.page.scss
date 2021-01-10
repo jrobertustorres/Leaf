@@ -1,1 +1,44 @@
+ion-tab-bar, ion-tab-button{
+  background-color: #007988;
+  // background-color: #00685b;
+   }
+   
+   .ion-label {
+       color: #ffffff;
+   }
 
+   ion-tab-button {
+    // --color-selected: var(--ion-color-dark);
+    --color-selected: #ffffff;
+    --color: var(--ion-tab-bar-color, var(--ion-color-step-600, #999999));
+  }
+// sobrepondo a cor do botão do player para esta tela
+.ion-color-light {
+    --ion-color-base: #454545 !important;
+    --ion-color-base-rgb: var(--ion-color-light-rgb, 244, 245, 248) !important;
+    --ion-color-contrast: var(--ion-color-light-contrast, #000) !important;
+    --ion-color-contrast-rgb: var(--ion-color-light-contrast-rgb, 0, 0, 0) !important;
+    --ion-color-shade: var(--ion-color-light-shade, #d7d8da) !important;
+    --ion-color-tint: var(--ion-color-light-tint, #f5f6f9) !important;
+}
+  
+  .playing-bar {
+    background-color: var(--ion-color-light);
+    color: var(--ion-color-light-contrast);
+    border-bottom: 0.55px solid var(--ion-color-light-shade);
+  
+    .playing-info {
+      padding: 4px 12px;
+      font-size: 13px;
+      line-height: 1.5;
+  
+      .device-info {
+        font-size: 11px;
+      }
+    }
+  }
+
+  .button-close {
+    color: #000;
+    font-size: 20px;
+  }

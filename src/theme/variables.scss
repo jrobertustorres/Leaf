@@ -3,6 +3,13 @@
 
 /** Ionic CSS Variables **/
 :root {
+  ion-toolbar {
+    --background: #003D4A;
+    // --background: #69bb7b;
+    }
+    ion-title {
+      --color: #ffffff;
+    }
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -60,6 +67,7 @@
   --ion-color-dark-tint: #383a3e;
 
   /** medium **/
+  --ion-color-medium-transparent: transparent;
   --ion-color-medium: #92949c;
   --ion-color-medium-rgb: 146, 148, 156;
   --ion-color-medium-contrast: #ffffff;
@@ -229,4 +237,74 @@
 
     --ion-card-background: #1e1e1e;
   }
+
+}
+
+.alert-wrapper.sc-ion-alert-md {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: var(--width);
+  min-width: var(--min-width);
+  max-width: var(--max-width);
+  height: var(--height);
+  min-height: var(--min-height);
+  max-height: var(--max-height);
+  background: #007988;
+  // background: #00685b;
+  contain: content;
+  opacity: 0;
+  z-index: 10;
+}
+.alert-title.sc-ion-alert-md {
+  color: var(--ion-text-color, #FFFFFF);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.alert-radio-label.sc-ion-alert-md {
+  padding-left: 52px;
+  padding-right: 26px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  -ms-flex: 1;
+  flex: 1;
+  color: var(--ion-color-step-850, #FFFFFF);
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.alert-radio-icon.sc-ion-alert-md {
+  left: 26px;
+  top: 0;
+  border-radius: 50%;
+  display: block;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--ion-color-step-550, #FFFFFF);
+}
+
+.alert-button.sc-ion-alert-md {
+  border-radius: 2px;
+  margin-left: 0;
+  margin-right: 8px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: relative;
+  background-color: transparent;
+  color: #fff;
+  font-weight: 500;
+  text-align: end;
+  text-transform: uppercase;
+  overflow: hidden;
 }
