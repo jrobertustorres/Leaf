@@ -1,6 +1,8 @@
 {
     "AJUSTES": "Ajustes",
     "TITLE_SOCIAL_SHARING": "Olá, estou gostando muito do Leaf - Sons para relaxar e dormir. Junte-se a nós! :)",
+    "SUBJECT_LEAF": "Leaf - Sons para dormir Feedback",
+    "TITLE_INFO_SISTEMA": "Informações do sistema",
     "HOME": {
     },
     "TABS": {
@@ -53,7 +55,7 @@
         "RETRO1": "Retro1",
         "RETRO2": "Cyber Edge",
         "ENERGIA_POSITIVA": "Energia Positiva",
-        "FREQUENCIA_RECONEXAO": "Frequência de Reconexão com a Fonte",
+        "FREQUENCIA_RECONEXAO": "Frequência de Reconexão com a Fonte Criadora",
         "FREQUENCIA_432": "Energia positiva - Frequência 432 Hz"
     },
     "TAB3": {
@@ -61,8 +63,101 @@
         "IDIOMA_INGLES": "Inglês",
         "IDIOMA_PORTUGUES": "Português",
         "COMPARTILHAR": "Compartilhar",
+        "AVALIE": "Nos avalie",
         "HORA_DE_DORMIR": "Hora de dormir",
         "IMG_FUNDO_HOME": "Imagem de fundo da Home"
-    }
+    },
+    "FRASES": [
+        {
+            "ID": 1, "FRASE": "A lei da mente é implacável. O que você pensa, você cria; O que você sente, você atrai; O que você acredita Torna-se realidade.", "AUTOR": "Buda"
+        },
+        {
+            "ID": 2, "FRASE": "Não permita que os outros tire a sua paz. A paz vem de dentro de você mesmo. Não procure à sua volta.", "AUTOR": "Buda"
+        },
+        {
+            "ID": 3, "FRASE": "Somos o que pensamos. Tudo o que somos surge com nossos pensamentos. Com nossos pensamentos, fazemos o nosso mundo.", "AUTOR": "Buda"
+        },
+        {
+            "ID": 4, "FRASE": "Volta teu rosto sempre na direção do sol, e então, as sombras ficarão para trás.", "AUTOR": "Sabedoria oriental"
+        },
+        {
+            "ID": 5, "FRASE": "As dificuldades são como as montanhas. Elas só se aplainam quando avançamos sobre elas.", "AUTOR": "Provérbio Japonês"
+        },
+        {
+            "ID": 6, "FRASE": "Quando chover, busque pelo arco-íris. Quando escurecer, busque pelas estrelas.", "AUTOR": ""
+        },
+        {
+            "ID": 7, "FRASE": "Não espere pelo momento perfeito. Faça de cada momento a oportunidade perfeita.", "AUTOR": ""
+        },
+        {
+            "ID": 8, "FRASE": "Vencedores não são pessoas que nunca falham, são pessoas que nunca desistem.", "AUTOR": ""
+        },
+        {
+            "ID": 9, "FRASE": "A melhor maneira de ser feliz é contribuir para a felicidade dos outros.", "AUTOR": "Confúcio"
+        },
+        {
+            "ID": 10, "FRASE": "Viva a história que você gostaria de contar.", "AUTOR": "Confúcio"
+        },
+        {
+            "ID": 11, "FRASE": "A vida é igual andar de bicicleta. Para manter o equilíbrio é preciso se manter em movimento.", "AUTOR": "Albert Einstein"
+        },
+        {
+            "ID": 12, "FRASE": "A motivação é o que ajuda a começar. O hábito é o que faz seguir adiante.", "AUTOR": ""
+        },
+        {
+            "ID": 13, "FRASE": "O melhor momento para plantar uma árvore foi há 20 anos. O segundo melhor momento é agora!", "AUTOR": "Provérbio Zen"
+        },
+        {
+            "ID": 14, "FRASE": "Ao acordar pela manhã, pense no precioso privilégio de estar vivo, respirando, pensando, desfrutando e amando.", "AUTOR": ""
+        },
+        {
+            "ID": 15, "FRASE": "Se apaixone pela sua existência.", "AUTOR": "Jack Kerouac"
+        },
+        {
+            "ID": 16, "FRASE": "A melhor maneira de prever o futuro é criá-lo.", "AUTOR": "Peter Drucker"
+        },
+        {
+            "ID": 17, "FRASE": "De uma pequena semente, uma árvore poderosa pode nascer.", "AUTOR": ""
+        },
+        {
+            "ID": 18, "FRASE": "Não podemos controlar o vento, apenas ajustar as velas.", "AUTOR": ""
+        },
+        {
+            "ID": 19, "FRASE": "O seu coração está cheio de sementes esperando germinar.", "AUTOR": "Morihei Ueshiba"
+        },
+        {
+            "ID": 20, "FRASE": "Amar a si mesmo é o começo de um romance para toda a vida.", "AUTOR": "Oscar Wilde"
+        },
+        {
+            "ID": 21, "FRASE": "A vitória é sempre possível para a pessoa que se recusa a parar de lutar.", "AUTOR": "Napoleon Hill"
+        },
+        {
+            "ID": 22, "FRASE": "Aquele que ri ao invés de enfurecer-se é sempre o mais forte.", "AUTOR": "Provérbio japonês"
+        },
+        {
+            "ID": 23, "FRASE": "É mais fácil vencer um mau hábito hoje do que amanhã.", "AUTOR": "Confúcio"
+        },
+        {
+            "ID": 24, "FRASE": "Quando vires um homem bom, tenta imitá-lo; quando vires um homem mau, examina-te a ti mesmo.", "AUTOR": "Confúcio"
+        },
+        {
+            "ID": 25, "FRASE": "No fundo de cada alma há tesouros escondidos que somente o amor permite descobrir.", "AUTOR": "Édouard Rod"
+        },
+        {
+            "ID": 26, "FRASE": "A gentileza é a mais pura forma de caridade.", "AUTOR": ""
+        },
+        {
+            "ID": 27, "FRASE": "Se não houver vento, reme.", "AUTOR": "Provérbio latino"
+        },
+        {
+            "ID": 28, "FRASE": "Não limite seus desafios. Desafie seus limites.", "AUTOR": ""
+        },
+        {
+            "ID": 29, "FRASE": "Tente mover o mundo - o primeiro passo será mover a si mesmo.", "AUTOR": "Platão"
+        },
+        {
+            "ID": 30, "FRASE": "Uma longa viagem começa com um único passo.", "AUTOR": "Lao Tzu"
+        }
+    ]
 
 }

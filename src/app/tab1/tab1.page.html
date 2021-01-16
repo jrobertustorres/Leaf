@@ -2,17 +2,18 @@
     <ion-title style="text-align: left;">
         <img height="60" src="assets/imgs/logo.png" class="logo-position">
     </ion-title>
-</ion-header>
-
-<ion-content [fullscreen]="true" style="position: absolute;">
-
-  <div class="background-container" *ngIf="!dia" >
+    
+    <!-- <p class='anim-circle'>diaphragmatic animation</p> -->
+  </ion-header>
+  
+  <ion-content [fullscreen]="true" style="position: absolute;">
+    
+  <!-- <div class="background-container" *ngIf="!dia" >
     <img src="/assets/imgs/moon.png" alt="" class="lua-img">
-    <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt="" class="lua-img"> -->
     <div class="stars"></div>
     <div class="twinkling"></div>
     <div class="clouds"></div>
-  </div>
+  </div> -->
 
   <!-- <div class="control"> -->
     <!-- <div class="background" [ngStyle]="{'background-image': 'url(' + backgroundImage + ')'}"></div> -->
@@ -25,8 +26,14 @@
     </div> -->
   <!-- </div> -->
 
-  <div class="control " *ngIf="dia" >
-    <img src="/assets/imgs/home-day.jpg" class="container">
+  <div class="control" >
+    <div>
+      <div class="frase-do-dia">
+        "{{ fraseHoje }}"
+        <p class="autorStyle">{{ autorHoje }}</p>
+      </div>
+    </div>
+    <!-- <img src="/assets/imgs/home-day.jpg" class="container"> -->
     <div class="bird-container bird-container--one">
       <div class="bird bird--one"></div>
     </div>
@@ -41,6 +48,9 @@
     
     <div class="bird-container bird-container--four">
       <div class="bird bird--four"></div>
+    </div>
+    <div class="bird-container bird-container--five">
+      <!-- <div class="bird bird--five"></div> -->
     </div>
   </div>
 

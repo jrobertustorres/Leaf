@@ -6,6 +6,7 @@ import { AppVersion } from '@ionic-native/app-version/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { AppRate } from '@ionic-native/app-rate/ngx';
+import { HttpClient } from '@angular/common/http';
 
 import { EventService } from '../../utilitarios/EventService';
 
@@ -16,12 +17,10 @@ import { EventService } from '../../utilitarios/EventService';
 })
 export class Tab3Page {
 
-  private selectedLanguage: string;
+  public selectedLanguage: string;
   private accessi18nData: any;
-  // version: Promise<string>;
   version: string;
-  // text: string = this.accessi18nData['TITLE_SOCIAL_SHARING'];
-  imgurl:string = 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg';
+  imgurl:string = 'https://www.dropbox.com/s/i7zm5nu1r7lwvlr/logo.png?dl=0';
   link: string = 'https://play.google.com/store/apps/details?id=com.logiicstudio.leaf';
 
   constructor(private translateConfigService: TranslateConfigService,
@@ -31,8 +30,13 @@ export class Tab3Page {
               private appRate: AppRate,
               public platform: Platform,
               private eventService: EventService,
+              private httpC: HttpClient,
               private socialSharing: SocialSharing) {
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
+
+    this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
+      this.accessi18nData = data;
+    });
   }
 
   ngOnInit() {
@@ -56,10 +60,8 @@ export class Tab3Page {
   }
 
   shareGeneric(parameter){
-    const url = this.link;
-    // const text = parameter+'\n';
-    this.socialSharing.share(this.accessi18nData['TITLE_SOCIAL_SHARING'], 'MEDIUM', null, url);
-    // this.socialSharing.share(text, 'MEDIUM', null, url);
+    // const url = this.link;
+    this.socialSharing.share(this.accessi18nData['TITLE_SOCIAL_SHARING'], 'MEDIUM', null, this.link);
   }
 
   sendEmailFeedback() {
@@ -69,10 +71,10 @@ export class Tab3Page {
      });
      
      let email = {
-       to: 'diretoria@logiic.com.br',
-       cco: ['jose@logiic.com.br', 'bruno@logiic.com.br'],
-       subject: 'Leaf - Sons para dormir Feedback',
-       body: '<h1>'+ 'Informações do sistema' +'</h1>'+
+       to: 'logiicstudio@gmail.com',
+       cco: ['jrobertustorres@gmail.com', 'brunokmargus@gmail.com'],
+       subject: this.accessi18nData['SUBJECT_LEAF'],
+       body: '<h1>'+ this.accessi18nData['TITLE_INFO_SISTEMA'] +'</h1>'+
        '<h1>App v'+ this.version +'</h1>' +
        '<h1>'+ this.device.model +'</h1>' +
        '<h1>'+ this.device.platform +' '+ this.device.version +'</h1>' +
@@ -81,6 +83,10 @@ export class Tab3Page {
      };
 
      this.emailComposer.open(email);
+  }
+
+  rateUs() {
+    window.open('https://play.google.com/store/apps/details?id=com.logiicstudio.leaf', '_system', 'location=yes');
   }
 
   rateApp() {

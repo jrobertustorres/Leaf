@@ -12,7 +12,7 @@ import { NowPlayingPage } from '../now-playing/now-playing.page';
 export class Tab2Page {
 
   segmentModel = "all";
-  @Input() soundValue: string;
+  @Input() soundValue: string;// pega o parâmetro passado
 
   constructor(private eventService: EventService,
               public modalCtrl: ModalController) {

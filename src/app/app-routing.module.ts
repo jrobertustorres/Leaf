@@ -10,10 +10,6 @@ const routes: Routes = [
     path: 'sons-list',
     loadChildren: () => import('./sons-list/sons-list.module').then( m => m.SonsListPageModule)
   },
-  {
-    path: 'music-player',
-    loadChildren: () => import('./music-player/music-player.module').then( m => m.MusicPlayerPageModule)
-  }
 ];
 @NgModule({
   imports: [

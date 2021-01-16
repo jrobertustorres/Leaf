@@ -12,6 +12,7 @@ ion-tab-bar, ion-tab-button{
     --color-selected: #ffffff;
     --color: var(--ion-tab-bar-color, var(--ion-color-step-600, #999999));
   }
+
 // sobrepondo a cor do botão do player para esta tela
 .ion-color-light {
     --ion-color-base: #454545 !important;
@@ -22,23 +23,23 @@ ion-tab-bar, ion-tab-button{
     --ion-color-tint: var(--ion-color-light-tint, #f5f6f9) !important;
 }
   
-  .playing-bar {
-    background-color: var(--ion-color-light);
-    color: var(--ion-color-light-contrast);
-    border-bottom: 0.55px solid var(--ion-color-light-shade);
-  
-    .playing-info {
-      padding: 4px 12px;
-      font-size: 13px;
-      line-height: 1.5;
-  
-      .device-info {
-        font-size: 11px;
-      }
+.playing-bar {
+  background-color: var(--ion-color-light);
+  color: var(--ion-color-light-contrast);
+  border-bottom: 0.55px solid var(--ion-color-light-shade);
+
+  .playing-info {
+    padding: 4px 12px;
+    font-size: 13px;
+    line-height: 1.5;
+
+    .device-info {
+      font-size: 11px;
     }
   }
+}
 
-  .button-close {
-    color: #000;
-    font-size: 20px;
-  }
+.button-close {
+  color: #000;
+  font-size: 20px;
+}

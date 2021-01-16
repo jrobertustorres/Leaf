@@ -1,6 +1,8 @@
 {
     "AJUSTES": "Settings",
     "TITLE_SOCIAL_SHARING": "Hello, I'm really enjoying Leaf - Sons to relax and sleep. Join us! :)",
+    "SUBJECT_LEAF": "Leaf - Sounds to sleep Feedback",
+    "TITLE_INFO_SISTEMA": "System information",
     "HOME": {
     },
     "TABS": {
@@ -53,7 +55,7 @@
         "RETRO1": "Retro1",
         "RETRO2": "Cyber Edge",
         "ENERGIA_POSITIVA": "Positive Energy",
-        "FREQUENCIA_RECONEXAO": "Frequency of Reconnection to the Source",
+        "FREQUENCIA_RECONEXAO": "Frequency of Reconnection with the Creative Source",
         "FREQUENCIA_432": "Positive energy - 432 Hz frequency"
     },
     "TAB3": {
@@ -61,7 +63,100 @@
         "IDIOMA_INGLES": "English",
         "IDIOMA_PORTUGUES": "Portuguese",
         "COMPARTILHAR": "Share",
+        "AVALIE": "Rate us",
         "HORA_DE_DORMIR": "Time to sleep",
         "IMG_FUNDO_HOME": "Home background image"
-    }
+    },
+    "FRASES": [
+        {
+            "ID": 1, "FRASE": "The law of the mind is relentless. What you think, you create; What you feel, you attract; What you believe comes true.", "AUTOR": "Buda"
+        },
+        {
+            "ID": 2, "FRASE": "Do not allow others to take away your peace. The peace comes from inside yourself. Don't look around you.", "AUTOR": "Buda"
+        },
+        {
+            "ID": 3, "FRASE": "We are what we think. All that we are arises with our thoughts. With our thoughts we make our world.", "AUTOR": "Buda"
+        },
+        {
+            "ID": 4, "FRASE": "Always turn your face towards the sun, and then the shadows will be left behind.", "AUTOR": "Eastern wisdom"
+        },
+        {
+            "ID": 5, "FRASE": "The difficulties are like the mountains. They only flatten out when we move over them.", "AUTOR": "Japanese proverb"
+        },
+        {
+            "ID": 6, "FRASE": "When it rains, look for the rainbow. When it gets dark, look for the stars.", "AUTOR": ""
+        },
+        {
+            "ID": 7, "FRASE": "Don't wait for the perfect moment. Make every moment the perfect opportunity.", "AUTOR": ""
+        },
+        {
+            "ID": 8, "FRASE": "Winners are not people who never fail, they are people who never give up.", "AUTOR": ""
+        },
+        {
+            "ID": 9, "FRASE": "The best way to be happy is to contribute to the happiness of others.", "AUTOR": "Confucio"
+        },
+        {
+            "ID": 10, "FRASE": "Live the story you would like to tell.", "AUTOR": "Confucio"
+        },
+        {
+            "ID": 11, "FRASE": "Life is like riding a bicycle. To keep your balance you need to keep moving.", "AUTOR": "Albert Einstein"
+        },
+        {
+            "ID": 12, "FRASE": "Motivation is what helps you get started. Habit is what keeps you going.", "AUTOR": ""
+        },
+        {
+            "ID": 13, "FRASE": "The best time to plant a tree was 20 years ago. The second best time is now!", "AUTOR": "Zen proverb"
+        },
+        {
+            "ID": 14, "FRASE": "When you wake up in the morning, think of the precious privilege of being alive, breathing, thinking, enjoying and loving.", "AUTOR": ""
+        },
+        {
+            "ID": 15, "FRASE": "Fall in love with its existence.", "AUTOR": "Jack Kerouac"
+        },
+        {
+            "ID": 16, "FRASE": "The best way to predict the future is to create it.", "AUTOR": "Peter Drucker"
+        },
+        {
+            "ID": 17, "FRASE": "From a small seed, a powerful tree can be born.", "AUTOR": ""
+        },
+        {
+            "ID": 18, "FRASE": "We can't control the wind, just adjust the sails.", "AUTOR": ""
+        },
+        {
+            "ID": 19, "FRASE": "Your heart is full of seeds waiting to germinate.", "AUTOR": "Morihei Ueshiba"
+        },
+        {
+            "ID": 20, "FRASE": "Loving yourself is the beginning of a lifelong romance.", "AUTOR": "Oscar Wilde"
+        },
+        {
+            "ID": 21, "FRASE": "Victory is always possible for the person who refuses to stop fighting.", "AUTOR": "Napoleon Hill"
+        },
+        {
+            "ID": 22, "FRASE": "The one who laughs instead of getting angry is always the strongest.", "AUTOR": "Japanese proverb"
+        },
+        {
+            "ID": 23, "FRASE": "It is easier to overcome a bad habit today than it is tomorrow.", "AUTOR": "Confucio"
+        },
+        {
+            "ID": 24, "FRASE": "When you see a good man, try to imitate him; when you see a bad man, examine yourself.", "AUTOR": "Confucio"
+        },
+        {
+            "ID": 25, "FRASE": "At the bottom of each soul are hidden treasures that only love allows to discover.", "AUTOR": "Édouard Rod"
+        },
+        {
+            "ID": 26, "FRASE": "Kindness is the purest form of charity.", "AUTOR": ""
+        },
+        {
+            "ID": 27, "FRASE": "If there is no wind, paddle.", "AUTOR": "Latin proverb"
+        },
+        {
+            "ID": 28, "FRASE": "Don't limit your challenges. Challenge your limits.", "AUTOR": ""
+        },
+        {
+            "ID": 29, "FRASE": "Try to move the world - the first step will be to move yourself.", "AUTOR": "Plato"
+        },
+        {
+            "ID": 30, "FRASE": "A long trip starts with a single step.", "AUTOR": "Lao Tzu"
+        }
+    ]
 }

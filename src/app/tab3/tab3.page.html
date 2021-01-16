@@ -1,16 +1,16 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>{{ 'AJUSTES' | translate:params }}</ion-title>
+    <ion-title>{{ 'AJUSTES' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
   <ion-item style="color: #fff;">
-    <ion-label><ion-icon name="earth-outline" class="margin-icon"></ion-icon>{{ 'TAB3.IDIOMA' | translate:params }}</ion-label>
+    <ion-label><ion-icon name="earth-outline" class="margin-icon"></ion-icon>{{ 'TAB3.IDIOMA' | translate }}</ion-label>
     <ion-select placeholder="Select One" [(ngModel)]="selectedLanguage" (ionChange)="languageChanged()">
-      <ion-select-option value="en">{{ 'TAB3.IDIOMA_INGLES' | translate:params }}</ion-select-option>
-      <ion-select-option value="pt">{{ 'TAB3.IDIOMA_PORTUGUES' | translate:params }}</ion-select-option>
+      <ion-select-option value="en">{{ 'TAB3.IDIOMA_INGLES' | translate }}</ion-select-option>
+      <ion-select-option value="pt">{{ 'TAB3.IDIOMA_PORTUGUES' | translate }}</ion-select-option>
     </ion-select>
   </ion-item>
 
@@ -28,7 +28,13 @@
 
     <ion-item style="color: #fff;" (click)="shareGeneric('text')">
       <div style="background-color: transparent; padding-bottom: 10px;">
-        <ion-label position="floating"><ion-icon name="share-social-outline"></ion-icon> {{ 'TAB3.COMPARTILHAR' | translate:params }}</ion-label>
+        <ion-label position="floating"><ion-icon name="share-social-outline"></ion-icon> {{ 'TAB3.COMPARTILHAR' | translate }}</ion-label>
+      </div>  
+    </ion-item> 
+
+    <ion-item style="color: #fff;" (click)="rateUs()">
+      <div style="background-color: transparent; padding-bottom: 10px;">
+        <ion-label position="floating"><ion-icon name="star-outline"></ion-icon> {{ 'TAB3.AVALIE' | translate }}</ion-label>
       </div>  
     </ion-item> 
 

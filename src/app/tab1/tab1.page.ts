@@ -1,6 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { interval } from 'rxjs';
 
+import { TranslateConfigService } from '../services/translate-config.service';
+import { HttpClient } from '@angular/common/http';
+import { EventService } from '../../utilitarios/EventService';
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -8,23 +12,80 @@ import { interval } from 'rxjs';
 })
 export class Tab1Page {
    
-  agora: number;
-  mesAtual: string;
-  backgroundImage: string = '';
-  dia: boolean = true;
-  // backgroundImage: string = '/assets/imgs/home-day.jpg';
+  // agora: number;
+  // mesAtual: string;
+  // backgroundImage: string = '';
+  // dia: boolean = true;
+  saudacao: string = '';
 
-  constructor() {
-    // this.getTime();
-    // this.getDate();
+  selectedLanguage: string;
+  private accessi18nData: any;
+
+  arrayFrase: string;
+  fraseHoje: string;
+  autorHoje: string;
+
+  constructor(private translateConfigService: TranslateConfigService,
+              private httpC: HttpClient,
+              private eventService: EventService) {
+    this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
+    this.getChangeLanguage();
+  }
+
+  getChangeLanguage() {
+    this.eventService.getObservableChangeLanguage().subscribe((data) => {
+      this.selectedLanguage = data.selectedLanguage;
+      this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
+        this.accessi18nData = data;
+
+        let arrayHoje = localStorage.getItem('ARRAY_HOJE');
+        
+        for(let i in this.accessi18nData['FRASES']){
+          if(JSON.parse(arrayHoje)[0]['ID'] == this.accessi18nData['FRASES'][i]['ID']) {
+            let frase = [this.accessi18nData['FRASES'][i]];
+            this.fraseHoje = this.accessi18nData['FRASES'][i]['FRASE'];
+            this.autorHoje = this.accessi18nData['FRASES'][i]['AUTOR'];
+            localStorage.setItem('ARRAY_HOJE', JSON.stringify(frase));
+          }
+        }
+
+      });
+    });
   }
   
   ngOnInit() {
-    interval(10 * 60).subscribe(x => {
-      // this.getTime();
-      // this.getDate();
-      this.changeBackground();      
+    // interval(10 * 60).subscribe(x => {
+    //   // this.getTime();
+    //   // this.getDate();
+    // this.changeBackground();      
+    // });
+
+    // localStorage.removeItem('DIA_DA_SEMANA');
+    // localStorage.removeItem('FRASE_HOJE');
+
+    if((new Date()).getDay().toString() != localStorage.getItem('DIA_DA_SEMANA')) {
+      this.frases();
+    } else {
+      this.arrayFrase = localStorage.getItem('ARRAY_HOJE');
+      this.fraseHoje = JSON.parse(this.arrayFrase)[0]['FRASE'];
+      this.autorHoje = JSON.parse(this.arrayFrase)[0]['AUTOR'];
+    }
+  }
+
+  frases() {
+
+    this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
+      this.accessi18nData = data;
+
+      let rd = Math.floor(Math.random() * this.accessi18nData['FRASES'].length);
+      let frase = [this.accessi18nData['FRASES'][rd]];
+
+      this.fraseHoje = frase[0]['FRASE'];
+      this.autorHoje = frase[0]['AUTOR'];
+      localStorage.setItem('ARRAY_HOJE', JSON.stringify(frase));
+      localStorage.setItem('DIA_DA_SEMANA', (new Date()).getDay().toString());
     });
+    
   }
 
   // getTime() {
@@ -36,26 +97,15 @@ export class Tab1Page {
   //   this.mesAtual = nomeMeses[(new Date()).getMonth()];
   // }
 
-  changeBackground() {
-    if(new Date().getHours() >= 6 && new Date().getHours() < 18) {
-      this.dia = true;
-      this.backgroundImage = 'https://media.giphy.com/media/dMAg2noNzwWmQ/giphy.gif'; // praia
-    } else {
-      this.dia = false;
-      this.backgroundImage = 'https://media.giphy.com/media/kkNme30oTB5Wo/giphy.gif'; // fogueira de noite na praia
-    }
-    // if(new Date().getHours() >= 18) {
-    //   // if(new Date().getMinutes() == 36) {
-    //     this.dia = false;
-    //     this.backgroundImage = 'https://media.giphy.com/media/kkNme30oTB5Wo/giphy.gif'; // fogueira de noite na praia
-    //     // this.backgroundImage = 'https://media.giphy.com/media/SzUtv3rO40xhu/giphy.gif'; // noite/tarde no lago
-    //     // this.backgroundImage = '/assets/imgs/home-day.jpg';
-    //   } else {
-    //     this.dia = true;
-    //     this.backgroundImage = 'https://media.giphy.com/media/dMAg2noNzwWmQ/giphy.gif'; // praia
-    //     // this.backgroundImage = 'https://media.giphy.com/media/KWgrae4lheUla/giphy.gif'; // cachoeira na montanha
-    //     // this.backgroundImage = 'https://media.giphy.com/media/12qHWnTUBzLWXS/giphy.gif'; // água nas pedras da montanha
-        
-    //   }
-  }
+  // changeBackground() {
+  //   // if(new Date().getHours() >= 6 && new Date().getHours() < 18) {
+  //   if(new Date().getHours() >= 6 && new Date().getHours() < 12) {
+      
+  //   } else if(new Date().getHours() >= 12 && new Date().getHours() < 18) {
+  //     // this.backgroundImage = 'https://media.giphy.com/media/dMAg2noNzwWmQ/giphy.gif'; // praia
+  //   } else {
+  //     // this.backgroundImage = 'https://media.giphy.com/media/kkNme30oTB5Wo/giphy.gif'; // fogueira de noite na praia
+  //   }
+  // }
+
 }

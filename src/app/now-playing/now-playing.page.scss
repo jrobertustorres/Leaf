@@ -40,18 +40,9 @@
   }
 }
 
-// ion-content {
-//   --background: linear-gradient(to top, #060606, #007988);
-// }
-
 ion-content {
   --background: linear-gradient(to top, #060606, #007988);
 }
-
-// ion-toolbar {
-  // --background: #007988;
-  // --background: #00685b;
-// }
 
 .playing-bar {
   background-color: var(--ion-color-light);
@@ -116,12 +107,4 @@ ion-content {
     bottom: 0;
     left: 0;
     right: 0;
-}
-
-.corBranca {
-  color: #ffffff;
-}
-
-.corAmarela {
-  color: yellow;
 }

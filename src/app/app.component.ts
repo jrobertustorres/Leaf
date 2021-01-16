@@ -34,9 +34,6 @@ export class AppComponent {
       this.checkNetwork();
       //OBTENDO O IDIOMA CONFIGURADO NO APARELHO
       this.translateConfigService.getDefaultLanguage();
-      // this.translateConfigService.getI18nData();
-      // let status bar overlay webview
-      // this.statusBar.overlaysWebView(true);
       
       // set status bar to white
       // this.statusBar.backgroundColorByHexString('#ffffff');

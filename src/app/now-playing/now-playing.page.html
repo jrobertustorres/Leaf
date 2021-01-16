@@ -1,14 +1,3 @@
-<!-- <ion-header class="ion-no-border" >
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button color="medium" (click)="hideModal()">
-        <ion-icon slot="icon-only" name="chevron-down"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header> -->
-
-
 <ion-content [fullscreen]="true" >
   <ion-fab vertical="top" horizontal="start" slot="fixed">
     <ion-fab-button color="medium-transparent" (click)="hideModal()">
@@ -18,7 +7,6 @@
   
   <div class="control">
     <div class="background" [ngStyle]="{'background-image': 'url(' + pathImage + ')'}"></div>
-    <!-- <div class="container" *ngIf="totalSoundDuration"> -->
     <div class="container" *ngIf="showPlayerButtons">
       <div class="song-info ion-padding">
         <div class="song-title" *ngIf="activeTrack" style="color: #fff;">
@@ -60,11 +48,8 @@
             </ion-col>
             <ion-col>
               <div>
-                <!-- <ion-button fill="clear" (click)="loopPlayer(true)" [ngClass]="isLooping ? 'corAmarela' : 'corBranca'">
-                  <ion-icon name="repeat-outline"></ion-icon>
-                </ion-button> -->
                 <ion-button fill="clear" (click)="loopPlayer(true)" *ngIf="isLooping" color="light">
-                  <ion-icon name="arrow-forward-outline"></ion-icon>
+                  <ion-icon name="return-up-forward-outline"></ion-icon>
                 </ion-button>
             
                 <ion-button fill="clear" (click)="loopPlayer(false)" *ngIf="!isLooping" color="light">

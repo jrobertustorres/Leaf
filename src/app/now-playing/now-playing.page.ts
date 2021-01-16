@@ -49,7 +49,7 @@ export class NowPlayingPage implements OnInit {
   public labelCategoria = '';
   public loading;
 
-  private accessi18nData: any;
+  public selectedLanguage:string;
 
   backgroundImage: string;
 
@@ -88,13 +88,10 @@ export class NowPlayingPage implements OnInit {
       // this.path = this.activeTrack['activeTrack']['path'];
       this.pathImage = this.activeTrack['activeTrack']['pathImage'];
       this.name = this.activeTrack['activeTrack']['labelName'];
-      // this.name = this.activeTrack['activeTrack']['name'];
       this.labelCategoria = this.activeTrack['activeTrack']['labelCategoria'];
       this.isPlaying = this.activeTrack['activeTrack']['isPlaying'];
       this.totalSoundDuration = this.activeTrack['activeTrack']['totalSoundDuration'];
-
       this.showPlayerButtons = this.totalSoundDuration != '' ? true : false;
-
     });
     
   }
@@ -108,7 +105,7 @@ export class NowPlayingPage implements OnInit {
       cssClass: 'my-custom-class',
       message: 'Buffering...',
       spinner: 'dots',
-      duration: 2000
+      duration: 1000
     });
     await loading.present();
     

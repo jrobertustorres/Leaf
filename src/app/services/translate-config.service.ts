@@ -14,12 +14,21 @@ export class TranslateConfigService {
     public http: HttpClient
   ) { }
 
+  // getDefaultLanguage(){
+  //   let language = this.translate.getBrowserLang();
+  //   this.translate.setDefaultLang(language);
+  //   return language;
+  // }
+
   getDefaultLanguage(){
     let language: string = '';
-    if(localStorage.getItem('IDIOMA_USUARIO')) {
+    if(localStorage.getItem('IDIOMA_USUARIO') != null && localStorage.getItem('IDIOMA_USUARIO') != '') {
       language = localStorage.getItem('IDIOMA_USUARIO');
     } else {
       language = this.translate.getBrowserLang();
+      if(language != 'en' && language != 'pt') {
+        language = 'en';
+      }
     }
     this.translate.setDefaultLang(language);
     return language;
@@ -34,8 +43,7 @@ export class TranslateConfigService {
   getI18nData() {
     this.http.get('assets/i18n/'+this.languageEvent+'.json').subscribe(data => {
       this.accessi18nData = data;
-      localStorage.setItem('I18N_DATA', this.accessi18nData);
-      // return this.accessi18nData;
+      return this.accessi18nData;
     });
   }
 

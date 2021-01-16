@@ -33,11 +33,7 @@ export class TabsPage {
     this.eventService.getObservable().subscribe((data) => {
       this.activeTrack = data;
       this.pathImage = this.activeTrack['activeTrack']['pathImage'];
-      // this.porcentagemProgresso = this.activeTrack['activeTrack']['porcentagemProgresso'];
-
       this.labelCategoria = this.activeTrack['activeTrack']['labelCategoria'];
-      // this.labelCategoria = localStorage.getItem('LABEL_CATEGORIA') ? localStorage.getItem('LABEL_CATEGORIA') : this.labelCategoria;
-
       this.isPlaying = this.activeTrack['activeTrack']['isPlaying'];
       // setTimeout(() => {
       this.selectedSound = this.activeTrack['activeTrack']['labelName'];
@@ -56,7 +52,7 @@ export class TabsPage {
   }
 
   ngOnInit() {
-    this.translateConfigService.setLanguage(this.selectedLanguage);
+    // this.translateConfigService.setLanguage(this.selectedLanguage);
   }
 
   showModal(){
