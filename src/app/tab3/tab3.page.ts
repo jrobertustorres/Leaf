@@ -72,7 +72,7 @@ export class Tab3Page {
      
      let email = {
        to: 'logiicstudio@gmail.com',
-       cco: ['jrobertustorres@gmail.com', 'brunokmargus@gmail.com'],
+       bcc: ['jrobertustorres@gmail.com', 'brunokmargus@gmail.com'],
        subject: this.accessi18nData['SUBJECT_LEAF'],
        body: '<h1>'+ this.accessi18nData['TITLE_INFO_SISTEMA'] +'</h1>'+
        '<h1>App v'+ this.version +'</h1>' +

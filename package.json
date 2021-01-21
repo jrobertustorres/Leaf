@@ -19,11 +19,13 @@
     "@angular/platform-browser": "~10.0.0",
     "@angular/platform-browser-dynamic": "~10.0.0",
     "@angular/router": "~10.0.0",
+    "@ionic-native/admob-free": "^5.30.0",
     "@ionic-native/app-rate": "^5.30.0",
     "@ionic-native/app-version": "^5.30.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/device": "^5.30.0",
     "@ionic-native/email-composer": "^5.30.0",
+    "@ionic-native/fcm": "^5.30.0",
     "@ionic-native/file": "^5.28.0",
     "@ionic-native/file-transfer": "^5.28.0",
     "@ionic-native/globalization": "^5.30.0",
@@ -39,7 +41,6 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "animate.css": "^4.1.1",
-    "cordova-android": "^9.0.0",
     "cordova-plugin-app-version": "^0.1.11",
     "cordova-plugin-apprate": "^1.7.1",
     "cordova-plugin-device": "^2.0.2",
@@ -67,15 +68,20 @@
     "@angular/compiler-cli": "~10.0.0",
     "@angular/language-service": "~10.0.0",
     "@ionic/angular-toolkit": "^2.3.0",
+    "@ionic/lab": "^3.2.10",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "cordova-admob-sdk": "^0.24.1",
+    "cordova-android": "^9.0.0",
+    "cordova-plugin-admob-free": "^0.27.0",
     "cordova-plugin-advanced-http": "^3.1.0",
     "cordova-plugin-androidx": "^3.0.0",
     "cordova-plugin-androidx-adapter": "^1.1.3",
     "cordova-plugin-ionic-webview": "^4.0.0",
     "cordova-plugin-whitelist": "^1.3.4",
+    "cordova-promise-polyfill": "0.0.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.0.0",
@@ -108,13 +114,17 @@
       "cordova-plugin-apprate": {
         "PLAY_CORE_VERSION": "1.+"
       },
-      "cordova-plugin-androidx": {},
-      "cordova-plugin-androidx-adapter": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-advanced-http": {},
       "cordova-plugin-ionic-webview": {
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
-      }
+      },
+      "cordova-plugin-admob-free": {
+        "ADMOB_APP_ID": "ca-app-pub-1449609669530104~5624013534"
+      },
+      "cordova-admob-sdk": {},
+      "cordova-plugin-androidx-adapter": {},
+      "cordova-plugin-androidx": {}
     },
     "platforms": [
       "android"

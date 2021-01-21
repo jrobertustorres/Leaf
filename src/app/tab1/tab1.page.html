@@ -27,13 +27,13 @@
   <!-- </div> -->
 
   <div class="control" >
-    <div>
-      <div class="frase-do-dia">
+    <div class="breathe">
+      <p class='anim-circle'>diaphragmatic animation</p>
+      <!-- <div class="frase-do-dia">
         "{{ fraseHoje }}"
         <p class="autorStyle">{{ autorHoje }}</p>
-      </div>
+      </div> -->
     </div>
-    <!-- <img src="/assets/imgs/home-day.jpg" class="container"> -->
     <div class="bird-container bird-container--one">
       <div class="bird bird--one"></div>
     </div>
@@ -53,5 +53,14 @@
       <!-- <div class="bird bird--five"></div> -->
     </div>
   </div>
+
+  <ion-row>
+    <ion-col size="6">
+      <ion-button color="primary" (click)="Interstitial()">INTERSTITAL</ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button color="secondary" (click)="Reward()">REWARDVIDEO</ion-button>
+    </ion-col>
+  </ion-row>
 
 </ion-content>

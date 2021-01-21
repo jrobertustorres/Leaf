@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 
 import { EventService } from '../../utilitarios/EventService';
 import { NowPlayingPage } from '../now-playing/now-playing.page';
+import { AdmobService } from '../services/admob.service';
 
 @Component({
   selector: 'app-tab2',
@@ -15,10 +16,12 @@ export class Tab2Page {
   @Input() soundValue: string;// pega o parâmetro passado
 
   constructor(private eventService: EventService,
+              private admobService: AdmobService,
               public modalCtrl: ModalController) {
               }
 
   ngOnInit() {
+    this.admobService.ShowRewardVideo();
   }
   
   async openMusicPlayer(som: string, id: number) {

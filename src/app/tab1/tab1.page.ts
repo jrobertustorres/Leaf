@@ -5,6 +5,8 @@ import { TranslateConfigService } from '../services/translate-config.service';
 import { HttpClient } from '@angular/common/http';
 import { EventService } from '../../utilitarios/EventService';
 
+import { AdmobService } from '../services/admob.service';
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -27,6 +29,7 @@ export class Tab1Page {
 
   constructor(private translateConfigService: TranslateConfigService,
               private httpC: HttpClient,
+              private admobService: AdmobService,
               private eventService: EventService) {
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
     this.getChangeLanguage();
@@ -37,7 +40,7 @@ export class Tab1Page {
       this.selectedLanguage = data.selectedLanguage;
       this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
         this.accessi18nData = data;
-
+        // seleciona a frase do dia
         let arrayHoje = localStorage.getItem('ARRAY_HOJE');
         
         for(let i in this.accessi18nData['FRASES']){
@@ -54,6 +57,8 @@ export class Tab1Page {
   }
   
   ngOnInit() {
+    this.Interstitial();
+
     // interval(10 * 60).subscribe(x => {
     //   // this.getTime();
     //   // this.getDate();
@@ -71,6 +76,17 @@ export class Tab1Page {
       this.autorHoje = JSON.parse(this.arrayFrase)[0]['AUTOR'];
     }
   }
+
+  //FUNCTION FOR INTERSTITIAL
+  Interstitial(){
+    this.admobService.ShowInterstitial();
+  }
+  // FUNCTION FOR VIDEOREWARD
+  Reward(){
+    this.admobService.ShowRewardVideo();
+  }
+
+  
 
   frases() {
 

@@ -5,8 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateConfigService } from '../app/services/translate-config.service';
 import { Network } from '@ionic-native/network/ngx';
+import { AdmobService } from '../app/services/admob.service';
 
-// import { timer } from 'rxjs';
+// import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     private translateConfigService: TranslateConfigService,
     private network: Network,
+    private admobService: AdmobService,
+    // private fcm: FCM,
     public alertController: AlertController
   ) {
     this.initializeApp();
@@ -31,6 +34,8 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.splashScreen.show();
+      //LOAD THE BANNER AT PAGE INIT
+      this.admobService.ShowBanner();
       this.checkNetwork();
       //OBTENDO O IDIOMA CONFIGURADO NO APARELHO
       this.translateConfigService.getDefaultLanguage();
@@ -40,9 +45,46 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      // timer(300).subscribe(() => this.showSplash = false)
+      // get FCM token
+      // this.fcm.getToken().then(token => {
+      //   console.log(token);
+      // });
+
+      // ionic push notification example
+      // this.fcm.onNotification().subscribe(data => {
+      //   console.log(data);
+      //   if (data.wasTapped) {
+      //     console.log('Received in background');
+      //   } else {
+      //     console.log('Received in foreground');
+      //   }
+      // });      
+
+      // // refresh the FCM token
+      // this.fcm.onTokenRefresh().subscribe(token => {
+      //   console.log(token);
+      // });
+
+      // unsubscribe from a topic
+      // this.fcm.unsubscribeFromTopic('offers');
+
     });
   }
+
+  // subscribeToTopic() {
+  //   this.fcm.subscribeToTopic('enappd');
+  // }
+  // getToken() {
+  //   this.fcm.getToken().then(token => {
+  //     console.log('dentro do getToken ');
+  //     console.log(token);
+  //     // Register your new token in your back-end if you want
+  //     // backend.registerToken(token);
+  //   });
+  // }
+  // unsubscribeFromTopic() {
+  //   this.fcm.unsubscribeFromTopic('enappd');
+  // }
 
   checkNetwork() {
     setTimeout(() => {

@@ -25,7 +25,13 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-// import { HTTP } from '@ionic-native/http/ngx';
+// import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
+
+//IMPORT ADMOB FREE
+import { AdMobFree } from '@ionic-native/admob-free/ngx';
+
+//IMPORT OUR SERVICE.
+import { AdmobService } from './services/admob.service';
 
 export function LanguageLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -57,7 +63,9 @@ export function LanguageLoader(http: HttpClient) {
     EmailComposer,
     Device,
     AppRate,
-    // HTTP,
+    // FCM,
+    AdMobFree,
+    AdmobService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
