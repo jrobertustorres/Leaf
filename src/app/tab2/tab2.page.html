@@ -2,7 +2,7 @@
   </ion-header>
 
 <ion-content [fullscreen]="true" class="card-background-page card">
-
+<div class="margin-style">
 <ion-segment
   value="all"
   mode="md"
@@ -31,6 +31,10 @@
     
     <ion-segment-button value="energia">
       <ion-label>{{ 'TABS.CATEGORIA.ENERGIA_POSITIVA' | translate }}</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="binaural">
+      <ion-label>{{ 'TABS.CATEGORIA.SONS_BINAURAIS' | translate }}</ion-label>
     </ion-segment-button> 
 
     <ion-segment-button value="synthwave">
@@ -83,16 +87,6 @@
         </div>
       </ion-col>
     </ion-row>
-    <!-- <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('floresta-congelada', 7)">
-          <img src="https://media.giphy.com/media/xfa1GclK0WaOc/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.FLORESTA_CONGELADA' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-      </ion-col>
-    </ion-row> -->
 
     <ion-row>
       <ion-col col-6>
@@ -112,6 +106,21 @@
 
     <ion-row>
       <ion-col col-6>
+        <div (click)="openMusicPlayer('fogueira', 11)">
+          <img src="https://media.giphy.com/media/7BsBA553QcgiA/giphy.gif" class="thumbnail-card-style"/>
+          <div class="title-style">{{ 'TABS.FOGUEIRA' | translate }}</div>
+        </div>
+      </ion-col>
+      <ion-col col-6>
+        <div (click)="openMusicPlayer('binaural', 12)">
+          <img src="https://media.giphy.com/media/USs6qiFW1j8AGoRJxO/source.gif" class="thumbnail-card-style"/>
+          <div class="title-style">{{ 'TABS.BINAURAL_20_HZ' | translate }}</div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-6>
         <div (click)="openMusicPlayer('retro1', 9)">
           <img src="https://media.giphy.com/media/wKnqovL33x9in9ci6X/giphy.gif" class="thumbnail-card-style"/>
           <div class="title-style">{{ 'TABS.RETRO1' | translate }}</div>
@@ -123,22 +132,6 @@
           <div class="title-style">{{ 'TABS.RETRO2' | translate }}</div>
         </div>
       </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('fogueira', 11)">
-          <img src="https://media.giphy.com/media/7BsBA553QcgiA/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.FOGUEIRA' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-      </ion-col>
-      <!-- <ion-col col-6>
-        <div (click)="openMusicPlayer('ventania', 6)">
-          <img src="https://media.giphy.com/media/clzp5RgHabMagyQIG9/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.VENTANIA_NO_CAMPO' | translate }}</div>
-        </div>
-      </ion-col> -->
     </ion-row>
   </ion-grid>
 
@@ -223,6 +216,19 @@
     </ion-row>
   </ion-grid>
 
+  <ion-grid *ngIf="segmentModel === 'binaural'">
+    <ion-row>
+      <ion-col col-6>
+        <div (click)="openMusicPlayer('binaural', 12)">
+          <img src="https://media.giphy.com/media/USs6qiFW1j8AGoRJxO/source.gif" class="thumbnail-card-style"/>
+          <div class="title-style">{{ 'TABS.BINAURAL_20_HZ' | translate }}</div>
+        </div>
+      </ion-col>
+      <ion-col col-6>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <ion-grid *ngIf="segmentModel === 'synthwave'">
     <ion-row>
       <ion-col col-6>
@@ -239,4 +245,5 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+</div>
 </ion-content>

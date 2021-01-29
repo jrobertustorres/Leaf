@@ -5,7 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateConfigService } from '../app/services/translate-config.service';
 import { Network } from '@ionic-native/network/ngx';
-import { AdmobService } from '../app/services/admob.service';
+import { AdMobFree, AdMobFreeBannerConfig,AdMobFreeInterstitialConfig,AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
+// import { AdmobService } from '../app/services/admob.service';
 
 // import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
 
@@ -24,7 +25,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     private translateConfigService: TranslateConfigService,
     private network: Network,
-    private admobService: AdmobService,
+    private admobFree: AdMobFree,
+    // private admobService: AdmobService,
     // private fcm: FCM,
     public alertController: AlertController
   ) {
@@ -35,10 +37,12 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.splashScreen.show();
       //LOAD THE BANNER AT PAGE INIT
-      this.admobService.ShowBanner();
+      // this.admobService.ShowBanner();
       this.checkNetwork();
       //OBTENDO O IDIOMA CONFIGURADO NO APARELHO
       this.translateConfigService.getDefaultLanguage();
+
+      this.banner();
       
       // set status bar to white
       // this.statusBar.backgroundColorByHexString('#ffffff');
@@ -69,6 +73,19 @@ export class AppComponent {
       // this.fcm.unsubscribeFromTopic('offers');
 
     });
+  }
+
+  banner(){
+    let bannerConfig: AdMobFreeBannerConfig = {
+      isTesting: true, // Remove in production
+      autoShow: true//,
+      //id: "ca-app-pub-3940256099942544/6300978111"
+    };
+    this.admobFree.banner.config(bannerConfig);
+
+    this.admobFree.banner.prepare().then(() => {
+        // success
+    }).catch(e => console.log(e));
   }
 
   // subscribeToTopic() {

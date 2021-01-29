@@ -46,10 +46,8 @@
   --color: #000;
   --border-radius: 3px;
   --background: #fff;
-  // width: 50%;
   text-align: center;
   opacity: 0.7;
-  // border-radius: 0.65rem;
 }
 
 .my-custom-loading {
@@ -95,6 +93,30 @@
   --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
   color: #fff;
   font-size: 14px;
+}
+
+.margin-style {
+  margin-bottom: 20%!important;
+}
+
+.alert-message.sc-ion-alert-md, .alert-input-group.sc-ion-alert-md {
+  padding-bottom: 20px;
+  color: var(--ion-color-step-550, #FFFFFF)!important;
+}
+.alert-wrapper.sc-ion-alert-md {
+  display: flex;
+  flex-direction: column;
+  width: var(--width);
+  min-width: var(--min-width);
+  max-width: var(--max-width);
+  height: var(--height);
+  min-height: var(--min-height);
+  max-height: var(--max-height);
+  background: #007988;
+  contain: content;
+  opacity: 0;
+  z-index: 10;
+  border-radius: 15px;
 }
 
 /*alterar a acor do botão fab-button*/

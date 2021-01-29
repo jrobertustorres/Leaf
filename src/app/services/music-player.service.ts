@@ -109,6 +109,7 @@ export class MusicPlayerService {
     
     if(this.player) {
       this.player.stop();
+      this.player.unload();
     }
     this.player = new Howl({
       src: [track.path],
@@ -122,6 +123,7 @@ export class MusicPlayerService {
         this.selectedSound[0]['totalSoundDuration'] = this.totalSoundDuration;
         this.isPlaying = true;
         this.activeTrack = track;
+        localStorage.setItem('STATUS_PLAYER', 'false');
         this.updateProgress();
       },
       onend: () => {
@@ -243,14 +245,14 @@ export class MusicPlayerService {
 
 
   getMusic(soundValue: string) {
-    // if(this.selectedSound[0].soundValue != soundValue) {
       switch(soundValue) {
         case 'chuva-trovao': {
           this.selectedSound = [
             {
               id: 1,
               name: this.accessi18nData['TABS']['NOME_SOM_CHUVA']['CHUVA_TROVOADAS'],
-              labelName: this.selectedSound[0]['labelName'] ? this.selectedSound[0]['labelName'] : this.accessi18nData['TABS']['CHUVA_TROVOADAS'],
+              // labelName: this.selectedSound[0]['labelName'] ? this.selectedSound[0]['labelName'] : this.accessi18nData['TABS']['CHUVA_TROVOADAS'],
+              labelName: this.accessi18nData['TABS']['CHUVA_TROVOADAS'],
               // path: 'https://www.dropbox.com/s/x57qdwgmi2fbn71/chuva-trovoadas.mp3?dl=0',
               path: 'assets/sons/chuva/mp3/chuva-trovoadas.webm',
               // path: 'https://drive.google.com/uc?id=1f4M15doUW-RQCONFGMYM8IXME7NNi23I',
@@ -270,7 +272,9 @@ export class MusicPlayerService {
             {
               id: 2,
               name: this.accessi18nData['TABS']['NOME_SOM_CHUVA']['CHUVA_CALMA'],
-              labelName: this.selectedSound[0]['labelName'],
+              // labelName: this.selectedSound[0]['CHUVA_CALMA'],
+              labelName: this.accessi18nData['TABS']['CHUVA_CALMA'],
+              // labelName: this.selectedSound[0]['labelName'],
               path: 'assets/sons/chuva/mp3/chuva-calma.webm',
               // path: 'https://drive.google.com/uc?id=1Ihx0VUdKin8XIIndA5fBE40ypZx-OZHv',
               pathImage: 'https://media.giphy.com/media/5torEEM8QnR95Cqg11/giphy.gif',
@@ -457,6 +461,24 @@ export class MusicPlayerService {
           ];
           break; 
         } 
+        case 'binaural': {
+          this.selectedSound = [
+            {
+              id: 1,
+              name: this.accessi18nData['TABS']['NOME_SOM_BINAURAL']['BINAURAL_20_HZ'],
+              labelName: this.accessi18nData['TABS']['BINAURAL_20_HZ'],
+              path: 'assets/sons/binaural/mp3/son-binaural-20-hz.webm',
+              pathImage: 'https://media.giphy.com/media/USs6qiFW1j8AGoRJxO/source.gif',
+              porcentagemProgresso: '',
+              totalSoundDuration: '',
+              categoria: 'SONS_BINAURAIS',
+              labelCategoria: this.accessi18nData['TABS']['SONS_BINAURAIS'],
+              soundValue: 'binaural',
+              isPlaying: this.isPlaying
+            }
+          ];
+          break; 
+        } 
         default: { 
             //statements; 
             break; 
@@ -469,7 +491,6 @@ export class MusicPlayerService {
       // });
 
       return this.selectedSound[0];
-    // }
 
   }
 

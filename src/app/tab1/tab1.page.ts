@@ -1,11 +1,16 @@
-import { Component, ViewChild } from '@angular/core';
-import { interval } from 'rxjs';
+import { Component } from '@angular/core';
+import { NavController, AlertController, ModalController } from "@ionic/angular";
+import { Router } from '@angular/router';
+import { Howl } from 'howler';
 
 import { TranslateConfigService } from '../services/translate-config.service';
 import { HttpClient } from '@angular/common/http';
 import { EventService } from '../../utilitarios/EventService';
 
-import { AdmobService } from '../services/admob.service';
+// import { AdmobService } from '../services/admob.service';
+// import { AdMobFree, AdMobFreeBannerConfig,AdMobFreeInterstitialConfig,AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
+
+import { BreathPage } from '../breath/breath.page';
 
 @Component({
   selector: 'app-tab1',
@@ -13,7 +18,9 @@ import { AdmobService } from '../services/admob.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-   
+  player: Howl = null;
+  play: boolean;
+  labelButton: string = '';
   // agora: number;
   // mesAtual: string;
   // backgroundImage: string = '';
@@ -26,20 +33,35 @@ export class Tab1Page {
   arrayFrase: string;
   fraseHoje: string;
   autorHoje: string;
+  private scrollDepthTriggered = false;
+
+  home = {};
 
   constructor(private translateConfigService: TranslateConfigService,
               private httpC: HttpClient,
-              private admobService: AdmobService,
+              // private admobService: AdmobService,
+              // private admobFree: AdMobFree,
+              private navCtrl: NavController,
+              private router: Router,
+              public alertController: AlertController,
+              public modalCtrl: ModalController,
               private eventService: EventService) {
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
+
+    this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
+      this.accessi18nData = data;
+      this.home = this.accessi18nData['HOME'];
+    });
+
     this.getChangeLanguage();
   }
-
+  
   getChangeLanguage() {
     this.eventService.getObservableChangeLanguage().subscribe((data) => {
       this.selectedLanguage = data.selectedLanguage;
       this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
         this.accessi18nData = data;
+        this.home = this.accessi18nData['HOME'];
         // seleciona a frase do dia
         let arrayHoje = localStorage.getItem('ARRAY_HOJE');
         
@@ -55,9 +77,11 @@ export class Tab1Page {
       });
     });
   }
-  
+
   ngOnInit() {
-    this.Interstitial();
+    // this.Interstitial();
+    // this.banner();
+    // this.verificaStatusPlayer();
 
     // interval(10 * 60).subscribe(x => {
     //   // this.getTime();
@@ -68,40 +92,182 @@ export class Tab1Page {
     // localStorage.removeItem('DIA_DA_SEMANA');
     // localStorage.removeItem('FRASE_HOJE');
 
-    if((new Date()).getDay().toString() != localStorage.getItem('DIA_DA_SEMANA')) {
-      this.frases();
+    // frase da home
+    // if((new Date()).getDay().toString() != localStorage.getItem('DIA_DA_SEMANA')) {
+    //   this.frases();
+    // } else {
+    //   this.arrayFrase = localStorage.getItem('ARRAY_HOJE');
+    //   this.fraseHoje = JSON.parse(this.arrayFrase)[0]['FRASE'];
+    //   this.autorHoje = JSON.parse(this.arrayFrase)[0]['AUTOR'];
+    // }
+
+  }
+
+  ionViewWillEnter() {
+    this.verificaStatusPlayer();
+  }
+
+  ionViewWillLeave() {
+    this.labelButton = this.accessi18nData['HOME']['BTN_LIGAR'];
+    if(this.player) {
+      this.player.stop();
+      this.player.unload();
+    }
+  }
+
+  verificaStatusPlayer() {
+    this.play = JSON.parse(localStorage.getItem('STATUS_PLAYER'));
+    if(localStorage.getItem('STATUS_PLAYER') == null || localStorage.getItem('STATUS_PLAYER') == 'true') {
+      this.startHomeSound();
     } else {
-      this.arrayFrase = localStorage.getItem('ARRAY_HOJE');
-      this.fraseHoje = JSON.parse(this.arrayFrase)[0]['FRASE'];
-      this.autorHoje = JSON.parse(this.arrayFrase)[0]['AUTOR'];
+      this.labelButton = this.accessi18nData['HOME']['BTN_LIGAR'];
+    }
+  }
+
+  startHomeSound() {
+    this.labelButton = this.accessi18nData['HOME']['BTN_LIGAR'];
+    if(this.player) {
+      this.player.stop();
+      this.player.unload();
+    }
+
+    this.player = new Howl({
+      src: ['assets/sons/passaros/mp3/passaros1.webm'],
+      html5: true,
+      loop: true,
+      onload: () => {
+      },
+      onplay: () => {
+        this.play = true;
+        localStorage.setItem('STATUS_PLAYER', 'true');
+        this.labelButton = this.accessi18nData['HOME']['BTN_DESLIGAR'];
+      },
+      onend: () => {
+      }
+    });
+    this.player.play();
+  }
+
+  stopHomeSound() {
+    this.labelButton = this.accessi18nData['HOME']['BTN_LIGAR'];
+    localStorage.setItem('STATUS_PLAYER', 'false');
+    if(this.player) {
+      this.player.stop();
+      this.player.unload();
+    }
+  }
+
+  async setStateSound() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: this.accessi18nData['HOME']['LABEL_SON_HOME'],
+      message: this.accessi18nData['HOME']['MSG_ALERT'],
+      buttons: [
+        {
+          text: this.accessi18nData['HOME']['BTN_CANCELAR'],
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: this.labelButton,
+          handler: () => {
+            this.play = !this.play;
+            localStorage.setItem('STATUS_PLAYER', this.play.toString());
+            if(!this.play) {
+              this.stopHomeSound();
+            } else {
+              this.startHomeSound();
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async logScrolling($event) {
+
+    if($event.target.localName != "ion-content") {
+      return;
+    }
+
+    const scrollElement = await $event.target.getScrollElement();
+    // minus clientHeight because trigger is scrollTop
+    // otherwise you hit the bottom of the page before 
+    // the top screen can get to 80% total document height
+    const scrollHeight = scrollElement.scrollHeight - scrollElement.clientHeight;
+    const currentScrollDepth = $event.detail.scrollTop;
+    // this.yourToggleFlag = currentScrollDepth < 413 ? true : false; 
+    const targetPercent = 20;
+    let triggerDepth = ((scrollHeight / 100) * targetPercent);
+    if(currentScrollDepth > triggerDepth) {
+      // this ensures that the event only triggers once
+      this.scrollDepthTriggered = true;
+    }
+    if(currentScrollDepth < triggerDepth) {
+      // this ensures that the event only triggers once
+      this.scrollDepthTriggered = false;
     }
   }
 
   //FUNCTION FOR INTERSTITIAL
-  Interstitial(){
-    this.admobService.ShowInterstitial();
-  }
+  // Interstitial(){
+  //   this.admobService.ShowInterstitial();
+  // }
+  // banner(){
+  //   // this.admobService.ShowBanner();
+  //   let bannerConfig: AdMobFreeBannerConfig = {
+  //     isTesting: true, // Remove in production
+  //     autoShow: true//,
+  //     //id: "ca-app-pub-3940256099942544/6300978111"
+  //   };
+  //   this.admobFree.banner.config(bannerConfig);
+
+  //   this.admobFree.banner.prepare().then(() => {
+  //       // success
+  //   }).catch(e => alert(e));
+  // }
   // FUNCTION FOR VIDEOREWARD
-  Reward(){
-    this.admobService.ShowRewardVideo();
-  }
+  // Reward(){
+  //   this.admobService.ShowRewardVideo();
+  // }
 
   
 
-  frases() {
+  // frases() {
 
-    this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
-      this.accessi18nData = data;
+  //   this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
+  //     this.accessi18nData = data;
 
-      let rd = Math.floor(Math.random() * this.accessi18nData['FRASES'].length);
-      let frase = [this.accessi18nData['FRASES'][rd]];
+  //     let rd = Math.floor(Math.random() * this.accessi18nData['FRASES'].length);
+  //     let frase = [this.accessi18nData['FRASES'][rd]];
 
-      this.fraseHoje = frase[0]['FRASE'];
-      this.autorHoje = frase[0]['AUTOR'];
-      localStorage.setItem('ARRAY_HOJE', JSON.stringify(frase));
-      localStorage.setItem('DIA_DA_SEMANA', (new Date()).getDay().toString());
-    });
+  //     this.fraseHoje = frase[0]['FRASE'];
+  //     this.autorHoje = frase[0]['AUTOR'];
+  //     localStorage.setItem('ARRAY_HOJE', JSON.stringify(frase));
+  //     localStorage.setItem('DIA_DA_SEMANA', (new Date()).getDay().toString());
+  //   });
     
+  // }
+
+  openMusic(segmentModel: any) {
+    if(segmentModel == 'breath') {
+      this.openBreath();
+    } else {
+      this.navCtrl.navigateRoot('/tabs/tab2/'+ segmentModel);
+    }
+  }
+
+  async openBreath() {
+
+    const modal = await this.modalCtrl.create({
+      component: BreathPage,
+      cssClass: 'my-custom-modal-css',
+      componentProps: {  }
+    });
+    return await modal.present();
   }
 
   // getTime() {

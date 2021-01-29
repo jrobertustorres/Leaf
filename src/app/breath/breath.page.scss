@@ -1,0 +1,38 @@
+ion-content {
+    --background: linear-gradient(to top, #060606, #007988);
+}
+
+// animação da respiração
+.anim-circle {
+    color: transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(188, 237, 243, 0.889);
+    animation: breathe 9s linear infinite;
+
+    // margin-top: 100%;
+}
+@keyframes breathe {
+    0% {
+        box-shadow: 0 0 0 15px rgba(188, 237, 243, 0.3), 0 0 0 30px rgba(188, 237, 243, 0.3), 0 0 0 45px rgba(188, 237, 243, 0.3), 0 0 0 60px rgba(188, 237, 243, 0.3), 0 0 0 75px rgba(188, 237, 243, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 0 25px rgba(188, 237, 243, 0.3), 0 0 0 50px rgba(188, 237, 243, 0.3), 0 0 0 75px rgba(188, 237, 243, 0.3), 0 0 0 100px rgba(188, 237, 243, 0.3), 0 0 0 125px rgba(188, 237, 243, 0.3);
+    }
+    100% {
+        box-shadow: 0 0 0 15px rgba(188, 237, 243, 0.3), 0 0 0 30px rgba(188, 237, 243, 0.3), 0 0 0 45px rgba(188, 237, 243, 0.3), 0 0 0 60px rgba(188, 237, 243, 0.3), 0 0 0 75px rgba(188, 237, 243, 0.3);
+    }
+}
+
+.footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    color: #fff;
+    text-align: center;
+}

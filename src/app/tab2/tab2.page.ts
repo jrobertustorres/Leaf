@@ -3,7 +3,11 @@ import { ModalController } from '@ionic/angular';
 
 import { EventService } from '../../utilitarios/EventService';
 import { NowPlayingPage } from '../now-playing/now-playing.page';
-import { AdmobService } from '../services/admob.service';
+// import { AdmobService } from '../services/admob.service';
+import { AdMobFree, AdMobFreeBannerConfig,AdMobFreeInterstitialConfig,AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
+
+
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -16,12 +20,31 @@ export class Tab2Page {
   @Input() soundValue: string;// pega o parâmetro passado
 
   constructor(private eventService: EventService,
-              private admobService: AdmobService,
+              // private admobService: AdmobService,
+              private activatedRoute: ActivatedRoute,
+              private admobFree: AdMobFree,
               public modalCtrl: ModalController) {
+                this.segmentModel = this.activatedRoute.snapshot.paramMap.get('segmentModel') ? 
+                this.activatedRoute.snapshot.paramMap.get('segmentModel') : "all";
               }
 
   ngOnInit() {
-    this.admobService.ShowRewardVideo();
+  }
+  
+  ionViewWillEnter() {
+    this.interstitial();
+  }
+
+  //FUNCTION FOR INTERSTITIAL
+  interstitial(){
+    let interstitialConfig: AdMobFreeInterstitialConfig = {
+      isTesting: true, // Remove in production
+      autoShow: true//,
+      //id: "ca-app-pub-3940256099942544/6300978111"
+    };
+      this.admobFree.interstitial.config(interstitialConfig);
+      this.admobFree.interstitial.prepare().then(() => {
+    }).catch(e => console.log(e));
   }
   
   async openMusicPlayer(som: string, id: number) {

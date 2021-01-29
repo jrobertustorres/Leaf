@@ -31,7 +31,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
 
 //IMPORT OUR SERVICE.
-import { AdmobService } from './services/admob.service';
+// import { AdmobService } from './services/admob.service';
 
 export function LanguageLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -65,7 +65,7 @@ export function LanguageLoader(http: HttpClient) {
     AppRate,
     // FCM,
     AdMobFree,
-    AdmobService,
+    // AdmobService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

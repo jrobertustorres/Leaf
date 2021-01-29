@@ -1,66 +1,59 @@
-<ion-header no-border>
-    <ion-title style="text-align: left;">
-        <img height="60" src="assets/imgs/logo.png" class="logo-position">
-    </ion-title>
-    
-    <!-- <p class='anim-circle'>diaphragmatic animation</p> -->
-  </ion-header>
+<ion-header no-border style="z-index: 1;">
+  <ion-title style="text-align: left;">
+      <img height="60" src="assets/imgs/logo.png" class="logo-position" [ngClass]="(scrollDepthTriggered == true)?'hide-img':'show-img'">
+      <ion-icon name="musical-notes-outline" class="icon-sound-style" (click)="setStateSound()"></ion-icon>
+  </ion-title>
+</ion-header>
   
-  <ion-content [fullscreen]="true" style="position: absolute;">
-    
-  <!-- <div class="background-container" *ngIf="!dia" >
-    <img src="/assets/imgs/moon.png" alt="" class="lua-img">
-    <div class="stars"></div>
-    <div class="twinkling"></div>
-    <div class="clouds"></div>
-  </div> -->
+<ion-content [fullscreen]="true" style="position: absolute;" 
+    class="card-background-page" 
+    [scrollEvents]="true" (ionScroll)="logScrolling($event)" 
+    [ngClass]="(scrollDepthTriggered == true)?'nav-colored':'nav-transparent'">
 
-  <!-- <div class="control"> -->
-    <!-- <div class="background" [ngStyle]="{'background-image': 'url(' + backgroundImage + ')'}"></div> -->
-
-    <!-- <div class="circle">
-      <div class="date-time-div">
-        <div>{{ agora | date: 'HH:mm' }}</div>
-        <div>{{ agora | date: 'dd' }} de {{ mesAtual }}</div>
+    <div class="control">
+      <div class="img-style" 
+        [ngStyle]="{'background-image': 'url(  https://media.giphy.com/media/ToMjGpQe9iCuexMtEg8/source.gif  )'}"
+        [ngClass]="(scrollDepthTriggered == true)?'hide-img':'show-img'"
+        >
       </div>
-    </div> -->
-  <!-- </div> -->
+    </div>
 
-  <div class="control" >
-    <div class="breathe">
-      <p class='anim-circle'>diaphragmatic animation</p>
-      <!-- <div class="frase-do-dia">
-        "{{ fraseHoje }}"
-        <p class="autorStyle">{{ autorHoje }}</p>
-      </div> -->
-    </div>
-    <div class="bird-container bird-container--one">
-      <div class="bird bird--one"></div>
-    </div>
-    
-    <div class="bird-container bird-container--two">
-      <div class="bird bird--two"></div>
-    </div>
-    
-    <div class="bird-container bird-container--three">
-      <div class="bird bird--three"></div>
-    </div>
-    
-    <div class="bird-container bird-container--four">
-      <div class="bird bird--four"></div>
-    </div>
-    <div class="bird-container bird-container--five">
-      <!-- <div class="bird bird--five"></div> -->
-    </div>
+  <div id="navi" >
+
+    <ion-card class="card-style" (click)="openMusic('breath')">
+      <img src="assets/imgs/meditar.jpg" class="img-card-style"/>
+      <!-- <div class="card-subtitle">{{ labelRespire }}</div> -->
+      <div class="card-subtitle">{{ home.RESPIRE }}</div>
+    </ion-card>
+
+    <ion-card class="card-style" (click)="openMusic('all')">
+      <img src="assets/imgs/mountain.jpg" class="img-card-style"/>
+      <div class="card-subtitle">{{ home.TODOS_SONS }}</div>
+    </ion-card>
+
+    <ion-card class="card-style" (click)="openMusic('chuva')">
+      <img src="assets/imgs/chuva.jpg" class="img-card-style"/>
+      <div class="card-subtitle">{{ home.CHUVA }}</div>
+    </ion-card>
+
+    <ion-card class="card-style" (click)="openMusic('passaros')">
+      <img src="assets/imgs/bird.jpg" class="img-card-style"/>
+      <div class="card-subtitle">{{ home.PASSAROS }}</div>
+    </ion-card>
+
+    <ion-card class="card-style" (click)="openMusic('fogo')">
+      <img src="assets/imgs/fogueira.jpg" class="img-card-style"/>
+      <div class="card-subtitle">{{ home.FOGO }}</div>
+    </ion-card>
+
+    <ion-card class="card-style" (click)="openMusic('vento')">
+      <img src="assets/imgs/vento.jpg" class="img-card-style"/>
+      <div class="card-subtitle">{{ home.VENTO }}</div>
+    </ion-card>
+    <ion-card class="card-fake-style">
+    </ion-card>
+
+
   </div>
-
-  <ion-row>
-    <ion-col size="6">
-      <ion-button color="primary" (click)="Interstitial()">INTERSTITAL</ion-button>
-    </ion-col>
-    <ion-col size="6">
-      <ion-button color="secondary" (click)="Reward()">REWARDVIDEO</ion-button>
-    </ion-col>
-  </ion-row>
 
 </ion-content>

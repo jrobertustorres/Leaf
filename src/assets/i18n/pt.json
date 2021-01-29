@@ -4,6 +4,17 @@
     "SUBJECT_LEAF": "Leaf - Sons para dormir Feedback",
     "TITLE_INFO_SISTEMA": "Informações do sistema",
     "HOME": {
+        "RESPIRE": "Respire",
+        "CHUVA": "Chuva",
+        "PASSAROS": "Pássaros",
+        "FOGO": "Fogo",
+        "VENTO": "Vento",
+        "TODOS_SONS": "Todos os sons",
+        "BTN_LIGAR": "Ligar",
+        "BTN_DESLIGAR": "Desligar",
+        "MSG_ALERT": "Ligar/Desligar efeito sonoro da Home",
+        "BTN_CANCELAR": "Cancelar",
+        "LABEL_SON_HOME": "Som da Home"
     },
     "TABS": {
         "CATEGORIA": {
@@ -12,7 +23,8 @@
             "FOGO": "Fogo",
             "VENTO": "Vento",
             "SYNTHWAVE": "Synthwave",
-            "ENERGIA_POSITIVA": "Energia Positiva"
+            "ENERGIA_POSITIVA": "Energia Positiva",
+            "SONS_BINAURAIS": "Sons Binaurais"
             },
             "NOME_SOM_CHUVA": {
                 "CHUVA_TROVOADAS": "CHUVA_TROVOADAS",
@@ -38,7 +50,11 @@
                 "FREQUENCIA_RECONEXAO": "FREQUENCIA_RECONEXAO",
                 "FREQUENCIA_432": "FREQUENCIA_432"
             },
+            "NOME_SOM_BINAURAL": {
+                "BINAURAL_20_HZ": "BINAURAL_20_HZ"
+            },
         "SONS": "Sons",
+        "RESPIRACAO": "Respiração",
         "TODOS": "Todos",
         "CHUVA_LOWERCASE": "Chuva",
         "CHUVA_TROVOADAS": "Chuva com trovoadas",
@@ -56,7 +72,8 @@
         "RETRO2": "Cyber Edge",
         "ENERGIA_POSITIVA": "Energia Positiva",
         "FREQUENCIA_RECONEXAO": "Frequência de Reconexão com a Fonte Criadora",
-        "FREQUENCIA_432": "Energia positiva - Frequência 432 Hz"
+        "FREQUENCIA_432": "Energia positiva - Frequência 432 Hz",
+        "BINAURAL_20_HZ": "Binaural Beta 20 Hz"
     },
     "TAB3": {
         "IDIOMA": "Idioma",
@@ -66,6 +83,9 @@
         "AVALIE": "Nos avalie",
         "HORA_DE_DORMIR": "Hora de dormir",
         "IMG_FUNDO_HOME": "Imagem de fundo da Home"
+    },
+    "BREATH": {
+        "FOQUE_RESPIRACAO": "Foque na sua respiração"
     },
     "FRASES": [
         {

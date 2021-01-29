@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
+import { NavController } from "@ionic/angular";
 
 import { EventService } from '../../utilitarios/EventService';
 import { TranslateConfigService } from '../services/translate-config.service';
 import { MusicPlayerService } from '../services/music-player.service';
+
+import { BreathPage } from '../breath/breath.page';
 
 @Component({
   selector: 'app-tabs',
@@ -25,6 +28,7 @@ export class TabsPage {
               private translateConfigService: TranslateConfigService,
               private musicService: MusicPlayerService,
               private http: HttpClient,
+              private navCtrl: NavController,
               private eventService: EventService) {
 
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
@@ -35,13 +39,7 @@ export class TabsPage {
       this.pathImage = this.activeTrack['activeTrack']['pathImage'];
       this.labelCategoria = this.activeTrack['activeTrack']['labelCategoria'];
       this.isPlaying = this.activeTrack['activeTrack']['isPlaying'];
-      // setTimeout(() => {
       this.selectedSound = this.activeTrack['activeTrack']['labelName'];
-      // this.selectedSound = this.activeTrack['activeTrack']['name'];
-      
-        // console.log(this.selectedSound);
-      // }, 500);
-      
     });
 
     // aqui fico atualizando a barra de progresso
@@ -52,7 +50,6 @@ export class TabsPage {
   }
 
   ngOnInit() {
-    // this.translateConfigService.setLanguage(this.selectedLanguage);
   }
 
   showModal(){
@@ -62,6 +59,20 @@ export class TabsPage {
 
    togglePlayer(pause: boolean) {
     this.isPlaying = this.musicService.setStatusPlayer(pause);
+  }
+
+  goToSounds() {
+    this.navCtrl.navigateRoot('/tabs/tab2/');
+  }
+
+  async openBreath() {
+
+    const modal = await this.modalCtrl.create({
+      component: BreathPage,
+      cssClass: 'my-custom-modal-css',
+      componentProps: {  }
+    });
+    return await modal.present();
   }
 
 }
