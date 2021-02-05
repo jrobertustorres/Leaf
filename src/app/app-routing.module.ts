@@ -14,6 +14,10 @@ const routes: Routes = [
     path: 'breath',
     loadChildren: () => import('./breath/breath.module').then( m => m.BreathPageModule)
   },
+  {
+    path: 'para-voce',
+    loadChildren: () => import('./para-voce/para-voce.module').then( m => m.ParaVocePageModule)
+  },
 ];
 @NgModule({
   imports: [

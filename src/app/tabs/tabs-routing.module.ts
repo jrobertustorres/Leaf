@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },
       {
+        path: 'para-voce',
+        loadChildren: () => import('../para-voce/para-voce.module').then(m => m.ParaVocePageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

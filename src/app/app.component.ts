@@ -9,6 +9,8 @@ import { AdMobFree, AdMobFreeBannerConfig,AdMobFreeInterstitialConfig,AdMobFreeR
 // import { AdmobService } from '../app/services/admob.service';
 
 // import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
+import { FirebaseX } from "@ionic-native/firebase-x/ngx";
+
 
 @Component({
   selector: 'app-root',
@@ -28,6 +30,7 @@ export class AppComponent {
     private admobFree: AdMobFree,
     // private admobService: AdmobService,
     // private fcm: FCM,
+    private firebase: FirebaseX,
     public alertController: AlertController
   ) {
     this.initializeApp();
@@ -36,18 +39,25 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.splashScreen.show();
+      setTimeout(() => {
+        this.splashScreen.hide();
+      }, 1000);
       //LOAD THE BANNER AT PAGE INIT
       // this.admobService.ShowBanner();
       this.checkNetwork();
       //OBTENDO O IDIOMA CONFIGURADO NO APARELHO
       this.translateConfigService.getDefaultLanguage();
-
-      this.banner();
+      // if (this.platform.is('cordova')) {
+        this.banner();
+      // }
       
       // set status bar to white
       // this.statusBar.backgroundColorByHexString('#ffffff');
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      // this.splashScreen.hide();
+
+      // this.firebase.getToken().then(token => console.log(`The token is ${token}`))
+      // this.firebase.onMessageReceived().subscribe(data => console.log(`FCM message: ${data}`));
 
       // get FCM token
       // this.fcm.getToken().then(token => {

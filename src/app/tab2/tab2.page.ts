@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { EventService } from '../../utilitarios/EventService';
 import { NowPlayingPage } from '../now-playing/now-playing.page';
@@ -23,6 +24,7 @@ export class Tab2Page {
               // private admobService: AdmobService,
               private activatedRoute: ActivatedRoute,
               private admobFree: AdMobFree,
+              private iab: InAppBrowser,
               public modalCtrl: ModalController) {
                 this.segmentModel = this.activatedRoute.snapshot.paramMap.get('segmentModel') ? 
                 this.activatedRoute.snapshot.paramMap.get('segmentModel') : "all";

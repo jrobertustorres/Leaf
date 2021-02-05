@@ -25,34 +25,34 @@
             "SYNTHWAVE": "Synthwave",
             "ENERGIA_POSITIVA": "Energia Positiva",
             "SONS_BINAURAIS": "Sons Binaurais"
-            },
-            "NOME_SOM_CHUVA": {
-                "CHUVA_TROVOADAS": "CHUVA_TROVOADAS",
-                "CHUVA_CALMA": "CHUVA_CALMA"
-            },
-            "NOME_SOM_PASSAROS": {
-                "PASSAROS_LOWERCASE": "Pássaros",
-                "PASSAROS_LAGO": "PASSAROS_LAGO",
-                "PASSAROS_FLORESTA": "PASSAROS_FLORESTA"
-            },
-            "NOME_SOM_FOGO": {
-                "FOGUEIRA": "FOGUEIRA"
-            },
-            "NOME_SOM_VENTO": {
-                "VENTANIA_NO_CAMPO": "VENTANIA_NO_CAMPO",
-                "FLORESTA_CONGELADA": "FLORESTA_CONGELADA"
-            },
-            "NOME_SOM_SYNTHWAVE": {
-                "RETRO1": "RETRO1",
-                "RETRO2": "RETRO2"
-            },
-            "NOME_SOM_ENERGIA_POSITIVA": {
-                "FREQUENCIA_RECONEXAO": "FREQUENCIA_RECONEXAO",
-                "FREQUENCIA_432": "FREQUENCIA_432"
-            },
-            "NOME_SOM_BINAURAL": {
-                "BINAURAL_20_HZ": "BINAURAL_20_HZ"
-            },
+        },
+        "NOME_SOM_CHUVA": {
+            "CHUVA_TROVOADAS": "CHUVA_TROVOADAS",
+            "CHUVA_CALMA": "CHUVA_CALMA"
+        },
+        "NOME_SOM_PASSAROS": {
+            "PASSAROS_LOWERCASE": "Pássaros",
+            "PASSAROS_LAGO": "PASSAROS_LAGO",
+            "PASSAROS_FLORESTA": "PASSAROS_FLORESTA"
+        },
+        "NOME_SOM_FOGO": {
+            "FOGUEIRA": "FOGUEIRA"
+        },
+        "NOME_SOM_VENTO": {
+            "VENTANIA_NO_CAMPO": "VENTANIA_NO_CAMPO",
+            "FLORESTA_CONGELADA": "FLORESTA_CONGELADA"
+        },
+        "NOME_SOM_SYNTHWAVE": {
+            "RETRO1": "RETRO1",
+            "RETRO2": "RETRO2"
+        },
+        "NOME_SOM_ENERGIA_POSITIVA": {
+            "FREQUENCIA_RECONEXAO": "FREQUENCIA_RECONEXAO",
+            "FREQUENCIA_432": "FREQUENCIA_432"
+        },
+        "NOME_SOM_BINAURAL": {
+            "BINAURAL_20_HZ": "BINAURAL_20_HZ"
+        },
         "SONS": "Sons",
         "RESPIRACAO": "Respiração",
         "TODOS": "Todos",
@@ -85,7 +85,9 @@
         "IMG_FUNDO_HOME": "Imagem de fundo da Home"
     },
     "BREATH": {
-        "FOQUE_RESPIRACAO": "Foque na sua respiração"
+        "FOQUE_RESPIRACAO": "Foque na sua respiração",
+        "INSPIRE": "Inspire",
+        "EXPIRE": "Expire"
     },
     "FRASES": [
         {

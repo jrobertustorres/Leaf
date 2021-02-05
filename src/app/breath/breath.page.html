@@ -1,15 +1,71 @@
 <ion-content [fullscreen]="true" >
   <ion-fab vertical="top" horizontal="start" slot="fixed">
     <ion-fab-button color="medium-transparent" (click)="closeModal()">
-      <ion-icon name="chevron-down" style="color: #fff;"></ion-icon>
+      <ion-icon name="close" style="color: #fff;"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  
+  <p #el></p>
+  <div>
+    <!-- <p class="">{{ time }}</p> -->
+    <p class="anim-label">{{ labelBreathe }}</p>
+  </div>
+
 
   <div>
-    <p class='anim-circle'></p>
+  <ion-card class="card-style">
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="3" ></ion-col>
+        <ion-col size="6" class="ion-align-self-center">
+          <ion-button fill="clear" (click)="togglePlayer()" *ngIf="!isPlaying" color="light">
+            <ion-icon slot="icon-only" name="play"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" (click)="togglePlayer()" *ngIf="isPlaying" color="light">
+            <ion-icon slot="icon-only" name="stop"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="3" class="ion-align-self-end">
+          <ion-button fill="clear" (click)="setStateSound()" *ngIf="play" color="light" class="icon-sound-style">
+            <ion-icon name="volume-high-outline" ></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" (click)="setStateSound()" *ngIf="!play" color="light" class="icon-sound-style">
+            <ion-icon name="volume-mute-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+
+
+      <!-- <div class="anim-button">
+        <ion-button fill="clear" (click)="togglePlayer()" *ngIf="!isPlaying" color="light">
+          <ion-icon slot="icon-only" name="play"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" (click)="togglePlayer()" *ngIf="isPlaying" color="light">
+          <ion-icon slot="icon-only" name="stop"></ion-icon>
+        </ion-button>
+      </div>
+
+      <div class="anim-button">
+        <ion-button fill="clear" (click)="setStateSound()" *ngIf="!play" color="light" class="icon-sound-style">
+          <ion-icon name="volume-high-outline" ></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" (click)="setStateSound()" *ngIf="play" color="light" class="icon-sound-style">
+          <ion-icon name="volume-mute-outline"></ion-icon>
+        </ion-button>
+      </div> -->
+
+      <div class="focus-text">
+        {{ breath }}
+      </div>
+    </ion-card>
   </div>
-  <div class="footer">
+  
+  <!-- <div class="footer">
     <p>{{ breath.FOQUE_RESPIRACAO }}</p>
-  </div>
+  </div> -->
 
 </ion-content>

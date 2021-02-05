@@ -87,7 +87,9 @@
         "IMG_FUNDO_HOME": "Home background image"
     },
     "BREATH": {
-        "FOQUE_RESPIRACAO": "Focus on your breath"
+        "FOQUE_RESPIRACAO": "Focus on your breath",
+        "INSPIRE": "Inhale",
+        "EXPIRE": "Exhale"
     },
     "FRASES": [
         {

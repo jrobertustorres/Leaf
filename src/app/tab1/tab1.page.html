@@ -11,8 +11,9 @@
     [ngClass]="(scrollDepthTriggered == true)?'nav-colored':'nav-transparent'">
 
     <div class="control">
+
       <div class="img-style" 
-        [ngStyle]="{'background-image': 'url(  https://media.giphy.com/media/ToMjGpQe9iCuexMtEg8/source.gif  )'}"
+        [ngStyle]="{'background-image': 'url(' + backgroundImage + ')'}"
         [ngClass]="(scrollDepthTriggered == true)?'hide-img':'show-img'"
         >
       </div>
@@ -21,8 +22,7 @@
   <div id="navi" >
 
     <ion-card class="card-style" (click)="openMusic('breath')">
-      <img src="assets/imgs/meditar.jpg" class="img-card-style"/>
-      <!-- <div class="card-subtitle">{{ labelRespire }}</div> -->
+      <img src="assets/imgs/respire.jpg" class="img-card-style"/>
       <div class="card-subtitle">{{ home.RESPIRE }}</div>
     </ion-card>
 
@@ -37,7 +37,7 @@
     </ion-card>
 
     <ion-card class="card-style" (click)="openMusic('passaros')">
-      <img src="assets/imgs/bird.jpg" class="img-card-style"/>
+      <img src="assets/imgs/birds4.jpg" class="img-card-style"/>
       <div class="card-subtitle">{{ home.PASSAROS }}</div>
     </ion-card>
 
@@ -50,9 +50,14 @@
       <img src="assets/imgs/vento.jpg" class="img-card-style"/>
       <div class="card-subtitle">{{ home.VENTO }}</div>
     </ion-card>
-    <ion-card class="card-fake-style">
+    
+    <ion-card class="card-style" (click)="openParaVocePage()">
+      <img src="assets/imgs/para-voce2.jpg" class="img-card-style"/>
+      <div class="card-subtitle">Para você</div>
     </ion-card>
 
+    <ion-card class="card-fake-style">
+    </ion-card>
 
   </div>
 

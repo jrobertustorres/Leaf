@@ -15,7 +15,6 @@ ion-content {
 
 .img-style {
   --background: none;
-  // background-position: center top;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -41,18 +40,6 @@ ion-content {
   filter: alpha(opacity=100);
   opacity: 1;
   z-index: 2;
-}
-
-video {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -100;
-  transform: translateX(-50%) translateY(-50%);
 }
 
 .nav-colored { 
@@ -81,7 +68,7 @@ video {
   height: 100%;
   position: relative;
   left: 0;
-  z-index: 2;
+  // z-index: 2;
 
   margin-top: 25%;
 }
@@ -629,58 +616,6 @@ h1 {
   text-shadow: 2px 2px #333;
 }
 
-
-// animação da respiração
-.anim-circle-home {
-  color: transparent;
-  position: absolute;
-  // top: -28%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: rgba(188, 237, 243, 0.889);
-  animation: breathe-home 7s linear infinite;
-  margin-top: 70px;
-}
-@keyframes breathe-home {
-  0% {
-    box-shadow: 0 0 0 5px rgba(188, 237, 243, 0.3), 0 0 0 10px rgba(188, 237, 243, 0.3), 0 0 0 15px rgba(188, 237, 243, 0.3), 0 0 0 20px rgba(188, 237, 243, 0.3), 0 0 0 25px rgba(188, 237, 243, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 0 10px rgba(188, 237, 243, 0.3), 0 0 0 20px rgba(188, 237, 243, 0.3), 0 0 0 30px rgba(188, 237, 243, 0.3), 0 0 0 35px rgba(188, 237, 243, 0.3), 0 0 0 40px rgba(188, 237, 243, 0.3);
-  }
-  100% {
-    box-shadow: 0 0 0 5px rgba(188, 237, 243, 0.3), 0 0 0 10px rgba(188, 237, 243, 0.3), 0 0 0 15px rgba(188, 237, 243, 0.3), 0 0 0 20px rgba(188, 237, 243, 0.3), 0 0 0 25px rgba(188, 237, 243, 0.3);
-  }
-}
-// animação da respiração
-.anim-circle {
-  color: transparent;
-  position: absolute;
-  // top: -28%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: rgba(188, 237, 243, 0.889);
-  animation: breathe 7s linear infinite;
-}
-@keyframes breathe {
-  0% {
- box-shadow: 0 0 0 15px rgba(188, 237, 243, 0.3), 0 0 0 30px rgba(188, 237, 243, 0.3), 0 0 0 45px rgba(188, 237, 243, 0.3), 0 0 0 60px rgba(188, 237, 243, 0.3), 0 0 0 75px rgba(188, 237, 243, 0.3);
-  }
-  50% {
- box-shadow: 0 0 0 25px rgba(188, 237, 243, 0.3), 0 0 0 50px rgba(188, 237, 243, 0.3), 0 0 0 75px rgba(188, 237, 243, 0.3), 0 0 0 100px rgba(188, 237, 243, 0.3), 0 0 0 125px rgba(188, 237, 243, 0.3);
-  }
-  100% {
- box-shadow: 0 0 0 15px rgba(188, 237, 243, 0.3), 0 0 0 30px rgba(188, 237, 243, 0.3), 0 0 0 45px rgba(188, 237, 243, 0.3), 0 0 0 60px rgba(188, 237, 243, 0.3), 0 0 0 75px rgba(188, 237, 243, 0.3);
-  }
- }
-
-
 .capa-imagem{
   height: 300px;
   width: 300px;
@@ -729,6 +664,6 @@ h1 {
 .icon-sound-style {
   float: right;
   padding: 20px;
-  height: 60px;
+  // height: 60px;
   font-size: 30px;
 }

@@ -251,11 +251,8 @@ export class MusicPlayerService {
             {
               id: 1,
               name: this.accessi18nData['TABS']['NOME_SOM_CHUVA']['CHUVA_TROVOADAS'],
-              // labelName: this.selectedSound[0]['labelName'] ? this.selectedSound[0]['labelName'] : this.accessi18nData['TABS']['CHUVA_TROVOADAS'],
               labelName: this.accessi18nData['TABS']['CHUVA_TROVOADAS'],
-              // path: 'https://www.dropbox.com/s/x57qdwgmi2fbn71/chuva-trovoadas.mp3?dl=0',
               path: 'assets/sons/chuva/mp3/chuva-trovoadas.webm',
-              // path: 'https://drive.google.com/uc?id=1f4M15doUW-RQCONFGMYM8IXME7NNi23I',
               pathImage: 'https://media.giphy.com/media/P0ar8pIucRwje/giphy.gif',
               porcentagemProgresso: '',
               totalSoundDuration: '',
@@ -272,11 +269,8 @@ export class MusicPlayerService {
             {
               id: 2,
               name: this.accessi18nData['TABS']['NOME_SOM_CHUVA']['CHUVA_CALMA'],
-              // labelName: this.selectedSound[0]['CHUVA_CALMA'],
               labelName: this.accessi18nData['TABS']['CHUVA_CALMA'],
-              // labelName: this.selectedSound[0]['labelName'],
               path: 'assets/sons/chuva/mp3/chuva-calma.webm',
-              // path: 'https://drive.google.com/uc?id=1Ihx0VUdKin8XIIndA5fBE40ypZx-OZHv',
               pathImage: 'https://media.giphy.com/media/5torEEM8QnR95Cqg11/giphy.gif',
               porcentagemProgresso: '',
               totalSoundDuration: '',
@@ -294,7 +288,6 @@ export class MusicPlayerService {
               id: 1,
               name: this.accessi18nData['TABS']['NOME_SOM_PASSAROS']['PASSAROS_LAGO'],
               labelName: this.accessi18nData['TABS']['PASSAROS_LAGO'],
-              // path: 'https://drive.google.com/uc?id=1D-e_NfVmC7Qcg8UpPvpgUW23dYByERJ0',
               path: 'assets/sons/passaros/mp3/passaros1.webm',
               pathImage: 'https://media.giphy.com/media/SzUtv3rO40xhu/giphy.gif',
               porcentagemProgresso: '',
@@ -313,7 +306,6 @@ export class MusicPlayerService {
               id: 1,
               name: this.accessi18nData['TABS']['NOME_SOM_PASSAROS']['PASSAROS_FLORESTA'],
               labelName: this.accessi18nData['TABS']['PASSAROS_FLORESTA'],
-              // path: 'https://drive.google.com/uc?id=1ZjGMBwJDUE-cdU3OdK0hs-rLguHfBp4P',
               path: 'assets/sons/passaros/mp3/passaros2.webm',
               pathImage: 'https://media.giphy.com/media/YB5Wcg2zQWSDC/giphy.gif',
               porcentagemProgresso: '',
@@ -332,7 +324,6 @@ export class MusicPlayerService {
               id: 1,
               name: this.accessi18nData['TABS']['NOME_SOM_FOGO']['FOGUEIRA'],
               labelName: this.accessi18nData['TABS']['FOGUEIRA'],
-              // path: 'https://drive.google.com/uc?id=17kvbKQblVkXXbdSZJIuNkb_fpz7hBOvL',
               path: 'assets/sons/fogo/mp3/fogueira.webm',
               pathImage: 'https://media.giphy.com/media/7BsBA553QcgiA/giphy.gif',
               porcentagemProgresso: '',
@@ -351,7 +342,6 @@ export class MusicPlayerService {
               id: 1,
               name: this.accessi18nData['TABS']['NOME_SOM_VENTO']['VENTANIA_NO_CAMPO'],
               labelName: this.accessi18nData['TABS']['VENTANIA_NO_CAMPO'],
-              // path: 'https://drive.google.com/uc?id=15FWKFey__IR_SxA5LGg7Wvn9KnO8MsJA',
               path: 'assets/sons/vento/mp3/ventania.webm',
               pathImage: 'https://media.giphy.com/media/clzp5RgHabMagyQIG9/giphy.gif',
               porcentagemProgresso: '',
@@ -370,7 +360,6 @@ export class MusicPlayerService {
               id: 1,
               name: this.accessi18nData['TABS']['NOME_SOM_VENTO']['FLORESTA_CONGELADA'],
               labelName: this.accessi18nData['TABS']['FLORESTA_CONGELADA'],
-              // path: 'https://drive.google.com/uc?&id=1Idf5ozJaEcPsFVNkC9duKZOtZ9q8cpBx',
               path: 'assets/sons/vento/mp3/floresta-congelada.webm',
               pathImage: 'https://media.giphy.com/media/xfa1GclK0WaOc/giphy.gif',
               porcentagemProgresso: '',
@@ -389,7 +378,6 @@ export class MusicPlayerService {
               id: 1,
               name: this.accessi18nData['TABS']['NOME_SOM_SYNTHWAVE']['RETRO1'],
               labelName: this.accessi18nData['TABS']['RETRO1'],
-              // path: 'https://drive.google.com/uc?id=1X9ALhoZzM2NqxhUF--LllZVtZY69D-vr',
               path: 'assets/sons/synthwave/mp3/retro-lsd.webm',
               pathImage: 'https://media.giphy.com/media/wKnqovL33x9in9ci6X/giphy.gif',
               porcentagemProgresso: '',
@@ -408,7 +396,6 @@ export class MusicPlayerService {
               id: 1,
               name: this.accessi18nData['TABS']['NOME_SOM_SYNTHWAVE']['RETRO2'],
               labelName: this.accessi18nData['TABS']['RETRO2'],
-              // path: 'https://drive.google.com/uc?id=1VPtH5KcM16pzH5g6lFtR2RdWjyc_bV5A',
               path: 'assets/sons/synthwave/mp3/cyber-edge.webm',
               pathImage: 'https://media.giphy.com/media/dsd7XbYg0e6hG0A7i8/giphy.gif',
               porcentagemProgresso: '',
@@ -427,8 +414,6 @@ export class MusicPlayerService {
               id: 1,
               name: this.accessi18nData['TABS']['NOME_SOM_ENERGIA_POSITIVA']['FREQUENCIA_RECONEXAO'],
               labelName: this.accessi18nData['TABS']['FREQUENCIA_RECONEXAO'],
-              // path: 'https://drive.google.com/uc?id=13WO5j_bFIKCQqM6Ppa9prhnL1lS1kw8y',
-              // pathImage: 'https://media.giphy.com/media/xT0xetq8fErCoByquk/giphy.gif',
               path: 'assets/sons/energia/mp3/reconexao-com-a-fonte.webm',
               pathImage: 'https://media.giphy.com/media/RGLkqjTQ7ehZS/giphy.gif',
               porcentagemProgresso: '',
@@ -448,8 +433,6 @@ export class MusicPlayerService {
               name: this.accessi18nData['TABS']['NOME_SOM_ENERGIA_POSITIVA']['FREQUENCIA_432'],
               labelName: this.accessi18nData['TABS']['FREQUENCIA_432'],
               path: 'assets/sons/energia/mp3/frequencia-de-432-hz.webm',
-              // path: 'https://drive.google.com/uc?id=1x_F-5o9HlwBORcdYeMcULFscTrv7X0AR',
-              // path: 'https://drive.google.com/uc?export=download&id=1x_F-5o9HlwBORcdYeMcULFscTrv7X0AR',
               pathImage: 'https://media.giphy.com/media/xUA7b5B6G21I3uKNDW/giphy.gif',
               porcentagemProgresso: '',
               totalSoundDuration: '',
@@ -461,19 +444,19 @@ export class MusicPlayerService {
           ];
           break; 
         } 
-        case 'binaural': {
+        case 'som-binaural-20-hz': {
           this.selectedSound = [
             {
               id: 1,
               name: this.accessi18nData['TABS']['NOME_SOM_BINAURAL']['BINAURAL_20_HZ'],
               labelName: this.accessi18nData['TABS']['BINAURAL_20_HZ'],
-              path: 'assets/sons/binaural/mp3/son-binaural-20-hz.webm',
-              pathImage: 'https://media.giphy.com/media/USs6qiFW1j8AGoRJxO/source.gif',
+              path: 'assets/sons/binaural/mp3/som-binaural-20-hz.webm',
+              pathImage: 'assets/sons/binaural/imgs/binaural.gif',
               porcentagemProgresso: '',
               totalSoundDuration: '',
               categoria: 'SONS_BINAURAIS',
               labelCategoria: this.accessi18nData['TABS']['SONS_BINAURAIS'],
-              soundValue: 'binaural',
+              soundValue: 'som-binaural-20-hz',
               isPlaying: this.isPlaying
             }
           ];

@@ -7,9 +7,6 @@ import { TranslateConfigService } from '../services/translate-config.service';
 import { HttpClient } from '@angular/common/http';
 import { EventService } from '../../utilitarios/EventService';
 
-// import { AdmobService } from '../services/admob.service';
-// import { AdMobFree, AdMobFreeBannerConfig,AdMobFreeInterstitialConfig,AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
-
 import { BreathPage } from '../breath/breath.page';
 
 @Component({
@@ -23,9 +20,10 @@ export class Tab1Page {
   labelButton: string = '';
   // agora: number;
   // mesAtual: string;
-  // backgroundImage: string = '';
+  backgroundImage: string = '';
   // dia: boolean = true;
   saudacao: string = '';
+  homeSound: any;
 
   selectedLanguage: string;
   private accessi18nData: any;
@@ -86,7 +84,7 @@ export class Tab1Page {
     // interval(10 * 60).subscribe(x => {
     //   // this.getTime();
     //   // this.getDate();
-    // this.changeBackground();      
+    this.changeBackground();      
     // });
 
     // localStorage.removeItem('DIA_DA_SEMANA');
@@ -132,7 +130,7 @@ export class Tab1Page {
     }
 
     this.player = new Howl({
-      src: ['assets/sons/passaros/mp3/passaros1.webm'],
+      src: [this.homeSound],
       html5: true,
       loop: true,
       onload: () => {
@@ -260,6 +258,10 @@ export class Tab1Page {
     }
   }
 
+  openParaVocePage() {
+    this.navCtrl.navigateRoot('/tabs/para-voce');
+  }
+
   async openBreath() {
 
     const modal = await this.modalCtrl.create({
@@ -279,15 +281,24 @@ export class Tab1Page {
   //   this.mesAtual = nomeMeses[(new Date()).getMonth()];
   // }
 
-  // changeBackground() {
-  //   // if(new Date().getHours() >= 6 && new Date().getHours() < 18) {
-  //   if(new Date().getHours() >= 6 && new Date().getHours() < 12) {
-      
-  //   } else if(new Date().getHours() >= 12 && new Date().getHours() < 18) {
-  //     // this.backgroundImage = 'https://media.giphy.com/media/dMAg2noNzwWmQ/giphy.gif'; // praia
-  //   } else {
-  //     // this.backgroundImage = 'https://media.giphy.com/media/kkNme30oTB5Wo/giphy.gif'; // fogueira de noite na praia
-  //   }
-  // }
+  changeBackground() {
+    // if(new Date().getHours() >= 6 && new Date().getHours() < 18) {
+    if(new Date().getHours() >= 6 && new Date().getHours() < 12) {
+      // this.backgroundImage = 'https://cdn.pixabay.com/photo/2013/11/28/10/03/autumn-219972_960_720.jpg'; // lago
+      // this.backgroundImage = 'https://cdn.pixabay.com/photo/2016/11/18/17/00/clouds-1835815_960_720.jpg'; // montanha
+      this.backgroundImage = 'assets/imgs/home2.jpg'; // montanha
+      // this.backgroundImage = 'https://cdn.pixabay.com/photo/2016/09/19/07/01/lake-1679708_640.jpg'; // montanha
+      this.homeSound = 'assets/sons/passaros/mp3/passaros1.webm';
+    } else if(new Date().getHours() >= 12 && new Date().getHours() < 18) {
+      this.backgroundImage = 'assets/imgs/home2.jpg'; // montanha
+      // this.backgroundImage = 'https://cdn.pixabay.com/photo/2013/11/28/10/03/autumn-219972_960_720.jpg'; // lago
+      this.homeSound = 'assets/sons/passaros/mp3/passaros1.webm';
+    } else {
+      // this.backgroundImage = 'https://cdn.pixabay.com/photo/2019/06/07/13/11/landscape-4258253_960_720.jpg'; // desenho
+      // this.backgroundImage = 'https://media.giphy.com/media/ToMjGpQe9iCuexMtEg8/source.gif'; // gif folha
+      this.backgroundImage = 'https://i.gifer.com/3lFW.gif'; // lua no lago
+      this.homeSound = 'assets/sons/home/mp3/crickets2.webm';
+    }
+  }
 
 }

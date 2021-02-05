@@ -112,7 +112,8 @@
   height: var(--height);
   min-height: var(--min-height);
   max-height: var(--max-height);
-  background: #007988;
+  // background: #007988;
+  background: linear-gradient(to top, #060606, #007988);
   contain: content;
   opacity: 0;
   z-index: 10;

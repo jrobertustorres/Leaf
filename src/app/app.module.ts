@@ -20,12 +20,14 @@ import { Network } from '@ionic-native/network/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { AppRate } from '@ionic-native/app-rate/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-// import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
+// import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
+import { FirebaseX } from "@ionic-native/firebase-x/ngx";
 
 //IMPORT ADMOB FREE
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
@@ -64,7 +66,9 @@ export function LanguageLoader(http: HttpClient) {
     Device,
     AppRate,
     // FCM,
+    FirebaseX,
     AdMobFree,
+    InAppBrowser,
     // AdmobService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
