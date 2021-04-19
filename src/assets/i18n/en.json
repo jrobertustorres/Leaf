@@ -3,18 +3,22 @@
     "TITLE_SOCIAL_SHARING": "Hello, I'm really enjoying Leaf - Sons to relax and sleep. Join us! :)",
     "SUBJECT_LEAF": "Leaf - Sounds to sleep Feedback",
     "TITLE_INFO_SISTEMA": "System information",
+    "REPETIR_ATIVADO": "Retry on",
+    "REPETIR_DESATIVADO": "Retry off",
     "HOME": {
         "RESPIRE": "Breathe",
         "CHUVA": "Rain",
         "PASSAROS": "Birds",
         "FOGO": "Fire",
         "VENTO": "Wind",
+        "ENERGIA": "Positive Energy",
         "TODOS_SONS": "All sounds",
         "BTN_LIGAR": "Turn On",
         "BTN_DESLIGAR": "Turn Off",
         "MSG_ALERT": "Home sound on/off",
         "BTN_CANCELAR": "Cancel",
-        "LABEL_SON_HOME": "Home Sound"
+        "LABEL_SON_HOME": "Home Sound",
+        "PARA_VOCE": "For you"
     },
     "TABS": {
         "CATEGORIA": {
@@ -75,6 +79,7 @@
         "ENERGIA_POSITIVA": "Positive Energy",
         "FREQUENCIA_RECONEXAO": "Frequency of Reconnection with the Creative Source",
         "FREQUENCIA_432": "Positive energy - 432 Hz frequency",
+        "SONS_BINAURAIS": "Binaural Sounds",
         "BINAURAL_20_HZ": "Binaural Beta 20 Hz"
     },
     "TAB3": {
@@ -87,7 +92,9 @@
         "IMG_FUNDO_HOME": "Home background image"
     },
     "BREATH": {
-        "FOQUE_RESPIRACAO": "Focus on your breath"
+        "FOQUE_RESPIRACAO": "Focus on your breath",
+        "INSPIRE": "Inhale",
+        "EXPIRE": "Exhale"
     },
     "FRASES": [
         {

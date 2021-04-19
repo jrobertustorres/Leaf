@@ -1,0 +1,190 @@
+[{
+	"id":1,
+	"name":"this.accessi18nData['TABS']['NOME_SOM_CHUVA']['CHUVA_TROVOADAS']",
+	"labelName":"TABS.CHUVA_TROVOADAS",
+	"path":"https://repositoriocalm.s3.amazonaws.com/mp3/chuva-trovoadas.webm",
+	"pathImage":"https://repositoriocalm.s3.amazonaws.com/gifs/mar.gif",
+	"porcentagemProgresso":"",
+	"totalSoundDuration":"",
+	"categoria":"CHUVA",
+	"labelCategoria":"TABS.CHUVA_LOWERCASE",
+	"soundValue":"chuva-trovao",
+	"isPlaying":"this.isPlaying"
+},
+{
+	"id":2,
+	"name":"this.accessi18nData['TABS']['NOME_SOM_CHUVA']['CHUVA_CALMA']",
+	"labelName":"TABS.CHUVA_CALMA",
+	"path":"https://repositoriocalm.s3.amazonaws.com/mp3/chuva-calma.webm",
+	"pathImage":"https://repositoriocalm.s3.amazonaws.com/gifs/chuva_calma.webp",
+	"porcentagemProgresso":"",
+	"totalSoundDuration":"",
+	"categoria":"CHUVA",
+	"labelCategoria":"TABS.CHUVA_LOWERCASE",
+	"soundValue":"chuva-calma",
+	"isPlaying":"this.isPlaying"
+},
+{
+	"id": 3,
+	"name":"this.accessi18nData['TABS']['NOME_SOM_PASSAROS']['PASSAROS_LAGO']",
+	"labelName":"TABS.PASSAROS_LAGO",
+	"path":"https://repositoriocalm.s3.amazonaws.com/mp3/passaros1.webm",
+	"pathImage":"https://repositoriocalm.s3.amazonaws.com/gifs/ceu.gif",
+	"porcentagemProgresso":"",
+	"totalSoundDuration":"",
+	"categoria":"PASSAROS",
+	"labelCategoria":"TABS.PASSAROS_LOWERCASE",
+	"soundValue":"passaros",
+	"isPlaying":"this.isPlaying"
+},
+{
+	"id": 4,
+	"name":"this.accessi18nData['TABS']['NOME_SOM_PASSAROS']['PASSAROS_FLORESTA']",
+	"labelName":"TABS.PASSAROS_FLORESTA",
+	"path":"https://repositoriocalm.s3.amazonaws.com/mp3/passaros2.webm",
+	"pathImage":"https://repositoriocalm.s3.amazonaws.com/gifs/floresta_lago.gif",
+	"porcentagemProgresso":"",
+	"totalSoundDuration":"",
+	"categoria":"PASSAROS",
+	"labelCategoria":"TABS.PASSAROS_LOWERCASE",
+	"soundValue":"passaros2",
+	"isPlaying":"this.isPlaying"
+},
+{
+	"id": 5,
+	"name":"1this.accessi18nData['TABS']['NOME_SOM_FOGO']['FOGUEIRA']",
+	"labelName":"TABS.FOGUEIRA",
+	"path":"https://repositoriocalm.s3.amazonaws.com/mp3/fogueira.webm",
+	"pathImage":"https://repositoriocalm.s3.amazonaws.com/gifs/fogueira.gif",
+	"porcentagemProgresso":"",
+	"totalSoundDuration":"",
+	"categoria":"FOGO",
+	"labelCategoria":"TABS.FOGO",
+	"soundValue":"fogueira",
+	"isPlaying":"this.isPlaying"
+},
+{
+	"id": 6,
+	"name":"this.accessi18nData['TABS']['NOME_SOM_VENTO']['VENTANIA_NO_CAMPO']",
+	"labelName":"TABS.VENTANIA_NO_CAMPO",
+	"path":"https://repositoriocalm.s3.amazonaws.com/mp3/ventania.webm",
+	"pathImage":"https://repositoriocalm.s3.amazonaws.com/gifs/nevoa.gif",
+	"porcentagemProgresso":"",
+	"totalSoundDuration":"",
+	"categoria":"VENTO",
+	"labelCategoria":"TABS.VENTO",
+	"soundValue":"ventania",
+	"isPlaying":"this.isPlaying"
+},
+{
+	"id": 7,
+	"name":"this.accessi18nData['TABS']['NOME_SOM_VENTO']['FLORESTA_CONGELADA']",
+	"labelName":"TABS.FLORESTA_CONGELADA",
+	"path":"https://repositoriocalm.s3.amazonaws.com/mp3/floresta-congelada.webm",
+	"pathImage":"https://repositoriocalm.s3.amazonaws.com/gifs/neve.gif",
+	"porcentagemProgresso":"",
+	"totalSoundDuration":"",
+	"categoria":"VENTO",
+	"labelCategoria":"TABS.VENTO",
+	"soundValue":"floresta-congelada",
+	"isPlaying":"this.isPlaying"
+},
+{
+	"id": 8,
+	"name":"this.accessi18nData['TABS']['NOME_SOM_SYNTHWAVE']['RETRO1']",
+	"labelName":"TABS.RETRO1",
+	"path":"https://repositoriocalm.s3.amazonaws.com/mp3/retro-lsd.webm",
+	"pathImage":"https://repositoriocalm.s3.amazonaws.com/gifs/carro_correndo.webp",
+	"porcentagemProgresso":"",
+	"totalSoundDuration":"",
+	"categoria":"SYNTHWAVE",
+	"labelCategoria":"TABS.SYNTHWAVE",
+	"soundValue":"retro1",
+	"isPlaying":"this.isPlaying"
+},
+{
+	"id": 9,
+	"name":"this.accessi18nData['TABS']['NOME_SOM_SYNTHWAVE']['RETRO2']",
+	"labelName":"TABS.RETRO2",
+	"path":"https://repositoriocalm.s3.amazonaws.com/mp3/cyber-edge.webm",
+	"pathImage":"https://repositoriocalm.s3.amazonaws.com/gifs/carro_cidade.gif",
+	"porcentagemProgresso":"",
+	"totalSoundDuration":"",
+	"categoria":"SYNTHWAVE",
+	"labelCategoria":"TABS.SYNTHWAVE",
+	"soundValue":"retro2",
+	"isPlaying":"this.isPlaying"
+},
+{
+	"id": 10,
+	"name":"this.accessi18nData['TABS']['NOME_SOM_ENERGIA_POSITIVA']['FREQUENCIA_RECONEXAO']",
+	"labelName":"TABS.FREQUENCIA_RECONEXAO",
+	"path":"https://repositoriocalm.s3.amazonaws.com/mp3/reconexao-com-a-fonte.webm",
+	"pathImage":"https://repositoriocalm.s3.amazonaws.com/gifs/cachoeira.gif",
+	"porcentagemProgresso":"",
+	"totalSoundDuration":"",
+	"categoria":"ENERGIA_POSITIVA",
+	"labelCategoria":"TABS.ENERGIA_POSITIVA",
+	"soundValue":"frequencia-reconexao",
+	"isPlaying":"this.isPlaying"
+},
+{
+	"id": 11,
+	"name":"this.accessi18nData['TABS']['NOME_SOM_ENERGIA_POSITIVA']['FREQUENCIA_432']",
+	"labelName":"TABS.FREQUENCIA_432",
+	"path":"https://repositoriocalm.s3.amazonaws.com/mp3/frequencia-de-432-hz.webm",
+	"pathImage":"https://repositoriocalm.s3.amazonaws.com/gifs/floresta.gif",
+	"porcentagemProgresso":"",
+	"totalSoundDuration":"",
+	"categoria":"ENERGIA_POSITIVA",
+	"labelCategoria":"TABS.ENERGIA_POSITIVA",
+	"soundValue":"energia-positiva-frequencia-de-432-hz",
+	"isPlaying":"this.isPlaying"
+},
+{
+	"id": 12,
+	"name":"this.accessi18nData['TABS']['NOME_SOM_BINAURAL']['BINAURAL_20_HZ']",
+	"labelName":"TABS.BINAURAL_20_HZ",
+	"path":"https://repositoriocalm.s3.amazonaws.com/mp3/som-binaural-20-hz.webm",
+	"pathImage":"https://repositoriocalm.s3.amazonaws.com/gifs/binaural.gif",
+	"porcentagemProgresso":"",
+	"totalSoundDuration":"",
+	"categoria":"SONS_BINAURAIS",
+	"labelCategoria":"TABS.SONS_BINAURAIS",
+	"soundValue":"som-binaural-20-hz",
+	"isPlaying":"this.isPlaying"
+},
+{
+	"HOME": {
+		"CRICKETS":{
+			"id": 13,
+			"name":"this.accessi18nData['TABS']['NOME_SOM_BINAURAL']['BINAURAL_20_HZ']",
+			"labelName":"TABS.BINAURAL_20_HZ",
+			"path":"https://repositoriocalm.s3.amazonaws.com/mp3/crickets2.webm",
+			"pathImage":"https://repositoriocalm.s3.amazonaws.com/gifs/binaural.gif",
+			"porcentagemProgresso":"",
+			"totalSoundDuration":"",
+			"categoria":"SONS_BINAURAIS",
+			"labelCategoria":"TABS.SONS_BINAURAIS",
+			"soundValue":"som-binaural-20-hz",
+			"isPlaying":"this.isPlaying"
+		}
+	},
+	"MEDITATION": {
+		"NIRVANA-MEDITATION": {
+			"id": 14,
+			"name":"",
+			"labelName":"",
+			"path":"https://repositoriocalm.s3.amazonaws.com/mp3/nirvana-meditation.webm",
+			"pathImage":"",
+			"porcentagemProgresso":"",
+			"totalSoundDuration":"",
+			"categoria":"",
+			"labelCategoria":"",
+			"soundValue":"",
+			"isPlaying":"this.isPlaying"
+		}
+	}
+}
+
+]

@@ -13,7 +13,12 @@
       <ion-label>{{ 'TABS.TODOS' | translate }}</ion-label>
     </ion-segment-button>
 
-    <ion-segment-button value="chuva">
+    <ion-segment-button *ngFor="let segment of uniqueObjectSound" value="{{ segment.categoria }}">
+      <ion-label>{{ segment.labelCategoria | translate }}</ion-label>
+    </ion-segment-button>
+
+
+    <!-- <ion-segment-button value="chuva">
       <ion-label>{{ 'TABS.CATEGORIA.CHUVA' | translate }}</ion-label>
     </ion-segment-button>
 
@@ -39,13 +44,22 @@
 
     <ion-segment-button value="synthwave">
       <ion-label>{{ 'TABS.CATEGORIA.SYNTHWAVE' | translate }}</ion-label>
-    </ion-segment-button>  
+    </ion-segment-button>   -->
 
   </ion-segment>
 
   <ion-grid *ngIf="segmentModel === 'all'">
 
     <ion-row>
+      <ion-col size="6" *ngFor="let item of objectSound">
+        <div (click)="openMusicPlayer(item.soundValue)">
+          <img src="{{item.pathImage}}" class="thumbnail-card-style"/>
+          <div class="title-style">{{ item.labelName | translate }}</div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row>
       <ion-col col-6>
         <div (click)="openMusicPlayer('chuva-trovao', 1)">
           <img src="https://media.giphy.com/media/P0ar8pIucRwje/giphy.gif" class="thumbnail-card-style"/>
@@ -91,7 +105,6 @@
     <ion-row>
       <ion-col col-6>
         <div (click)="openMusicPlayer('frequencia-reconexao', 7)">
-          <!-- <img src="https://media.giphy.com/media/xT0xetq8fErCoByquk/giphy.gif" class="thumbnail-card-style"/> -->
           <img src="https://media.giphy.com/media/RGLkqjTQ7ehZS/giphy.gif" class="thumbnail-card-style"/>
           <div class="title-style">{{ 'TABS.FREQUENCIA_RECONEXAO' | translate }}</div>
         </div>
@@ -112,8 +125,8 @@
         </div>
       </ion-col>
       <ion-col col-6>
-        <div (click)="openMusicPlayer('binaural', 12)">
-          <img src="https://media.giphy.com/media/USs6qiFW1j8AGoRJxO/source.gif" class="thumbnail-card-style"/>
+        <div (click)="openMusicPlayer('som-binaural-20-hz', 12)">
+          <img src="assets/sons/binaural/imgs/binaural.gif" class="thumbnail-card-style"/>
           <div class="title-style">{{ 'TABS.BINAURAL_20_HZ' | translate }}</div>
         </div>
       </ion-col>
@@ -132,10 +145,36 @@
           <div class="title-style">{{ 'TABS.RETRO2' | translate }}</div>
         </div>
       </ion-col>
+    </ion-row> -->
+  </ion-grid>
+
+
+  <!-- <ion-grid *ngIf="segmentModel === 'all'">
+
+    <ion-row>
+      <ion-col size="6" *ngFor="let item of objectSound">
+        <div (click)="openMusicPlayer(item.soundValue)">
+          <img src="{{item.pathImage}}" class="thumbnail-card-style"/>
+          <div class="title-style">{{ item.labelName | translate }}</div>
+        </div>
+      </ion-col>
+    </ion-row> -->
+
+
+  <ion-grid  >
+    <ion-row >
+      <ion-col size="6" *ngFor="let i of objectSound">
+        <div *ngIf="segmentModel === i.categoria" (click)="openMusicPlayer(i.soundValue)">
+          <img src="{{i.pathImage}}" class="thumbnail-card-style"/>
+          <div class="title-style">{{ i.labelName | translate }}</div>
+        </div>
+      </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-grid *ngIf="segmentModel === 'chuva'">
+
+
+  <!-- <ion-grid *ngIf="segmentModel === 'CHUVA'">
     <ion-row>
       <ion-col col-6>
         <div (click)="openMusicPlayer('chuva-trovao', 1)">
@@ -150,9 +189,9 @@
         </div>
       </ion-col>
     </ion-row>
-
   </ion-grid>
-  <ion-grid *ngIf="segmentModel === 'passaros'">
+
+  <ion-grid *ngIf="segmentModel === 'PASSAROS'">
     <ion-row>
       <ion-col col-6>
         <div (click)="openMusicPlayer('passaros', 3)">
@@ -219,8 +258,8 @@
   <ion-grid *ngIf="segmentModel === 'binaural'">
     <ion-row>
       <ion-col col-6>
-        <div (click)="openMusicPlayer('binaural', 12)">
-          <img src="https://media.giphy.com/media/USs6qiFW1j8AGoRJxO/source.gif" class="thumbnail-card-style"/>
+        <div (click)="openMusicPlayer('som-binaural-20-hz', 12)">
+          <img src="assets/sons/binaural/imgs/binaural.gif" class="thumbnail-card-style"/>
           <div class="title-style">{{ 'TABS.BINAURAL_20_HZ' | translate }}</div>
         </div>
       </ion-col>
@@ -244,6 +283,6 @@
         </div>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 </div>
 </ion-content>

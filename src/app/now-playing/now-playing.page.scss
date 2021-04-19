@@ -16,6 +16,15 @@
   font-weight: 700;
   letter-spacing: -0.5px;
   margin-bottom: 4px;
+
+  color: #fff; 
+  // text-shadow: 2px 2px #333;
+  
+}
+
+.artist-name {
+  color: #fff; 
+  // text-shadow: 2px 2px #333;
 }
 
 .song-timeline {
@@ -82,7 +91,8 @@ ion-content {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  opacity: 0.6;
+  // opacity: 0.6;
+  -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0.5)));
 }
 
 .control {
@@ -107,4 +117,9 @@ ion-content {
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+.name-style {
+  color: #fff; 
+  text-shadow: 2px 2px #333;
 }

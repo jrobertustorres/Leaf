@@ -11,6 +11,7 @@
       --color: #ffffff;
     }
   --ion-color-fab: #007988;
+  // --ion-color-base: #007988;
   /** primary **/
   --ion-color-primari: #003D4A;
   --ion-color-primary: #3880ff;
@@ -313,4 +314,19 @@
   text-align: end;
   text-transform: uppercase;
   overflow: hidden;
+}
+
+.alert-radio-group.sc-ion-alert-md, .alert-checkbox-group.sc-ion-alert-md {
+  position: relative;
+  max-height: 240px;
+  border-top: 0;
+  border-bottom: 0!important;
+  overflow: auto;
+}
+
+[aria-checked=true].sc-ion-alert-md .alert-radio-label.sc-ion-alert-md {
+  color: var(--ion-color-step-850, #ffffff);
+}
+[aria-checked=false].sc-ion-alert-md .alert-radio-label.sc-ion-alert-md {
+  color: var(--ion-color-step-850, #999999);
 }

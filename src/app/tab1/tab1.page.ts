@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { NavController, AlertController, ModalController } from "@ionic/angular";
 import { Router } from '@angular/router';
 import { Howl } from 'howler';
+import { LoadingController } from '@ionic/angular';
 
 import { TranslateConfigService } from '../services/translate-config.service';
 import { HttpClient } from '@angular/common/http';
 import { EventService } from '../../utilitarios/EventService';
-
-// import { AdmobService } from '../services/admob.service';
-// import { AdMobFree, AdMobFreeBannerConfig,AdMobFreeInterstitialConfig,AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
+import { MusicPlayerService } from '../services/music-player.service';
 
 import { BreathPage } from '../breath/breath.page';
 
@@ -23,9 +22,11 @@ export class Tab1Page {
   labelButton: string = '';
   // agora: number;
   // mesAtual: string;
-  // backgroundImage: string = '';
+  backgroundImage: string = '';
   // dia: boolean = true;
   saudacao: string = '';
+  homeSound: any;
+  pathSound: Object = [];
 
   selectedLanguage: string;
   private accessi18nData: any;
@@ -35,47 +36,32 @@ export class Tab1Page {
   autorHoje: string;
   private scrollDepthTriggered = false;
 
-  home = {};
+  // home = {};
+  home: any;
 
   constructor(private translateConfigService: TranslateConfigService,
-              private httpC: HttpClient,
+              private http: HttpClient,
               // private admobService: AdmobService,
               // private admobFree: AdMobFree,
+              private musicService: MusicPlayerService,
               private navCtrl: NavController,
               private router: Router,
               public alertController: AlertController,
               public modalCtrl: ModalController,
+              public loadingController: LoadingController,
               private eventService: EventService) {
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
 
-    this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
-      this.accessi18nData = data;
-      this.home = this.accessi18nData['HOME'];
-    });
+    this.getLanguageDictionary();
+
+    // this.http.get('https://repositoriocalm.s3.amazonaws.com/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
+    // // this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
+    //   this.accessi18nData = data;
+    //   localStorage.setItem('I18N_DICTIONARY', JSON.stringify(this.accessi18nData));
+    //   this.home = this.accessi18nData['HOME'];
+    // });
 
     this.getChangeLanguage();
-  }
-  
-  getChangeLanguage() {
-    this.eventService.getObservableChangeLanguage().subscribe((data) => {
-      this.selectedLanguage = data.selectedLanguage;
-      this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
-        this.accessi18nData = data;
-        this.home = this.accessi18nData['HOME'];
-        // seleciona a frase do dia
-        let arrayHoje = localStorage.getItem('ARRAY_HOJE');
-        
-        for(let i in this.accessi18nData['FRASES']){
-          if(JSON.parse(arrayHoje)[0]['ID'] == this.accessi18nData['FRASES'][i]['ID']) {
-            let frase = [this.accessi18nData['FRASES'][i]];
-            this.fraseHoje = this.accessi18nData['FRASES'][i]['FRASE'];
-            this.autorHoje = this.accessi18nData['FRASES'][i]['AUTOR'];
-            localStorage.setItem('ARRAY_HOJE', JSON.stringify(frase));
-          }
-        }
-
-      });
-    });
   }
 
   ngOnInit() {
@@ -86,7 +72,8 @@ export class Tab1Page {
     // interval(10 * 60).subscribe(x => {
     //   // this.getTime();
     //   // this.getDate();
-    // this.changeBackground();      
+    // this.musicService.getJsonFile();
+    this.changeBackground();      
     // });
 
     // localStorage.removeItem('DIA_DA_SEMANA');
@@ -104,7 +91,7 @@ export class Tab1Page {
   }
 
   ionViewWillEnter() {
-    this.verificaStatusPlayer();
+    // this.verificaStatusPlayer();
   }
 
   ionViewWillLeave() {
@@ -114,6 +101,118 @@ export class Tab1Page {
       this.player.unload();
     }
   }
+
+  getLanguageDictionary() {
+    try {
+      this.loadingDictionary();
+
+      this.translateConfigService.getI18nData(this.selectedLanguage)
+      .then((data) => {
+        this.accessi18nData = data;
+        localStorage.setItem('I18N_DICTIONARY', JSON.stringify(this.accessi18nData));
+        this.home = this.accessi18nData['HOME'];
+        this.getSoundPathJsonFile();
+      }, (err) => {
+        if (err) {
+          this.dictionaryAlert();
+        }
+      });
+
+    }catch (err){
+      if(err instanceof RangeError){
+      }
+      console.log(err);
+    }
+  }
+
+  getSoundPathJsonFile() {
+    try {
+      // this.loadingDictionary();
+
+      this.musicService.getJsonFile()
+      .then((soundData) => {
+        this.pathSound = soundData;
+        localStorage.setItem('PATH_SOUND', JSON.stringify(this.pathSound));
+        this.verificaStatusPlayer();
+      }, (err) => {
+        if(err) {
+          this.soundsAlert();
+        }
+      });
+
+    }catch (err){
+      if(err instanceof RangeError){
+      }
+      console.log(err);
+    }
+  }
+
+  getChangeLanguage() {
+    this.eventService.getObservableChangeLanguage().subscribe((data) => {
+      this.selectedLanguage = data.selectedLanguage;
+      this.getLanguageDictionary();
+    });
+  }
+
+  async soundsAlert() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alert',
+      message: "Couldn't get sound files",
+      buttons: [{
+        text: 'Ok',
+          handler: () => {
+            navigator['app'].exitApp();
+          }
+        }]
+    });
+
+    await alert.present();
+  }
+
+  async dictionaryAlert() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alert',
+      message: "Couldn't get language dictionary",
+      buttons: [{
+      text: 'Ok',
+        handler: () => {
+          navigator['app'].exitApp();
+        }
+      }]
+    });
+
+    await alert.present();
+  }
+  
+  async loadingDictionary() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Loading...',
+      spinner: 'dots',
+      duration: 500
+    });
+    await loading.present();
+
+    if(this.accessi18nData && this.pathSound) {
+      await loading.onDidDismiss();
+    }
+  }
+
+  // fraseDoDia() {
+  //   // seleciona a frase do dia
+  //   let arrayHoje = localStorage.getItem('ARRAY_HOJE');
+    
+  //   for(let i in this.accessi18nData['FRASES']){
+  //     if(JSON.parse(arrayHoje)[0]['ID'] == this.accessi18nData['FRASES'][i]['ID']) {
+  //       let frase = [this.accessi18nData['FRASES'][i]];
+  //       this.fraseHoje = this.accessi18nData['FRASES'][i]['FRASE'];
+  //       this.autorHoje = this.accessi18nData['FRASES'][i]['AUTOR'];
+  //       localStorage.setItem('ARRAY_HOJE', JSON.stringify(frase));
+  //     }
+  //   }
+  // }
 
   verificaStatusPlayer() {
     this.play = JSON.parse(localStorage.getItem('STATUS_PLAYER'));
@@ -132,7 +231,7 @@ export class Tab1Page {
     }
 
     this.player = new Howl({
-      src: ['assets/sons/passaros/mp3/passaros1.webm'],
+      src: [this.homeSound],
       html5: true,
       loop: true,
       onload: () => {
@@ -260,6 +359,10 @@ export class Tab1Page {
     }
   }
 
+  openParaVocePage() {
+    this.navCtrl.navigateRoot('/tabs/para-voce');
+  }
+
   async openBreath() {
 
     const modal = await this.modalCtrl.create({
@@ -279,15 +382,23 @@ export class Tab1Page {
   //   this.mesAtual = nomeMeses[(new Date()).getMonth()];
   // }
 
-  // changeBackground() {
-  //   // if(new Date().getHours() >= 6 && new Date().getHours() < 18) {
-  //   if(new Date().getHours() >= 6 && new Date().getHours() < 12) {
-      
-  //   } else if(new Date().getHours() >= 12 && new Date().getHours() < 18) {
-  //     // this.backgroundImage = 'https://media.giphy.com/media/dMAg2noNzwWmQ/giphy.gif'; // praia
-  //   } else {
-  //     // this.backgroundImage = 'https://media.giphy.com/media/kkNme30oTB5Wo/giphy.gif'; // fogueira de noite na praia
-  //   }
-  // }
+  // melhorar aqui depois, pois se entrar aqui antes de carregar o som, não vai tocar nada.
+  changeBackground() {
+    // if(new Date().getHours() >= 6 && new Date().getHours() < 18) {
+      this.homeSound = JSON.parse(localStorage.getItem('PATH_SOUND'));
+    if(new Date().getHours() >= 6 && new Date().getHours() < 12) {
+      this.backgroundImage = 'assets/imgs/home2.jpg'; // montanha
+      this.homeSound = this.homeSound[2]['path']; //passaros1
+      // this.backgroundImage = 'https://cdn.pixabay.com/photo/2016/09/19/07/01/lake-1679708_640.jpg'; // montanha
+    } else if(new Date().getHours() >= 12 && new Date().getHours() < 18) {
+      this.backgroundImage = 'assets/imgs/home2.jpg'; // montanha
+      this.homeSound = this.homeSound[2]['path']; //passaros1
+      // this.backgroundImage = 'https://cdn.pixabay.com/photo/2013/11/28/10/03/autumn-219972_960_720.jpg'; // lago
+    } else {
+      // this.backgroundImage = 'https://cdn.pixabay.com/photo/2019/06/07/13/11/landscape-4258253_960_720.jpg'; // desenho
+      this.backgroundImage = 'assets/imgs/noite.gif'; // lua no lago
+      this.homeSound = this.homeSound[12]['HOME']['CRICKETS']['path']; //crickets2
+    }
+  }
 
 }

@@ -1,33 +1,84 @@
 ion-content {
-    --background: linear-gradient(to top, #060606, #007988);
+    // --background: linear-gradient(to top, #060606, #007988);
+    --background: none;
+    background-image: url('/assets/imgs/respire2.jpg');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+
+.focus-text {
+    // margin-top: 20%; 
+    font-weight: 600;
+    margin-bottom: 5%;
+}
+
+.card-style {
+    width: 95% !important;
+    background: rgba(0, 121, 136, 0.7);
+    min-height: 14%;
+    border-radius: 15px;
+
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    text-align: center;
+  }
 
 // animação da respiração
 .anim-circle {
     color: transparent;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: rgba(188, 237, 243, 0.889);
-    animation: breathe 9s linear infinite;
+    background: rgba(255,255,255, 0.889);
+    // background: rgba(188, 237, 243, 0.889);
+    animation: breathe 10s linear infinite;
 
     // margin-top: 100%;
 }
+.anim-label {
+    position: absolute;
+    bottom: 12%;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+
+    font-weight: bold;
+    font-size: 43px;
+    letter-spacing: 2px;
+}
+
+.anim-button {
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+    color: #fff;
+    text-align: center; 
+}
 @keyframes breathe {
     0% {
-        box-shadow: 0 0 0 15px rgba(188, 237, 243, 0.3), 0 0 0 30px rgba(188, 237, 243, 0.3), 0 0 0 45px rgba(188, 237, 243, 0.3), 0 0 0 60px rgba(188, 237, 243, 0.3), 0 0 0 75px rgba(188, 237, 243, 0.3);
+        box-shadow: 0 0 0 0px rgba(255,255,255, 0.3), 0 0 0 5px rgba(255,255,255, 0.3), 0 0 0 10px rgba(255,255,255, 0.3), 0 0 0 15px rgba(255,255,255, 0.3), 0 0 0 20px rgba(255,255,255, 0.3);
     }
     50% {
-        box-shadow: 0 0 0 25px rgba(188, 237, 243, 0.3), 0 0 0 50px rgba(188, 237, 243, 0.3), 0 0 0 75px rgba(188, 237, 243, 0.3), 0 0 0 100px rgba(188, 237, 243, 0.3), 0 0 0 125px rgba(188, 237, 243, 0.3);
+        box-shadow: 0 0 0 25px rgba(255,255,255, 0.3), 0 0 0 50px rgba(255,255,255, 0.3), 0 0 0 75px rgba(255,255,255, 0.3), 0 0 0 100px rgba(255,255,255, 0.3), 0 0 0 125px rgba(255,255,255, 0.3);
     }
     100% {
-        box-shadow: 0 0 0 15px rgba(188, 237, 243, 0.3), 0 0 0 30px rgba(188, 237, 243, 0.3), 0 0 0 45px rgba(188, 237, 243, 0.3), 0 0 0 60px rgba(188, 237, 243, 0.3), 0 0 0 75px rgba(188, 237, 243, 0.3);
+        box-shadow: 0 0 0 0px rgba(255,255,255, 0.3), 0 0 0 5px rgba(255,255,255, 0.3), 0 0 0 10px rgba(255,255,255, 0.3), 0 0 0 15px rgba(255,255,255, 0.3), 0 0 0 20px rgba(255,255,255, 0.3);
     }
 }
+
+.icon-sound-style {
+    float: right;
+    // padding: 20px;
+    height: 40px;
+    font-size: 20px;
+    color: #fff;
+  }
 
 .footer {
     position:absolute;

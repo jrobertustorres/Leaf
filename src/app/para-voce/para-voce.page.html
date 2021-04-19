@@ -1,0 +1,73 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>para-voce</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <div *ngIf="selectedLanguage == 'pt'">
+    <div class="title">
+      Para seu Equilíbrio Interior
+    </div>
+
+    <div class="plan-list">
+      <div class="plan-item" (click)="openEquilibrio()">
+        <div class="plan-title">
+          Curso EQUILIBRE-SE
+        </div>
+        <div class="plan-description">
+          <p>
+            Programa Intensivo de Equilíbrio Interior
+          </p>
+          <p>
+            Uma nova forma de viver a vida e de enxergar o mundo ao seu redor
+          </p>
+          <p class="saiba-mais">Saiba mais</p>
+        </div>
+      </div>
+
+      <div class="plan-item color-3" (click)="openIoga()">
+        <div class="plan-title">
+          Curso YOGA PARA INICIANTES
+        </div>
+        <div class="plan-description">
+          <p>
+            Descubra como a Yoga pode Mudar Sua Saúde Mental, Física e Emocional
+          </p>
+          <p class="saiba-mais">Saiba mais</p>
+        </div>
+      </div>
+
+      <ion-card class="card-fake-style">
+      </ion-card>
+
+    </div>
+  </div>
+
+  <div *ngIf="selectedLanguage == 'en'">
+    <div class="title">
+      For your Inner Balance
+    </div>
+    <div class="plan-list">
+      <div class="plan-item" (click)="openHooponopono()">
+        <div class="plan-title">
+          Ho'oponopono Class
+        </div>
+        <div class="plan-description">
+          <p>
+            Master Authentic Ho'oponopono And Unlock The Ultimate Life Of Zero Limits
+          </p>
+          <p>
+            Discover the cleaning and healing power of Ho'oponopono as a certified practitioner of the modern form of an age-old practice.
+          </p>
+          <p class="saiba-mais">Know more</p>
+        </div>
+      </div>
+
+      <ion-card class="card-fake-style">
+      </ion-card>
+
+    </div>
+  </div>
+
+</ion-content>

@@ -31,15 +31,13 @@ export class TabsPage {
               private navCtrl: NavController,
               private eventService: EventService) {
 
-    this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
-
     // aqui pego quando muda de som
     this.eventService.getObservable().subscribe((data) => {
       this.activeTrack = data;
       this.pathImage = this.activeTrack['activeTrack']['pathImage'];
+      this.selectedSound = this.activeTrack['activeTrack']['labelName'];
       this.labelCategoria = this.activeTrack['activeTrack']['labelCategoria'];
       this.isPlaying = this.activeTrack['activeTrack']['isPlaying'];
-      this.selectedSound = this.activeTrack['activeTrack']['labelName'];
     });
 
     // aqui fico atualizando a barra de progresso

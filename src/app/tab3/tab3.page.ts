@@ -30,13 +30,15 @@ export class Tab3Page {
               private appRate: AppRate,
               public platform: Platform,
               private eventService: EventService,
-              private httpC: HttpClient,
+              private http: HttpClient,
               private socialSharing: SocialSharing) {
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
 
-    this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
-      this.accessi18nData = data;
-    });
+    // this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
+    // this.http.get('https://repositoriocalm.s3.amazonaws.com/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
+    //   this.accessi18nData = data;
+    // });
+    this.accessi18nData = JSON.parse(localStorage.getItem('I18N_DICTIONARY'));
   }
 
   ngOnInit() {

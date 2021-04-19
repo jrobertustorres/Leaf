@@ -1,0 +1,60 @@
+ion-content {
+    --background: linear-gradient(to top, #060606, #007988);
+}
+
+.title {
+    padding: 16px;
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+
+    color: #fff;
+  }
+  
+  .plan-list {
+    padding: 16px;
+  
+    .plan-item {
+      margin-bottom: 24px;
+      padding: 24px;
+      text-align: center;
+      border-radius: 8px;
+      background: linear-gradient(to bottom right, #265546, #59b277);
+  
+      &.color-2 {
+        background: linear-gradient(to bottom right, #E69D42, #BC805B);
+      }
+  
+      &.color-3 {
+        background: linear-gradient(to bottom right, #6891BD, #403F72);
+      }
+  
+      &.color-4 {
+        background: linear-gradient(to bottom right, #263261, #6E367C);
+      }
+  
+    }
+  
+    .plan-title {
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+  
+    .plan-description {
+      font-size: 14px;
+    }
+  }
+
+  .saiba-mais {
+    color: #fff; 
+    font-size: 20px; 
+    margin-bottom: 0px;
+  }
+
+  .card-fake-style {
+    background: transparent;
+    height: 50px;
+    top: 70%;
+    box-shadow: none !important;
+}

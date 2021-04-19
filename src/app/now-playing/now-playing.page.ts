@@ -7,6 +7,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { EventService } from '../../utilitarios/EventService';
 import { MusicPlayerService } from '../services/music-player.service';
 import { TranslateConfigService } from '../services/translate-config.service';
+import { HttpClient } from '@angular/common/http';
 
 export interface Track {
   id: number;
@@ -26,7 +27,7 @@ export interface Track {
 })
 export class NowPlayingPage implements OnInit {
   @Input() soundValue: string;
-  @Input() idSound: number;
+  // @Input() idSound: number;
   
   activeTrack: Track = null;
   player: Howl = null;
@@ -52,6 +53,7 @@ export class NowPlayingPage implements OnInit {
   public selectedLanguage:string;
 
   backgroundImage: string;
+  private accessi18nData: any;
 
   selectedSound: Track[] = [
     {
@@ -74,6 +76,7 @@ export class NowPlayingPage implements OnInit {
               private translateConfigService: TranslateConfigService,
               public toastController: ToastController,
               public loadingController: LoadingController,
+              private httpC: HttpClient,
               private eventService: EventService) {
 
     this.eventService.getObservableCloseModal().subscribe((data) => {
@@ -83,19 +86,19 @@ export class NowPlayingPage implements OnInit {
       }
     });
 
+    // aqui pego quando muda de som
     this.eventService.getObservable().subscribe((data) => {
       this.activeTrack = data;
-      // this.path = this.activeTrack['activeTrack']['path'];
       this.pathImage = this.activeTrack['activeTrack']['pathImage'];
-      this.name = this.activeTrack['activeTrack']['labelName'];
+      this.selectedSound = this.activeTrack['activeTrack']['labelName'];
       this.labelCategoria = this.activeTrack['activeTrack']['labelCategoria'];
       this.isPlaying = this.activeTrack['activeTrack']['isPlaying'];
       this.totalSoundDuration = this.activeTrack['activeTrack']['totalSoundDuration'];
       this.showPlayerButtons = this.totalSoundDuration != '' ? true : false;
     });
-    
+
   }
-  
+
   ngOnInit() {
     this.initializeMusicService();
   }
@@ -108,13 +111,7 @@ export class NowPlayingPage implements OnInit {
       duration: 1000
     });
     await loading.present();
-    
     this.musicService.getMusic(this.soundValue);
-    // let activeTrack = this.musicService.getMusic(this.soundValue);
-    // this.path = activeTrack.path;
-    // this.pathImage = activeTrack.pathImage;
-    // this.name = activeTrack.name;
-    // this.labelCategoria = activeTrack.labelCategoria;
 
     this.progress = this.musicService.updateProgress();
     this.currentTimePlayer = this.musicService.updateCurrentTime();
@@ -147,7 +144,7 @@ export class NowPlayingPage implements OnInit {
 
   loopPlayer(looping: boolean) {
     this.isLooping = this.musicService.setStatusLoop(looping);
-    this.loopToast = this.isLooping ? 'Repetir ativado' : 'Repetir desativado';
+    this.loopToast = this.isLooping ? this.accessi18nData['REPETIR_ATIVADO'] : this.accessi18nData['REPETIR_DESATIVADO'];
     this.presentToastLoop();
   }
   

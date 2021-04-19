@@ -11,18 +11,22 @@
     [ngClass]="(scrollDepthTriggered == true)?'nav-colored':'nav-transparent'">
 
     <div class="control">
+
+      <!-- <video autoplay loop muted webkit-playsinline class="video-container" width="100%" height="100%">
+        <source src="assets/imgs/noite.mp4" types='video/mp4; codecs="h.264"'>
+      </video> -->
+
       <div class="img-style" 
-        [ngStyle]="{'background-image': 'url(  https://media.giphy.com/media/ToMjGpQe9iCuexMtEg8/source.gif  )'}"
+        [ngStyle]="{'background-image': 'url(' + backgroundImage + ')'}"
         [ngClass]="(scrollDepthTriggered == true)?'hide-img':'show-img'"
         >
       </div>
     </div>
 
-  <div id="navi" >
+  <div id="navi" *ngIf="accessi18nData" >
 
     <ion-card class="card-style" (click)="openMusic('breath')">
-      <img src="assets/imgs/meditar.jpg" class="img-card-style"/>
-      <!-- <div class="card-subtitle">{{ labelRespire }}</div> -->
+      <img src="assets/imgs/respire.jpg" class="img-card-style"/>
       <div class="card-subtitle">{{ home.RESPIRE }}</div>
     </ion-card>
 
@@ -37,7 +41,7 @@
     </ion-card>
 
     <ion-card class="card-style" (click)="openMusic('passaros')">
-      <img src="assets/imgs/bird.jpg" class="img-card-style"/>
+      <img src="assets/imgs/birds4.jpg" class="img-card-style"/>
       <div class="card-subtitle">{{ home.PASSAROS }}</div>
     </ion-card>
 
@@ -50,9 +54,19 @@
       <img src="assets/imgs/vento.jpg" class="img-card-style"/>
       <div class="card-subtitle">{{ home.VENTO }}</div>
     </ion-card>
-    <ion-card class="card-fake-style">
+
+    <ion-card class="card-style" (click)="openMusic('energia')">
+      <img src="assets/imgs/energia.jpg" class="img-card-style"/>
+      <div class="card-subtitle">{{ home.ENERGIA }}</div>
+    </ion-card>
+    
+    <ion-card class="card-style" (click)="openParaVocePage()">
+      <img src="assets/imgs/para-voce2.jpg" class="img-card-style"/>
+      <div class="card-subtitle">{{ home.PARA_VOCE }}</div>
     </ion-card>
 
+    <ion-card class="card-fake-style">
+    </ion-card>
 
   </div>
 

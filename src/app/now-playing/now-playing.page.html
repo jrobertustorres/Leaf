@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true" >
   <ion-fab vertical="top" horizontal="start" slot="fixed">
-    <ion-fab-button color="medium-transparent" (click)="hideModal()">
+    <ion-fab-button color="medium-transparent" class="fab-button" (click)="hideModal()">
       <ion-icon name="chevron-down" style="color: #fff;"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -9,11 +9,11 @@
     <div class="background" [ngStyle]="{'background-image': 'url(' + pathImage + ')'}"></div>
     <div class="container" *ngIf="showPlayerButtons">
       <div class="song-info ion-padding">
-        <div class="song-title" *ngIf="activeTrack" style="color: #fff;">
-          {{ name }}
+        <div class="song-title" *ngIf="activeTrack">
+          {{ selectedSound | translate }}
         </div>
         <div class="artist-name">
-          <ion-text color="medium-contrast">{{ labelCategoria }}</ion-text>
+          <ion-text color="medium-contrast">{{ labelCategoria | translate }}</ion-text>
         </div>
       </div>
       <div class="song-timeline ion-padding">

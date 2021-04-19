@@ -112,11 +112,27 @@
   height: var(--height);
   min-height: var(--min-height);
   max-height: var(--max-height);
-  background: #007988;
+  // background: #007988;
+  background: linear-gradient(to top, #060606, #007988);
   contain: content;
   opacity: 0;
   z-index: 10;
   border-radius: 15px;
+}
+
+// :host(.ion-color)
+// .button-native {
+//   /* background: var(--ion-color-base); */
+//   /* color: var(--ion-color-contrast); */
+//   background: rgb(0, 121, 136)!important;
+//   color: var(--ion-color-contrast)!important;
+//   opacity: 0.6!important;
+// }
+
+.fab-button {
+  background: rgb(0, 121, 136)!important;
+  opacity: 0.5!important;
+  border-radius: 30px;
 }
 
 /*alterar a acor do botão fab-button*/

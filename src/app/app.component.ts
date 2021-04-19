@@ -5,10 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateConfigService } from '../app/services/translate-config.service';
 import { Network } from '@ionic-native/network/ngx';
-import { AdMobFree, AdMobFreeBannerConfig,AdMobFreeInterstitialConfig,AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
-// import { AdmobService } from '../app/services/admob.service';
 
-// import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
+import { FCM } from '@ionic-native/fcm/ngx';
+import { AdMobFree, AdMobFreeBannerConfig,AdMobFreeInterstitialConfig,AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
 
 @Component({
   selector: 'app-root',
@@ -26,8 +25,7 @@ export class AppComponent {
     private translateConfigService: TranslateConfigService,
     private network: Network,
     private admobFree: AdMobFree,
-    // private admobService: AdmobService,
-    // private fcm: FCM,
+    private fcm: FCM,
     public alertController: AlertController
   ) {
     this.initializeApp();
@@ -36,72 +34,45 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.splashScreen.show();
+      setTimeout(() => {
+        this.banner();
+        // this.splashScreen.hide();
+      }, 1000);
       //LOAD THE BANNER AT PAGE INIT
       // this.admobService.ShowBanner();
       this.checkNetwork();
       //OBTENDO O IDIOMA CONFIGURADO NO APARELHO
       this.translateConfigService.getDefaultLanguage();
-
-      this.banner();
+      // if (this.platform.is('cordova')) {
+        // this.banner();
+      // }
       
-      // set status bar to white
-      // this.statusBar.backgroundColorByHexString('#ffffff');
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      // this.splashScreen.hide();
+      if (this.platform.is('cordova')) {
+        this.pushSetup();
+      }
 
-      // get FCM token
-      // this.fcm.getToken().then(token => {
-      //   console.log(token);
-      // });
-
-      // ionic push notification example
-      // this.fcm.onNotification().subscribe(data => {
-      //   console.log(data);
-      //   if (data.wasTapped) {
-      //     console.log('Received in background');
-      //   } else {
-      //     console.log('Received in foreground');
-      //   }
-      // });      
-
-      // // refresh the FCM token
-      // this.fcm.onTokenRefresh().subscribe(token => {
-      //   console.log(token);
-      // });
-
-      // unsubscribe from a topic
-      // this.fcm.unsubscribeFromTopic('offers');
 
     });
   }
 
   banner(){
     let bannerConfig: AdMobFreeBannerConfig = {
-      isTesting: true, // Remove in production
-      autoShow: true//,
-      //id: "ca-app-pub-3940256099942544/6300978111"
+      isTesting: true,
+      autoShow: true
+      // id: "ca-app-pub-1449609669530104/7972958203"
     };
     this.admobFree.banner.config(bannerConfig);
 
     this.admobFree.banner.prepare().then(() => {
         // success
+        this.admobFree.banner.show().then(()=>{
+          this.splashScreen.hide();
+       });
     }).catch(e => console.log(e));
-  }
 
-  // subscribeToTopic() {
-  //   this.fcm.subscribeToTopic('enappd');
-  // }
-  // getToken() {
-  //   this.fcm.getToken().then(token => {
-  //     console.log('dentro do getToken ');
-  //     console.log(token);
-  //     // Register your new token in your back-end if you want
-  //     // backend.registerToken(token);
-  //   });
-  // }
-  // unsubscribeFromTopic() {
-  //   this.fcm.unsubscribeFromTopic('enappd');
-  // }
+  }
 
   checkNetwork() {
     setTimeout(() => {
@@ -121,11 +92,36 @@ export class AppComponent {
         text: 'Ok',
         handler: () => {
           navigator['app'].exitApp();
-           }
+        }
         }]
     });
 
     await alert.present();
+  }
+
+  pushSetup() {
+    // get FCM token
+    this.fcm.getToken().then(token => {
+      console.log(token);
+    });
+
+    // ionic push notification example
+    this.fcm.onNotification().subscribe(data => {
+      console.log(data);
+      if (data.wasTapped) {
+        console.log('Received in background');
+      } else {
+        console.log('Received in foreground');
+      }
+    });      
+
+    // refresh the FCM token
+    this.fcm.onTokenRefresh().subscribe(token => {
+      console.log(token);
+    });
+
+    // unsubscribe from a topic
+    // this.fcm.unsubscribeFromTopic('offers');
   }
 
 }
