@@ -4,34 +4,32 @@
       <ion-icon name="close" style="color: #fff;"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  
-  <p #el></p>
-  <div>
-    <p class="anim-label">{{ labelBreathe }}</p>
-  </div>
 
+  <!-- <div class="container counter">{{ counter }}</div> -->
+
+  <p id="text" class="container counter"  *ngIf="counter >= 1" >{{ counter }}</p>
+  <div class="container" id="container" [ngClass]="grow ? 'container grow' : 'container shrink'" *ngIf="playAnimation">
+    <div class="circle" [hidden]="!playAnimation"></div>
+
+    <p id="text" style="color: #fff; font-size: 20px;">{{ labelBreathe }}</p>
+
+    <div class="pointer-container" >
+      <span class="pointer"></span>
+    </div>
+
+    <div class="gradient-circle" ></div>
+  </div>
 
   <div>
     <ion-card class="card-style">
-
       <ion-grid>
         <ion-row>
           <ion-col size="3" ></ion-col>
           <ion-col size="6" class="ion-align-self-center">
-            <ion-button fill="clear" (click)="togglePlayer()" *ngIf="!isPlaying" color="light">
-              <ion-icon slot="icon-only" name="play"></ion-icon>
-            </ion-button>
-            <ion-button fill="clear" (click)="togglePlayer()" *ngIf="isPlaying" color="light">
-              <ion-icon slot="icon-only" name="stop"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col size="3" class="ion-align-self-end">
-            <ion-button fill="clear" (click)="setStateSound()" *ngIf="play" color="light" class="icon-sound-style">
-              <ion-icon name="volume-high-outline" ></ion-icon>
-            </ion-button>
-            <ion-button fill="clear" (click)="setStateSound()" *ngIf="!play" color="light" class="icon-sound-style">
-              <ion-icon name="volume-mute-outline"></ion-icon>
-            </ion-button>
+            <ion-button shape="round" (click)="toggleCountdown()" *ngIf="!playAnimation" color="light" class="button-inner">Start</ion-button>
+            <!-- <ion-button shape="round" (click)="toggleAnimation()" *ngIf="!playAnimation" color="light" class="button-inner">Start</ion-button> -->
+            <ion-button shape="round" (click)="stopAnimation()" *ngIf="playAnimation" color="light" class="button-inner">Stop</ion-button>
+            <!-- <ion-button shape="round" (click)="toggleAnimation()" *ngIf="playAnimation" color="light" class="button-inner">Stop</ion-button> -->
           </ion-col>
         </ion-row>
       </ion-grid>

@@ -6,8 +6,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateConfigService } from '../app/services/translate-config.service';
 import { Network } from '@ionic-native/network/ngx';
 
-import { FCM } from '@ionic-native/fcm/ngx';
+import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
+// import { FCM } from '@ionic-native/fcm/ngx';
 import { AdMobFree, AdMobFreeBannerConfig,AdMobFreeInterstitialConfig,AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
+import { AppRate } from '@ionic-native/app-rate/ngx';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +28,7 @@ export class AppComponent {
     private network: Network,
     private admobFree: AdMobFree,
     private fcm: FCM,
+    private appRate: AppRate,
     public alertController: AlertController
   ) {
     this.initializeApp();
@@ -34,13 +37,15 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.splashScreen.show();
-      setTimeout(() => {
+      // setTimeout(() => {
         this.banner();
         // this.splashScreen.hide();
-      }, 1000);
+      // }, 1000);
+
       //LOAD THE BANNER AT PAGE INIT
       // this.admobService.ShowBanner();
       this.checkNetwork();
+      this.rateUs();
       //OBTENDO O IDIOMA CONFIGURADO NO APARELHO
       this.translateConfigService.getDefaultLanguage();
       // if (this.platform.is('cordova')) {
@@ -122,6 +127,26 @@ export class AppComponent {
 
     // unsubscribe from a topic
     // this.fcm.unsubscribeFromTopic('offers');
+  }
+
+  rateUs(){
+    // this.appRate.preferences.storeAppURL = {
+    //   //ios: '< my_app_id >',
+    //   android: 'market://details?id=com.logiicstudio.leaf'
+    //   };
+
+    this.appRate.setPreferences({
+      displayAppName: 'Leaf',
+      usesUntilPrompt: 3,
+      promptAgainForEachNewVersion: false,
+      storeAppURL: {
+        ios: '<my_app_id>',
+        android: 'market://details?id=com.logiicstudio.leaf',
+      },
+    });
+    
+    this.appRate.promptForRating(false);
+
   }
 
 }

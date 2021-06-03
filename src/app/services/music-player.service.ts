@@ -89,7 +89,8 @@ export class MusicPlayerService {
     this.player = new Howl({
       src: [track.path],
       html5: true,
-      loop: this.isLooping,
+      loop: null,
+      // loop: this.isLooping,
       onload: () => {
         // this.totalSoundDuration = this.formatTime(Math.round(this.player.duration()));
       },
@@ -98,12 +99,19 @@ export class MusicPlayerService {
         this.selectedSound[0]['totalSoundDuration'] = this.totalSoundDuration;
         this.isPlaying = true;
         this.activeTrack = track;
-        localStorage.setItem('STATUS_PLAYER', 'false');
+        // localStorage.setItem('STATUS_PLAYER', this.isPlaying.toString()); // não me lembro por que coloquei essa linha, mas tive que comentá-la
+        // estava influenciando no som da Home
         this.updateProgress();
       },
       onend: () => {
         this.activeTrack = track;
         this.isPlaying = false;
+        let isLooping = JSON.parse(localStorage.getItem('IS_LOOPING'));
+        if(isLooping == true) {
+          this.start(this.selectedSound[0]);
+        } else {
+          this.player.stop();
+        }
       }
     });
     this.player.play();
@@ -132,6 +140,7 @@ export class MusicPlayerService {
 
   setStatusLoop(looping: boolean) {
     this.isLooping = !looping;
+    localStorage.setItem('IS_LOOPING', this.isLooping.toString());
     return this.isLooping;
   }
 
@@ -164,6 +173,10 @@ export class MusicPlayerService {
       }
       // console.log(err);
     }
+  }
+
+  executeLoop() {
+    this.start(this.selectedSound[0]);
   }
     
   updateProgress() {
@@ -204,6 +217,7 @@ export class MusicPlayerService {
   public getJsonFile() {
     try {
       return new Promise((resolve, reject) => {
+        // this.http.get('assets/sons.json')
         this.http.get('https://repositoriocalm.s3.amazonaws.com/sons.json')
         .subscribe(data => {
           resolve(data);
@@ -218,14 +232,6 @@ export class MusicPlayerService {
     }
   }
 
-  // getJsonFile() {
-  //   // this.httpC.get('assets/sons.json').subscribe(data => {
-  //     this.httpC.get('https://repositoriocalm.s3.amazonaws.com/sons.json').subscribe(data => {
-  //     this.pathSound = data;
-  //     localStorage.setItem('PATH_SOUND', JSON.stringify(this.pathSound));
-  //   });
-  // }
-  
   getMusic(soundValue: string) {
     this.pathSound = JSON.parse(localStorage.getItem('PATH_SOUND'));
 
@@ -238,243 +244,5 @@ export class MusicPlayerService {
     };
 
   }
-
-  // getJsonSound() {
-  //   const caminho = "https://repositoriocalm.s3.amazonaws.com/sons.json";
-  // }
-
-  // getMusic2(soundValue: string) {
-  //     switch(soundValue) {
-  //       case 'chuva-trovao': {
-  //         this.selectedSound = [
-  //           {
-  //             id: 1,
-  //             name: this.accessi18nData['TABS']['NOME_SOM_CHUVA']['CHUVA_TROVOADAS'],
-  //             labelName: this.accessi18nData['TABS']['CHUVA_TROVOADAS'],
-  //             path: 'assets/sons/chuva/mp3/chuva-trovoadas.webm',
-  //             pathImage: 'https://media.giphy.com/media/P0ar8pIucRwje/giphy.gif',
-  //             porcentagemProgresso: '',
-  //             totalSoundDuration: '',
-  //             categoria: 'CHUVA',
-  //             labelCategoria: this.accessi18nData['TABS']['CHUVA_LOWERCASE'],
-  //             soundValue: 'chuva-trovao',
-  //             isPlaying: this.isPlaying
-  //           }
-  //         ];
-  //         break; 
-  //       } 
-  //       case 'chuva-calma': { 
-  //         this.selectedSound = [
-  //           {
-  //             id: 2,
-  //             name: this.accessi18nData['TABS']['NOME_SOM_CHUVA']['CHUVA_CALMA'],
-  //             labelName: this.accessi18nData['TABS']['CHUVA_CALMA'],
-  //             path: 'assets/sons/chuva/mp3/chuva-calma.webm',
-  //             pathImage: 'https://media.giphy.com/media/5torEEM8QnR95Cqg11/giphy.gif',
-  //             porcentagemProgresso: '',
-  //             totalSoundDuration: '',
-  //             categoria: 'CHUVA',
-  //             labelCategoria: this.accessi18nData['TABS']['CHUVA_LOWERCASE'],
-  //             soundValue: 'chuva-calma',
-  //             isPlaying: this.isPlaying
-  //           }
-  //         ];
-  //           break; 
-  //       } 
-  //       case 'passaros': {
-  //         this.selectedSound = [
-  //           {
-  //             id: 1,
-  //             name: this.accessi18nData['TABS']['NOME_SOM_PASSAROS']['PASSAROS_LAGO'],
-  //             labelName: this.accessi18nData['TABS']['PASSAROS_LAGO'],
-  //             path: 'assets/sons/passaros/mp3/passaros1.webm',
-  //             pathImage: 'https://media.giphy.com/media/SzUtv3rO40xhu/giphy.gif',
-  //             porcentagemProgresso: '',
-  //             totalSoundDuration: '',
-  //             categoria: 'PASSAROS',
-  //             labelCategoria: this.accessi18nData['TABS']['PASSAROS_LOWERCASE'],
-  //             soundValue: 'passaros',
-  //             isPlaying: this.isPlaying
-  //           }
-  //         ];
-  //         break; 
-  //       } 
-  //       case 'passaros2': {
-  //         this.selectedSound = [
-  //           {
-  //             id: 1,
-  //             name: this.accessi18nData['TABS']['NOME_SOM_PASSAROS']['PASSAROS_FLORESTA'],
-  //             labelName: this.accessi18nData['TABS']['PASSAROS_FLORESTA'],
-  //             path: 'assets/sons/passaros/mp3/passaros2.webm',
-  //             pathImage: 'https://media.giphy.com/media/YB5Wcg2zQWSDC/giphy.gif',
-  //             porcentagemProgresso: '',
-  //             totalSoundDuration: '',
-  //             categoria: 'PASSAROS',
-  //             labelCategoria: this.accessi18nData['TABS']['PASSAROS_LOWERCASE'],
-  //             soundValue: 'passaros2',
-  //             isPlaying: this.isPlaying
-  //           }
-  //         ];
-  //         break; 
-  //       } 
-  //       case 'fogueira': {
-  //         this.selectedSound = [
-  //           {
-  //             id: 1,
-  //             name: this.accessi18nData['TABS']['NOME_SOM_FOGO']['FOGUEIRA'],
-  //             labelName: this.accessi18nData['TABS']['FOGUEIRA'],
-  //             path: 'assets/sons/fogo/mp3/fogueira.webm',
-  //             pathImage: 'https://media.giphy.com/media/7BsBA553QcgiA/giphy.gif',
-  //             porcentagemProgresso: '',
-  //             totalSoundDuration: '',
-  //             categoria: 'FOGO',
-  //             labelCategoria: this.accessi18nData['TABS']['FOGO'],
-  //             soundValue: 'fogueira',
-  //             isPlaying: this.isPlaying
-  //           }
-  //         ];
-  //         break; 
-  //       } 
-  //       case 'ventania': {
-  //         this.selectedSound = [
-  //           {
-  //             id: 1,
-  //             name: this.accessi18nData['TABS']['NOME_SOM_VENTO']['VENTANIA_NO_CAMPO'],
-  //             labelName: this.accessi18nData['TABS']['VENTANIA_NO_CAMPO'],
-  //             path: 'assets/sons/vento/mp3/ventania.webm',
-  //             pathImage: 'https://media.giphy.com/media/clzp5RgHabMagyQIG9/giphy.gif',
-  //             porcentagemProgresso: '',
-  //             totalSoundDuration: '',
-  //             categoria: 'VENTO',
-  //             labelCategoria: this.accessi18nData['TABS']['VENTO'],
-  //             soundValue: 'ventania',
-  //             isPlaying: this.isPlaying
-  //           }
-  //         ];
-  //         break; 
-  //       } 
-  //       case 'floresta-congelada': {
-  //         this.selectedSound = [
-  //           {
-  //             id: 1,
-  //             name: this.accessi18nData['TABS']['NOME_SOM_VENTO']['FLORESTA_CONGELADA'],
-  //             labelName: this.accessi18nData['TABS']['FLORESTA_CONGELADA'],
-  //             path: 'assets/sons/vento/mp3/floresta-congelada.webm',
-  //             pathImage: 'https://media.giphy.com/media/xfa1GclK0WaOc/giphy.gif',
-  //             porcentagemProgresso: '',
-  //             totalSoundDuration: '',
-  //             categoria: 'VENTO',
-  //             labelCategoria: this.accessi18nData['TABS']['VENTO'],
-  //             soundValue: 'floresta-congelada',
-  //             isPlaying: this.isPlaying
-  //           }
-  //         ];
-  //         break; 
-  //       } 
-  //       case 'retro1': {
-  //         this.selectedSound = [
-  //           {
-  //             id: 1,
-  //             name: this.accessi18nData['TABS']['NOME_SOM_SYNTHWAVE']['RETRO1'],
-  //             labelName: this.accessi18nData['TABS']['RETRO1'],
-  //             path: 'assets/sons/synthwave/mp3/retro-lsd.webm',
-  //             pathImage: 'https://media.giphy.com/media/wKnqovL33x9in9ci6X/giphy.gif',
-  //             porcentagemProgresso: '',
-  //             totalSoundDuration: '',
-  //             categoria: 'SYNTHWAVE',
-  //             labelCategoria: this.accessi18nData['TABS']['SYNTHWAVE'],
-  //             soundValue: 'retro1',
-  //             isPlaying: this.isPlaying
-  //           }
-  //         ];
-  //         break; 
-  //       } 
-  //       case 'retro2': {
-  //         this.selectedSound = [
-  //           {
-  //             id: 1,
-  //             name: this.accessi18nData['TABS']['NOME_SOM_SYNTHWAVE']['RETRO2'],
-  //             labelName: this.accessi18nData['TABS']['RETRO2'],
-  //             path: 'assets/sons/synthwave/mp3/cyber-edge.webm',
-  //             pathImage: 'https://media.giphy.com/media/dsd7XbYg0e6hG0A7i8/giphy.gif',
-  //             porcentagemProgresso: '',
-  //             totalSoundDuration: '',
-  //             categoria: 'SYNTHWAVE',
-  //             labelCategoria: this.accessi18nData['TABS']['SYNTHWAVE'],
-  //             soundValue: 'retro2',
-  //             isPlaying: this.isPlaying
-  //           }
-  //         ];
-  //         break; 
-  //       } 
-  //       case 'frequencia-reconexao': {
-  //         this.selectedSound = [
-  //           {
-  //             id: 1,
-  //             name: this.accessi18nData['TABS']['NOME_SOM_ENERGIA_POSITIVA']['FREQUENCIA_RECONEXAO'],
-  //             labelName: this.accessi18nData['TABS']['FREQUENCIA_RECONEXAO'],
-  //             path: 'assets/sons/energia/mp3/reconexao-com-a-fonte.webm',
-  //             pathImage: 'https://media.giphy.com/media/RGLkqjTQ7ehZS/giphy.gif',
-  //             porcentagemProgresso: '',
-  //             totalSoundDuration: '',
-  //             categoria: 'ENERGIA_POSITIVA',
-  //             labelCategoria: this.accessi18nData['TABS']['ENERGIA_POSITIVA'],
-  //             soundValue: 'frequencia-reconexao',
-  //             isPlaying: this.isPlaying
-  //           }
-  //         ];
-  //         break; 
-  //       } 
-  //       case 'energia-positiva-frequencia-de-432-hz': {
-  //         this.selectedSound = [
-  //           {
-  //             id: 1,
-  //             name: this.accessi18nData['TABS']['NOME_SOM_ENERGIA_POSITIVA']['FREQUENCIA_432'],
-  //             labelName: this.accessi18nData['TABS']['FREQUENCIA_432'],
-  //             path: 'assets/sons/energia/mp3/frequencia-de-432-hz.webm',
-  //             pathImage: 'https://media.giphy.com/media/xUA7b5B6G21I3uKNDW/giphy.gif',
-  //             porcentagemProgresso: '',
-  //             totalSoundDuration: '',
-  //             categoria: 'ENERGIA_POSITIVA',
-  //             labelCategoria: this.accessi18nData['TABS']['ENERGIA_POSITIVA'],
-  //             soundValue: 'energia-positiva-frequencia-de-432-hz',
-  //             isPlaying: this.isPlaying
-  //           }
-  //         ];
-  //         break; 
-  //       } 
-  //       case 'som-binaural-20-hz': {
-  //         this.selectedSound = [
-  //           {
-  //             id: 1,
-  //             name: this.accessi18nData['TABS']['NOME_SOM_BINAURAL']['BINAURAL_20_HZ'],
-  //             labelName: this.accessi18nData['TABS']['BINAURAL_20_HZ'],
-  //             path: 'assets/sons/binaural/mp3/som-binaural-20-hz.webm',
-  //             pathImage: 'assets/sons/binaural/imgs/binaural.gif',
-  //             porcentagemProgresso: '',
-  //             totalSoundDuration: '',
-  //             categoria: 'SONS_BINAURAIS',
-  //             labelCategoria: this.accessi18nData['TABS']['SONS_BINAURAIS'],
-  //             soundValue: 'som-binaural-20-hz',
-  //             isPlaying: this.isPlaying
-  //           }
-  //         ];
-  //         break; 
-  //       } 
-  //       default: { 
-  //           //statements; 
-  //           break; 
-  //       } 
-  //     }
-  //     this.start(this.selectedSound[0]);
-  //     /** atualiza o player minimizado na tela tabs.page */
-  //     // this.eventService.publishData({
-  //     //   activeTrack: this.selectedSound[0]
-  //     // });
-
-  //     return this.selectedSound[0];
-
-  // }
-
 
 }

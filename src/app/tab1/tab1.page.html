@@ -1,7 +1,7 @@
 <ion-header no-border style="z-index: 1;">
   <ion-title style="text-align: left;">
       <img height="60" src="assets/imgs/logo.png" class="logo-position" [ngClass]="(scrollDepthTriggered == true)?'hide-img':'show-img'">
-      <ion-icon name="musical-notes-outline" class="icon-sound-style" (click)="setStateSound()"></ion-icon>
+      <ion-icon name="musical-notes-outline" class="icon-sound-style" (click)="setSoundState()" ></ion-icon>
   </ion-title>
 </ion-header>
   
@@ -12,54 +12,36 @@
 
     <div class="control">
 
-      <!-- <video autoplay loop muted webkit-playsinline class="video-container" width="100%" height="100%">
-        <source src="assets/imgs/noite.mp4" types='video/mp4; codecs="h.264"'>
-      </video> -->
-
       <div class="img-style" 
         [ngStyle]="{'background-image': 'url(' + backgroundImage + ')'}"
-        [ngClass]="(scrollDepthTriggered == true)?'hide-img':'show-img'"
-        >
+        [ngClass]="(scrollDepthTriggered == true)?'hide-img':'show-img'">
       </div>
     </div>
 
   <div id="navi" *ngIf="accessi18nData" >
+    <!-- <ion-label color="light">Light Label</ion-label> -->
+
+    <!-- <p>Destaques</p> -->
+    <!-- <div >
+      <p>Destaques</p> -->
+
 
     <ion-card class="card-style" (click)="openMusic('breath')">
+      <!-- <video src="assets/imgs/videogular.mp4"  #videoPlayer autoplay="true" loop="true" width="100%" ></video> -->
       <img src="assets/imgs/respire.jpg" class="img-card-style"/>
       <div class="card-subtitle">{{ home.RESPIRE }}</div>
     </ion-card>
 
-    <ion-card class="card-style" (click)="openMusic('all')">
-      <img src="assets/imgs/mountain.jpg" class="img-card-style"/>
-      <div class="card-subtitle">{{ home.TODOS_SONS }}</div>
+    <ion-card class="card-style" *ngFor="let item of jsonPathSoundDestaque" 
+      (click)="openMusic(item.soundValue)">
+      <img src="{{ item.pathImage }}" class="img-card-style"/>
+      <div class="card-subtitle">{{ item.labelDestaque }} 
+        <div class="label-item-novo-home" *ngIf="item.novo" >
+          <span class="span-novo">{{ home.NOVO_SOM }}</span>
+        </div> 
+      </div>
     </ion-card>
 
-    <ion-card class="card-style" (click)="openMusic('chuva')">
-      <img src="assets/imgs/chuva.jpg" class="img-card-style"/>
-      <div class="card-subtitle">{{ home.CHUVA }}</div>
-    </ion-card>
-
-    <ion-card class="card-style" (click)="openMusic('passaros')">
-      <img src="assets/imgs/birds4.jpg" class="img-card-style"/>
-      <div class="card-subtitle">{{ home.PASSAROS }}</div>
-    </ion-card>
-
-    <ion-card class="card-style" (click)="openMusic('fogo')">
-      <img src="assets/imgs/fogueira.jpg" class="img-card-style"/>
-      <div class="card-subtitle">{{ home.FOGO }}</div>
-    </ion-card>
-
-    <ion-card class="card-style" (click)="openMusic('vento')">
-      <img src="assets/imgs/vento.jpg" class="img-card-style"/>
-      <div class="card-subtitle">{{ home.VENTO }}</div>
-    </ion-card>
-
-    <ion-card class="card-style" (click)="openMusic('energia')">
-      <img src="assets/imgs/energia.jpg" class="img-card-style"/>
-      <div class="card-subtitle">{{ home.ENERGIA }}</div>
-    </ion-card>
-    
     <ion-card class="card-style" (click)="openParaVocePage()">
       <img src="assets/imgs/para-voce2.jpg" class="img-card-style"/>
       <div class="card-subtitle">{{ home.PARA_VOCE }}</div>
@@ -67,6 +49,7 @@
 
     <ion-card class="card-fake-style">
     </ion-card>
+
 
   </div>
 

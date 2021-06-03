@@ -19,14 +19,22 @@ import { AppVersion } from '@ionic-native/app-version/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { Device } from '@ionic-native/device/ngx';
-import { AppRate } from '@ionic-native/app-rate/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Market } from '@ionic-native/market/ngx';
+import { AppRate } from '@ionic-native/app-rate/ngx';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { FCM } from '@ionic-native/fcm/ngx';
+import { DatePipe } from '@angular/common';
+
+// import { FCM } from '@ionic-native/fcm/ngx';
+import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+
+import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
+
 
 //IMPORT ADMOB FREE
 import { AdMobFree, AdMobFreeBannerConfig,AdMobFreeInterstitialConfig,AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
@@ -60,10 +68,14 @@ export function LanguageLoader(http: HttpClient) {
     Network,
     EmailComposer,
     Device,
-    AppRate,
     FCM,
     AdMobFree,
     InAppBrowser,
+    DatePipe,
+    BackgroundMode,
+    Market,
+    AppRate,
+    StreamingMedia,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

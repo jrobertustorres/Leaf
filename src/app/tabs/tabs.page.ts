@@ -64,7 +64,10 @@ export class TabsPage {
   }
 
   async openBreath() {
-
+    this.eventService.publishCloseModal({
+      buttonClicked: true
+    });
+    
     const modal = await this.modalCtrl.create({
       component: BreathPage,
       cssClass: 'my-custom-modal-css',

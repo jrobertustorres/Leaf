@@ -1,16 +1,14 @@
-import { Component, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { ModalController, NavController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { EventService } from '../../utilitarios/EventService';
 import { NowPlayingPage } from '../now-playing/now-playing.page';
-// import { AdmobService } from '../services/admob.service';
 import { LoadingController } from '@ionic/angular';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig, AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
-
 import { ActivatedRoute } from '@angular/router';
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tab2',
@@ -18,43 +16,53 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-
-  segmentModel = "all";
+  segmentModel = "ALL";
   @Input() soundValue: string;// pega o parâmetro passado
 
-  objectSound: Array<string>;
-  uniqueObjectSound: Array<string>;
+  objectSound: Array<string> = [];
+  objectSegmentSound: Array<string> = [];
+  uniqueObjectLabelSound: Array<string>;
+  slice: number = 8;
+
+  maxDateNovo: any;
 
   constructor(private eventService: EventService,
               private activatedRoute: ActivatedRoute,
               private admobFree: AdMobFree,
               private iab: InAppBrowser,
               public loadingController: LoadingController,
+              private navCtrl: NavController,
               public httpClient: HttpClient,
+              public datepipe: DatePipe,
               public modalCtrl: ModalController) {
                 this.segmentModel = this.activatedRoute.snapshot.paramMap.get('segmentModel') ? 
-                this.activatedRoute.snapshot.paramMap.get('segmentModel') : "all";
+                this.activatedRoute.snapshot.paramMap.get('segmentModel') : "ALL";
+                this.segmentModel = this.segmentModel.toUpperCase();
+                // this.accessi18nData = JSON.parse(localStorage.getItem('I18N_DICTIONARY'));
+                // this.home = this.accessi18nData['HOME'];
+
               }
 
   ngOnInit() {
+    this.verificaNovo();
     this.loadingImages();
   }
-  
+
   ionViewWillEnter() {
-    this.getImages();
+    this.getAllImages();
     this.interstitial();
   }
 
-  // async presentLoading() {
-  //   const loading = await this.loadingController.create({
-  //     cssClass: 'my-custom-class',
-  //     message: 'Please wait...',
-  //     duration: 2000
-  //   });
-  //   await loading.present();
-  
-  //   const { role, data } = await loading.onDidDismiss();
-  // }
+  ionViewDidEnter() {
+    // this.setFocusSegment(this.segmentModel);
+  }
+
+  doInfinite(infiniteScroll) {
+    setTimeout(() => {
+     this.slice += 8;
+     infiniteScroll.target.complete();
+    }, 300);
+   }
 
   //FUNCTION FOR INTERSTITIAL
   interstitial(){
@@ -82,13 +90,54 @@ export class Tab2Page {
     }
   }
 
-  getImages() {
+  getAllImages() {
     this.objectSound = JSON.parse(localStorage.getItem('PATH_SOUND'));
-    this.removeDuplicates();
+    // let objectAux = this.objectSound;
+
+      // if (objectAux[i]['categoria'] == ""){
+      //   objectAux.slice();
+      //   this.objectSound = objectAux;
+      //   console.log(this.objectSound);
+      // }
+    // }
+
+    let updatedArray = [];
+    for(let i = 0; i < this.objectSound.length; i++) {
+      if (this.objectSound[i]['categoria'] != ""){
+        updatedArray.push(this.objectSound[i]);
+        if(this.objectSound[i]['maxDateNovo'] >= this.maxDateNovo) {
+          this.objectSound[i]['novo'] = true;
+        }
+      }
+    }
+    this.objectSound = updatedArray;
+
+    this.removeSegmentDuplicates();
   }
 
-  removeDuplicates() {
+  getSegmentByCategory(categoria: string) {
+    this.objectSegmentSound = [];
+    for(let i = 0; i < this.objectSound.length; i++) {
+      if (categoria === this.objectSound[i]['categoria']){
+        this.objectSegmentSound.push(this.objectSound[i]);
+      }
+    }
+  }
 
+  verificaNovo() {
+    this.maxDateNovo = new Date().toISOString();
+    this.maxDateNovo = this.datepipe.transform(this.maxDateNovo, 'yyyy-MM-dd');
+  }
+
+  setFocusSegment(categoria: string) {
+    document.getElementById(categoria).scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center'
+    });
+  }
+
+  removeSegmentDuplicates() {
     let unique_array = [];
     let aux: string = '';
     for(let i = 0;i < this.objectSound.length; i++){
@@ -96,14 +145,24 @@ export class Tab2Page {
         aux = this.objectSound[i]['labelCategoria'];
         unique_array.push(this.objectSound[i]);
       }
-      this.uniqueObjectSound = unique_array;
+      this.uniqueObjectLabelSound = unique_array;
     }
+    this.getSegmentByCategory(this.segmentModel);
   }
+
+  // async slideChanged() {
+  //   this.activeIndex= await this.slider.getActiveIndex();
+  //     document.getElementById("segment-" + activeIndex).scrollIntoView({
+  //     behavior: 'smooth',
+  //     block: 'center',
+  //     inline: 'center'
+  //   });
+  // }
   
-  // async openMusicPlayer(som: string, id: number) {
   async openMusicPlayer(som: string) {
 
-    // chamando aqui o publish event informando que é para fechar o modal antes de abrir novamente.
+    // chamando aqui o publish event informando que é para fechar o modal antes de abrir novamente. 
+    // Se não, ficam várias instancias abertas (vários modais).
     // pego esse evento lá na página do modal
     this.eventService.publishCloseModal({
       buttonClicked: true
@@ -113,9 +172,10 @@ export class Tab2Page {
       component: NowPlayingPage,
       cssClass: 'my-custom-modal-css',
       componentProps: { soundValue: som }
-      // componentProps: { soundValue: som, idSound: id }
     });
     return await modal.present();
+  
   }
+  
 
 }

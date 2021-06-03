@@ -5,8 +5,13 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { Device } from '@ionic-native/device/ngx';
-import { AppRate } from '@ionic-native/app-rate/ngx';
 import { HttpClient } from '@angular/common/http';
+
+// import { AppAvailability } from '@ionic-native/app-availability';
+// import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
+import { Market } from '@ionic-native/market/ngx';
+import { AppRate } from '@ionic-native/app-rate/ngx';
 
 import { EventService } from '../../utilitarios/EventService';
 
@@ -20,17 +25,21 @@ export class Tab3Page {
   public selectedLanguage: string;
   private accessi18nData: any;
   version: string;
-  imgurl:string = 'https://www.dropbox.com/s/i7zm5nu1r7lwvlr/logo.png?dl=0';
+  imgurl: string = 'https://repositoriocalm.s3.amazonaws.com/gifs/logo.jpg';
   link: string = 'https://play.google.com/store/apps/details?id=com.logiicstudio.leaf';
 
   constructor(private translateConfigService: TranslateConfigService,
               private appVersion: AppVersion,
               private emailComposer: EmailComposer,
               private device: Device,
-              private appRate: AppRate,
               public platform: Platform,
               private eventService: EventService,
               private http: HttpClient,
+              // private appAvailability: AppAvailability, // from '@ionic-native/app-availability'
+              // private iab: InAppBrowser,
+              private market: Market,
+              private appRate: AppRate,
+              // private _launchReview: LaunchReview,
               private socialSharing: SocialSharing) {
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
 
@@ -43,10 +52,10 @@ export class Tab3Page {
 
   ngOnInit() {
     if (this.platform.is('cordova')) {
-    this.appVersion.getVersionNumber().then((version) => {
-      this.version = version;
-    })
-  }
+      this.appVersion.getVersionNumber().then((version) => {
+        this.version = version;
+      })
+    }
   }
 
   languageChanged(){
@@ -62,8 +71,7 @@ export class Tab3Page {
   }
 
   shareGeneric(parameter){
-    // const url = this.link;
-    this.socialSharing.share(this.accessi18nData['TITLE_SOCIAL_SHARING'], 'MEDIUM', null, this.link);
+    this.socialSharing.share(this.accessi18nData['TITLE_SOCIAL_SHARING'], 'MEDIUM', this.imgurl, this.link);
   }
 
   sendEmailFeedback() {
@@ -87,31 +95,34 @@ export class Tab3Page {
      this.emailComposer.open(email);
   }
 
-  rateUs() {
-    window.open('https://play.google.com/store/apps/details?id=com.logiicstudio.leaf', '_system', 'location=yes');
+  async rateUs() {
+    // window.open("https://play.google.com/store/apps/details?id=com.logiicstudio.leaf", "_system");
+    this.market.open('com.logiicstudio.leaf');
   }
 
-  rateApp() {
-    // set certain preferences
-    this.appRate.preferences.storeAppURL = {
-      ios: '<app_id>',
-      android: 'market://details?id=<package_name>',
-      windows: 'ms-windows-store://review/?ProductId=<store_id>'
-    }
+  // rateUs(){
+  //   // this.appRate.preferences.storeAppURL = {
+  //   //   //ios: '< my_app_id >',
+  //   //   android: 'market://details?id=com.logiicstudio.leaf'
+  //   //   };
 
-    this.appRate.promptForRating(true);
+  //   this.appRate.setPreferences({
+  //     displayAppName: 'Leaf - Acalme sua mente',
+  //     usesUntilPrompt: 3,
+  //     promptAgainForEachNewVersion: false,
+  //     storeAppURL: {
+  //       ios: '<my_app_id>',
+  //       android: 'market://details?id=com.logiicstudio.leaf',
+  //     },
+  //   });
+    
+  //   this.appRate.promptForRating(false);
 
-    // or, override the whole preferences object
-    this.appRate.preferences = {
-      usesUntilPrompt: 3,
-      storeAppURL: {
-      ios: '<app_id>',
-      android: 'market://details?id=<package_name>',
-      windows: 'ms-windows-store://review/?ProductId=<store_id>'
-      }
-    }
+  // }
 
-    this.appRate.promptForRating(false);
+  privacy() {
+    window.open('https://sites.google.com/view/leaf-calm-your-mind/', '_system');
   }
+
 
 }

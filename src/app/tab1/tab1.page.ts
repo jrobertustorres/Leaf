@@ -4,12 +4,16 @@ import { Router } from '@angular/router';
 import { Howl } from 'howler';
 import { LoadingController } from '@ionic/angular';
 
+import { DatePipe } from '@angular/common';
+
 import { TranslateConfigService } from '../services/translate-config.service';
 import { HttpClient } from '@angular/common/http';
 import { EventService } from '../../utilitarios/EventService';
 import { MusicPlayerService } from '../services/music-player.service';
-
 import { BreathPage } from '../breath/breath.page';
+import { NowPlayingPage } from '../now-playing/now-playing.page';
+
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @Component({
   selector: 'app-tab1',
@@ -20,24 +24,22 @@ export class Tab1Page {
   player: Howl = null;
   play: boolean;
   labelButton: string = '';
-  // agora: number;
-  // mesAtual: string;
   backgroundImage: string = '';
-  // dia: boolean = true;
   saudacao: string = '';
   homeSound: any;
-  pathSound: Object = [];
+  jsonPathSound: Array<string> = [];
+  jsonPathSoundDestaque: Array<string> = [];
 
   selectedLanguage: string;
   private accessi18nData: any;
+  labelDestaque: Array<string> = [];
 
   arrayFrase: string;
   fraseHoje: string;
   autorHoje: string;
   private scrollDepthTriggered = false;
-
-  // home = {};
-  home: any;
+  maxDateNovo: any;
+  home = {};
 
   constructor(private translateConfigService: TranslateConfigService,
               private http: HttpClient,
@@ -49,7 +51,10 @@ export class Tab1Page {
               public alertController: AlertController,
               public modalCtrl: ModalController,
               public loadingController: LoadingController,
+              public datepipe: DatePipe,
+              private backgroundMode: BackgroundMode,
               private eventService: EventService) {
+    this.backgroundMode.enable();
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
 
     this.getLanguageDictionary();
@@ -62,19 +67,16 @@ export class Tab1Page {
     // });
 
     this.getChangeLanguage();
+
+    this.eventService.getObservableCloseModal().subscribe((data) => {
+      this.stopHomeSound();
+    });
   }
 
   ngOnInit() {
-    // this.Interstitial();
-    // this.banner();
-    // this.verificaStatusPlayer();
+    this.changeBackground();   
 
-    // interval(10 * 60).subscribe(x => {
-    //   // this.getTime();
-    //   // this.getDate();
-    // this.musicService.getJsonFile();
-    this.changeBackground();      
-    // });
+    this.verificaNovo();
 
     // localStorage.removeItem('DIA_DA_SEMANA');
     // localStorage.removeItem('FRASE_HOJE');
@@ -91,7 +93,6 @@ export class Tab1Page {
   }
 
   ionViewWillEnter() {
-    // this.verificaStatusPlayer();
   }
 
   ionViewWillLeave() {
@@ -99,7 +100,12 @@ export class Tab1Page {
     if(this.player) {
       this.player.stop();
       this.player.unload();
+      this.play = false;
     }
+  }
+
+  checkHomeSound(pathSound) {
+    this.homeSound = pathSound;
   }
 
   getLanguageDictionary() {
@@ -127,13 +133,23 @@ export class Tab1Page {
 
   getSoundPathJsonFile() {
     try {
-      // this.loadingDictionary();
-
       this.musicService.getJsonFile()
-      .then((soundData) => {
-        this.pathSound = soundData;
-        localStorage.setItem('PATH_SOUND', JSON.stringify(this.pathSound));
-        this.verificaStatusPlayer();
+      .then((soundData: any) => {
+        this.jsonPathSound = soundData;
+        localStorage.setItem('PATH_SOUND', JSON.stringify(this.jsonPathSound));
+        this.jsonPathSoundDestaque  = [];
+        
+        for(let i = 0; i < this.jsonPathSound.length; i++) {
+          if (this.jsonPathSound[i]['destaque']){
+            this.jsonPathSound[i]['labelDestaque'] = this.accessi18nData['HOME'][this.jsonPathSound[i]['labelDestaque']];
+            this.jsonPathSoundDestaque.push(this.jsonPathSound[i]);
+            if(this.jsonPathSound[i]['maxDateNovo'] >= this.maxDateNovo) {
+              this.jsonPathSoundDestaque[i]['novo'] = true;
+            }
+          }
+        }
+
+        this.setHomeSound();
       }, (err) => {
         if(err) {
           this.soundsAlert();
@@ -145,6 +161,11 @@ export class Tab1Page {
       }
       console.log(err);
     }
+  }
+
+  verificaNovo() {
+    this.maxDateNovo = new Date().toISOString();
+    this.maxDateNovo = this.datepipe.transform(this.maxDateNovo, 'yyyy-MM-dd');
   }
 
   getChangeLanguage() {
@@ -195,24 +216,10 @@ export class Tab1Page {
     });
     await loading.present();
 
-    if(this.accessi18nData && this.pathSound) {
+    if(this.accessi18nData && this.jsonPathSound) {
       await loading.onDidDismiss();
     }
   }
-
-  // fraseDoDia() {
-  //   // seleciona a frase do dia
-  //   let arrayHoje = localStorage.getItem('ARRAY_HOJE');
-    
-  //   for(let i in this.accessi18nData['FRASES']){
-  //     if(JSON.parse(arrayHoje)[0]['ID'] == this.accessi18nData['FRASES'][i]['ID']) {
-  //       let frase = [this.accessi18nData['FRASES'][i]];
-  //       this.fraseHoje = this.accessi18nData['FRASES'][i]['FRASE'];
-  //       this.autorHoje = this.accessi18nData['FRASES'][i]['AUTOR'];
-  //       localStorage.setItem('ARRAY_HOJE', JSON.stringify(frase));
-  //     }
-  //   }
-  // }
 
   verificaStatusPlayer() {
     this.play = JSON.parse(localStorage.getItem('STATUS_PLAYER'));
@@ -251,15 +258,16 @@ export class Tab1Page {
     this.labelButton = this.accessi18nData['HOME']['BTN_LIGAR'];
     localStorage.setItem('STATUS_PLAYER', 'false');
     if(this.player) {
+      this.play = false;
       this.player.stop();
       this.player.unload();
     }
   }
 
-  async setStateSound() {
+  async setSoundState() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: this.accessi18nData['HOME']['LABEL_SON_HOME'],
+      header: this.accessi18nData['HOME']['LABEL_SOM_HOME'],
       message: this.accessi18nData['HOME']['MSG_ALERT'],
       buttons: [
         {
@@ -272,6 +280,7 @@ export class Tab1Page {
           text: this.labelButton,
           handler: () => {
             this.play = !this.play;
+            console.log(this.play);
             localStorage.setItem('STATUS_PLAYER', this.play.toString());
             if(!this.play) {
               this.stopHomeSound();
@@ -299,7 +308,8 @@ export class Tab1Page {
     const scrollHeight = scrollElement.scrollHeight - scrollElement.clientHeight;
     const currentScrollDepth = $event.detail.scrollTop;
     // this.yourToggleFlag = currentScrollDepth < 413 ? true : false; 
-    const targetPercent = 20;
+    const targetPercent = 10;
+    // const targetPercent = 20;
     let triggerDepth = ((scrollHeight / 100) * targetPercent);
     if(currentScrollDepth > triggerDepth) {
       // this ensures that the event only triggers once
@@ -309,6 +319,78 @@ export class Tab1Page {
       // this ensures that the event only triggers once
       this.scrollDepthTriggered = false;
     }
+  }
+
+  openMusic(soundValue: string) {
+    if(soundValue == 'para-voce') {
+      this.openParaVocePage();
+    } else 
+      if(soundValue == 'breath') {
+      this.openBreath();
+    } else {
+      this.openMusicPlayer(soundValue);
+      // this.navCtrl.navigateRoot('/tabs/tab2/'+ segmentModel);
+    }
+  }
+
+  async openMusicPlayer(som: string) {
+
+    // chamando aqui o publish event informando que é para fechar o modal antes de abrir novamente. 
+    // Se não, ficam várias instancias abertas (vários modais).
+    // pego esse evento lá na página do modal
+    this.eventService.publishCloseModal({
+      buttonClicked: true
+    });
+    
+    const modal = await this.modalCtrl.create({
+      component: NowPlayingPage,
+      cssClass: 'my-custom-modal-css',
+      componentProps: { soundValue: som }
+    });
+    return await modal.present();
+  }
+
+  openParaVocePage() {
+    this.navCtrl.navigateRoot('/tabs/para-voce');
+  }
+
+  async openBreath() {
+
+    this.eventService.publishCloseModal({
+      buttonClicked: true
+    });
+
+    const modal = await this.modalCtrl.create({
+      component: BreathPage,
+      cssClass: 'my-custom-modal-css',
+      componentProps: {  }
+    });
+    return await modal.present();
+  }
+
+  // melhorar aqui depois, pois se entrar aqui antes de carregar o som, não vai tocar nada.
+  changeBackground() {
+    if(new Date().getHours() >= 6 && new Date().getHours() < 12) {
+      this.backgroundImage = 'assets/imgs/home2.jpg'; // montanha com rio
+    } else if(new Date().getHours() >= 12 && new Date().getHours() < 18) {
+      this.backgroundImage = 'assets/imgs/home2.jpg'; // montanha com rio
+    } else {
+      this.backgroundImage = 'assets/imgs/noite.webp'; // lua no lago
+    }
+  }
+
+  setHomeSound() {
+    for(let i = 0; i < this.jsonPathSound.length; i++) {
+      if (this.jsonPathSound[i]['useAtHome']){
+        if(new Date().getHours() >= 6 && new Date().getHours() < 18) {
+          this.homeSound = 'https://repositoriocalm.s3.amazonaws.com/mp3/passaros1.webm';
+        } else {
+          this.homeSound = 'https://repositoriocalm.s3.amazonaws.com/mp3/crickets2.webm';
+        }
+      }
+    }
+
+    this.verificaStatusPlayer();
   }
 
   //FUNCTION FOR INTERSTITIAL
@@ -333,8 +415,6 @@ export class Tab1Page {
   //   this.admobService.ShowRewardVideo();
   // }
 
-  
-
   // frases() {
 
   //   this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
@@ -351,28 +431,6 @@ export class Tab1Page {
     
   // }
 
-  openMusic(segmentModel: any) {
-    if(segmentModel == 'breath') {
-      this.openBreath();
-    } else {
-      this.navCtrl.navigateRoot('/tabs/tab2/'+ segmentModel);
-    }
-  }
-
-  openParaVocePage() {
-    this.navCtrl.navigateRoot('/tabs/para-voce');
-  }
-
-  async openBreath() {
-
-    const modal = await this.modalCtrl.create({
-      component: BreathPage,
-      cssClass: 'my-custom-modal-css',
-      componentProps: {  }
-    });
-    return await modal.present();
-  }
-
   // getTime() {
   //   this.agora = Date.now();
   // }
@@ -382,23 +440,18 @@ export class Tab1Page {
   //   this.mesAtual = nomeMeses[(new Date()).getMonth()];
   // }
 
-  // melhorar aqui depois, pois se entrar aqui antes de carregar o som, não vai tocar nada.
-  changeBackground() {
-    // if(new Date().getHours() >= 6 && new Date().getHours() < 18) {
-      this.homeSound = JSON.parse(localStorage.getItem('PATH_SOUND'));
-    if(new Date().getHours() >= 6 && new Date().getHours() < 12) {
-      this.backgroundImage = 'assets/imgs/home2.jpg'; // montanha
-      this.homeSound = this.homeSound[2]['path']; //passaros1
-      // this.backgroundImage = 'https://cdn.pixabay.com/photo/2016/09/19/07/01/lake-1679708_640.jpg'; // montanha
-    } else if(new Date().getHours() >= 12 && new Date().getHours() < 18) {
-      this.backgroundImage = 'assets/imgs/home2.jpg'; // montanha
-      this.homeSound = this.homeSound[2]['path']; //passaros1
-      // this.backgroundImage = 'https://cdn.pixabay.com/photo/2013/11/28/10/03/autumn-219972_960_720.jpg'; // lago
-    } else {
-      // this.backgroundImage = 'https://cdn.pixabay.com/photo/2019/06/07/13/11/landscape-4258253_960_720.jpg'; // desenho
-      this.backgroundImage = 'assets/imgs/noite.gif'; // lua no lago
-      this.homeSound = this.homeSound[12]['HOME']['CRICKETS']['path']; //crickets2
-    }
-  }
+  // fraseDoDia() {
+  //   // seleciona a frase do dia
+  //   let arrayHoje = localStorage.getItem('ARRAY_HOJE');
+    
+  //   for(let i in this.accessi18nData['FRASES']){
+  //     if(JSON.parse(arrayHoje)[0]['ID'] == this.accessi18nData['FRASES'][i]['ID']) {
+  //       let frase = [this.accessi18nData['FRASES'][i]];
+  //       this.fraseHoje = this.accessi18nData['FRASES'][i]['FRASE'];
+  //       this.autorHoje = this.accessi18nData['FRASES'][i]['AUTOR'];
+  //       localStorage.setItem('ARRAY_HOJE', JSON.stringify(frase));
+  //     }
+  //   }
+  // }
 
 }

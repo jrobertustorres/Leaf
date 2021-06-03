@@ -9,6 +9,9 @@ import { MusicPlayerService } from '../services/music-player.service';
 import { TranslateConfigService } from '../services/translate-config.service';
 import { HttpClient } from '@angular/common/http';
 
+import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
+
+
 export interface Track {
   id: number;
   name: string;
@@ -27,7 +30,6 @@ export interface Track {
 })
 export class NowPlayingPage implements OnInit {
   @Input() soundValue: string;
-  // @Input() idSound: number;
   
   activeTrack: Track = null;
   player: Howl = null;
@@ -49,11 +51,11 @@ export class NowPlayingPage implements OnInit {
   public name = '';
   public labelCategoria = '';
   public loading;
-
   public selectedLanguage:string;
-
   backgroundImage: string;
   private accessi18nData: any;
+
+  isLoading = false;
 
   selectedSound: Track[] = [
     {
@@ -77,7 +79,11 @@ export class NowPlayingPage implements OnInit {
               public toastController: ToastController,
               public loadingController: LoadingController,
               private httpC: HttpClient,
+              private streamingMedia: StreamingMedia,
               private eventService: EventService) {
+
+    this.accessi18nData = JSON.parse(localStorage.getItem('I18N_DICTIONARY'));
+    this.isLooping = JSON.parse(localStorage.getItem('IS_LOOPING'));
 
     this.eventService.getObservableCloseModal().subscribe((data) => {
       this.buttonClicked = data.buttonClicked;
@@ -101,29 +107,65 @@ export class NowPlayingPage implements OnInit {
 
   ngOnInit() {
     this.initializeMusicService();
+
+    // let options: StreamingVideoOptions = {
+    //   successCallback: () => { console.log('Video played') },
+    //   errorCallback: (e) => { console.log('Error streaming') },
+    //   orientation: 'portraid',
+    //   shouldAutoClose: true,
+    //   controls: false
+    // };
+    
+    // this.streamingMedia.playVideo('https://repositoriocalm.s3.amazonaws.com/gifs/chuva-calma.mp4', options);
   }
 
-  async initializeMusicService() {
-    const loading = await this.loadingController.create({
+  async presentLoading() {
+    this.isLoading = true;
+    return await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Buffering...',
       spinner: 'dots',
-      duration: 1000
+      // duration: 5000,
+    }).then(a => {
+      a.present().then(() => {
+        if (!this.isLoading) {
+          a.dismiss().then(() => console.log('abort presenting'));
+        }
+      });
     });
-    await loading.present();
+  }
+
+  async dismissLoading() {
+    this.isLoading = false;
+    return await this.loadingController.dismiss();
+  }
+
+  async initializeMusicService() {
+    // const loading = await this.loadingController.create({
+    //   cssClass: 'my-custom-class',
+    //   message: 'Buffering...',
+    //   spinner: 'dots',
+    //   duration: 1000
+    // });
+    // await loading.present();
+    this.presentLoading();
     this.musicService.getMusic(this.soundValue);
 
     this.progress = this.musicService.updateProgress();
     this.currentTimePlayer = this.musicService.updateCurrentTime();
+
     // aqui tenho que esperar um pouco para atualizar estes dados na tela
     setInterval(() => {
       // só preciso chamar uma vez
       // if(!this.totalSoundDuration) {
-      //   this.totalSoundDuration = activeTrack.totalSoundDuration;
-      // }
-      // tenho que atualizar constantemente - em tempo real
-      this.progress = this.musicService.updateProgress();
-      this.currentTimePlayer = this.musicService.updateCurrentTime();
+        //   this.totalSoundDuration = activeTrack.totalSoundDuration;
+        // }
+        // tenho que atualizar constantemente - em tempo real
+        this.progress = this.musicService.updateProgress();
+        this.currentTimePlayer = this.musicService.updateCurrentTime(); // melhorar aqui para quando o currentTimePlayer zerado, não continuar chamando o metodo.
+        if(this.currentTimePlayer == '00:00' && this.isLoading) {
+          this.dismissLoading();
+        }
     }, 1000);
     const interval = setInterval(() => {
       this.totalSoundDuration = this.musicService.returnTotalSoundDuration();
@@ -131,10 +173,11 @@ export class NowPlayingPage implements OnInit {
         clearInterval(interval);
       }
     }, 100);
-
-    if(this.totalSoundDuration != '') {
-      await loading.onDidDismiss();
-    }
+    // if(this.currentTimePlayer != undefined) {
+    // // if(this.currentTimePlayer == '00:00') {
+    //   // await loading.onDidDismiss();
+    //   this.dismiss();
+    // }
 
   }
 
@@ -149,7 +192,7 @@ export class NowPlayingPage implements OnInit {
   }
   
   hideModal(){
-    const el = <HTMLElement>document.querySelector('.sc-ion-modal-md-h');
+    let el = <HTMLElement>document.querySelector('.sc-ion-modal-md-h');
     el.style.setProperty('top', '100%');
   }
   

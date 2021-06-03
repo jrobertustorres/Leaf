@@ -1,288 +1,56 @@
-  <ion-header class="ion-no-border">
-  </ion-header>
+<ion-header class="ion-no-border">
+</ion-header>
 
 <ion-content [fullscreen]="true" class="card-background-page card">
 <div class="margin-style">
-<ion-segment
-  value="all"
-  mode="md"
-  scrollable="true"
-  [(ngModel)]="segmentModel" style="background-color: #007988; border-radius: 0;" color="primary">
+  <ion-segment
+    value="ALL"
+    mode="md"
+    scrollable="true"
+    [(ngModel)]="segmentModel"
+    class="segment-style" color="primary">
 
-    <ion-segment-button value="all">
+    <ion-segment-button value="ALL">
       <ion-label>{{ 'TABS.TODOS' | translate }}</ion-label>
     </ion-segment-button>
 
-    <ion-segment-button *ngFor="let segment of uniqueObjectSound" value="{{ segment.categoria }}">
+    <ion-segment-button *ngFor="let segment of uniqueObjectLabelSound" value="{{ segment.categoria }}" id="{{ segment.categoria }}"
+      (click)="getSegmentByCategory(segment.categoria); setFocusSegment(segment.categoria)">
       <ion-label>{{ segment.labelCategoria | translate }}</ion-label>
     </ion-segment-button>
-
-
-    <!-- <ion-segment-button value="chuva">
-      <ion-label>{{ 'TABS.CATEGORIA.CHUVA' | translate }}</ion-label>
-    </ion-segment-button>
-
-    <ion-segment-button value="passaros">
-      <ion-label>{{ 'TABS.CATEGORIA.PASSAROS' | translate }}</ion-label>
-    </ion-segment-button>
-
-    <ion-segment-button value="fogo">
-      <ion-label>{{ 'TABS.CATEGORIA.FOGO' | translate }}</ion-label>
-    </ion-segment-button>  
-
-    <ion-segment-button value="vento">
-      <ion-label>{{ 'TABS.CATEGORIA.VENTO' | translate }}</ion-label>
-    </ion-segment-button> 
-    
-    <ion-segment-button value="energia">
-      <ion-label>{{ 'TABS.CATEGORIA.ENERGIA_POSITIVA' | translate }}</ion-label>
-    </ion-segment-button>
-
-    <ion-segment-button value="binaural">
-      <ion-label>{{ 'TABS.CATEGORIA.SONS_BINAURAIS' | translate }}</ion-label>
-    </ion-segment-button> 
-
-    <ion-segment-button value="synthwave">
-      <ion-label>{{ 'TABS.CATEGORIA.SYNTHWAVE' | translate }}</ion-label>
-    </ion-segment-button>   -->
-
   </ion-segment>
 
-  <ion-grid *ngIf="segmentModel === 'all'">
+<ion-grid *ngIf="segmentModel === 'ALL'">
+  <ion-row>
+    <ion-col size="6" *ngFor="let item of objectSound | slice:0:slice">
+      <div (click)="openMusicPlayer(item.soundValue)">
+        <img src="{{ item.pathImageJPG }}" class="thumbnail-card-style"/>
+        <div class="label-item-novo" *ngIf="item.novo"><span class="span-novo">{{ 'HOME.NOVO_SOM' | translate }}</span></div>
+        <div class="title-style">{{ item.labelName | translate }}</div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
 
-    <ion-row>
-      <ion-col size="6" *ngFor="let item of objectSound">
-        <div (click)="openMusicPlayer(item.soundValue)">
-          <img src="{{item.pathImage}}" class="thumbnail-card-style"/>
-          <div class="title-style">{{ item.labelName | translate }}</div>
-        </div>
-      </ion-col>
-    </ion-row>
-
-    <!-- <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('chuva-trovao', 1)">
-          <img src="https://media.giphy.com/media/P0ar8pIucRwje/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.CHUVA_TROVOADAS' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('chuva-calma', 2)">
-          <img src="https://media.giphy.com/media/5torEEM8QnR95Cqg11/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.CHUVA_CALMA' | translate }}</div>
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('passaros', 3)">
-          <img src="https://media.giphy.com/media/SzUtv3rO40xhu/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.PASSAROS_LAGO' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('passaros2', 4)">
-          <img src="https://media.giphy.com/media/YB5Wcg2zQWSDC/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.PASSAROS_FLORESTA' | translate }}</div>
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('floresta-congelada', 5)">
-          <img src="https://media.giphy.com/media/xfa1GclK0WaOc/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.FLORESTA_CONGELADA' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('ventania', 6)">
-          <img src="https://media.giphy.com/media/clzp5RgHabMagyQIG9/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.VENTANIA_NO_CAMPO' | translate }}</div>
-        </div>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('frequencia-reconexao', 7)">
-          <img src="https://media.giphy.com/media/RGLkqjTQ7ehZS/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.FREQUENCIA_RECONEXAO' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('energia-positiva-frequencia-de-432-hz', 8)">
-          <img src="https://media.giphy.com/media/xUA7b5B6G21I3uKNDW/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.FREQUENCIA_432' | translate }}</div>
-        </div>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('fogueira', 11)">
-          <img src="https://media.giphy.com/media/7BsBA553QcgiA/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.FOGUEIRA' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('som-binaural-20-hz', 12)">
-          <img src="assets/sons/binaural/imgs/binaural.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.BINAURAL_20_HZ' | translate }}</div>
-        </div>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('retro1', 9)">
-          <img src="https://media.giphy.com/media/wKnqovL33x9in9ci6X/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.RETRO1' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('retro2', 10)">
-          <img src="https://media.giphy.com/media/dsd7XbYg0e6hG0A7i8/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.RETRO2' | translate }}</div>
-        </div>
-      </ion-col>
-    </ion-row> -->
-  </ion-grid>
-
-
-  <!-- <ion-grid *ngIf="segmentModel === 'all'">
-
-    <ion-row>
-      <ion-col size="6" *ngFor="let item of objectSound">
-        <div (click)="openMusicPlayer(item.soundValue)">
-          <img src="{{item.pathImage}}" class="thumbnail-card-style"/>
-          <div class="title-style">{{ item.labelName | translate }}</div>
-        </div>
-      </ion-col>
-    </ion-row> -->
-
-
-  <ion-grid  >
-    <ion-row >
-      <ion-col size="6" *ngFor="let i of objectSound">
-        <div *ngIf="segmentModel === i.categoria" (click)="openMusicPlayer(i.soundValue)">
-          <img src="{{i.pathImage}}" class="thumbnail-card-style"/>
-          <div class="title-style">{{ i.labelName | translate }}</div>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-
-
-  <!-- <ion-grid *ngIf="segmentModel === 'CHUVA'">
-    <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('chuva-trovao', 1)">
-          <img src="https://media.giphy.com/media/P0ar8pIucRwje/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.CHUVA_TROVOADAS' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('chuva-calma', 2)">
-          <img src="https://media.giphy.com/media/5torEEM8QnR95Cqg11/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.CHUVA_CALMA' | translate }}</div>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-grid *ngIf="segmentModel === 'PASSAROS'">
-    <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('passaros', 3)">
-          <img src="https://media.giphy.com/media/SzUtv3rO40xhu/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.PASSAROS_LAGO' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('passaros2', 4)">
-          <img src="https://media.giphy.com/media/YB5Wcg2zQWSDC/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.PASSAROS_FLORESTA' | translate }}</div>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-grid *ngIf="segmentModel === 'fogo'">
-    <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('fogueira', 11)">
-          <img src="https://media.giphy.com/media/7BsBA553QcgiA/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.FOGUEIRA' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-grid *ngIf="segmentModel === 'vento'">
-    <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('ventania', 5)">
-          <img src="https://media.giphy.com/media/clzp5RgHabMagyQIG9/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.VENTANIA_NO_CAMPO' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('floresta-congelada', 6)">
-          <img src="https://media.giphy.com/media/xfa1GclK0WaOc/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.FLORESTA_CONGELADA' | translate }}</div>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-grid *ngIf="segmentModel === 'energia'">
-    <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('frequencia-reconexao', 7)">
-          <img src="https://media.giphy.com/media/RGLkqjTQ7ehZS/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.FREQUENCIA_RECONEXAO' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('energia-positiva-frequencia-de-432-hz', 8)">
-          <img src="https://media.giphy.com/media/xUA7b5B6G21I3uKNDW/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.FREQUENCIA_432' | translate }}</div>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-grid *ngIf="segmentModel === 'binaural'">
-    <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('som-binaural-20-hz', 12)">
-          <img src="assets/sons/binaural/imgs/binaural.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.BINAURAL_20_HZ' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-grid *ngIf="segmentModel === 'synthwave'">
-    <ion-row>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('retro1', 9)">
-          <img src="https://media.giphy.com/media/wKnqovL33x9in9ci6X/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.RETRO1' | translate }}</div>
-        </div>
-      </ion-col>
-      <ion-col col-6>
-        <div (click)="openMusicPlayer('retro2', 10)">
-          <img src="https://media.giphy.com/media/dsd7XbYg0e6hG0A7i8/giphy.gif" class="thumbnail-card-style"/>
-          <div class="title-style">{{ 'TABS.RETRO2' | translate }}</div>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
+<ion-grid>
+  <ion-row>
+    <ion-col size="6" *ngFor="let i of objectSegmentSound">
+      <div *ngIf="segmentModel === i.categoria" (click)="openMusicPlayer(i.soundValue)">
+        <img src="{{ i.pathImageJPG }}" class="thumbnail-card-style"/>
+        <div class="title-style">{{ i.labelName | translate }}</div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
 </div>
+
+<ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+  <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+<!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+  <ion-infinite-scroll-content></ion-infinite-scroll-content>
+</ion-infinite-scroll> -->
+
 </ion-content>

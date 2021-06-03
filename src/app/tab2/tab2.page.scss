@@ -69,7 +69,7 @@ ion-header {
     // max-height: 240px;
     min-width: 100%;
     min-height: 220px;
-    // min-height: 240px;
+    // min-height: 180px;
   }
 
 }
@@ -83,4 +83,21 @@ ion-header {
 
 .ion-color-primary {
   --ion-color-base: #333333!important;
+}
+
+.segment-style {
+  background-color: #007988; 
+  border-radius: 0;
+}
+
+.label-item-novo {
+  position: absolute;
+  top: 10%;
+  background-color: #39A250;
+  border-radius: 15px;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
 }

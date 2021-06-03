@@ -1,11 +1,12 @@
 <ion-content [fullscreen]="true" >
   <ion-fab vertical="top" horizontal="start" slot="fixed">
-    <ion-fab-button color="medium-transparent" class="fab-button" (click)="hideModal()">
+    <ion-fab-button color="medium-transparent" class="fab-button" (click)="hideModal()" >
       <ion-icon name="chevron-down" style="color: #fff;"></ion-icon>
     </ion-fab-button>
   </ion-fab>
   
   <div class="control">
+    <!-- <video src="https://repositoriocalm.s3.amazonaws.com/gifs/chuva-calma.mp4" #videoPlayer autoplay="true" loop="true" height="100%" ></video> -->
     <div class="background" [ngStyle]="{'background-image': 'url(' + pathImage + ')'}"></div>
     <div class="container" *ngIf="showPlayerButtons">
       <div class="song-info ion-padding">
@@ -17,7 +18,8 @@
         </div>
       </div>
       <div class="song-timeline ion-padding">
-        <ion-range #range [(ngModel)]="progress" max="100" color="success" (touchend)="seek()" (mouseup)="seek()"></ion-range>
+        <ion-range #range [(ngModel)]="progress" max="100" color="success" style="pointer-events: none;"></ion-range>
+        <!-- <ion-range #range [(ngModel)]="progress" max="100" color="success" (touchend)="seek()" (mouseup)="seek()"></ion-range> -->
         <ion-row class="grid-no-padding ion-justify-content-between" style="color: #fff;">
           <ion-col size="auto">
             {{ currentTimePlayer }}

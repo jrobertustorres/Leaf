@@ -12,40 +12,59 @@ import { Howl } from 'howler';
   styleUrls: ['./breath.page.scss'],
 })
 export class BreathPage implements OnInit {
-  // selectedLanguage: string;
   accessi18nData: any;
-  breath = {};
-
   labelBreathe: string;
-
-  maxTime: number = 0;
-  timer;
+  breath: string;
   interval;
-  time: number;
-
-  isPlaying: boolean = false;
-
+  timeOut;
   player: Howl = null;
   play: boolean;
-  sound: any;
+  playAnimation: boolean = false;
+  playCountdown: boolean = false;
   breathSound: any;
-  
-  @ViewChild('el') element: ElementRef
+  grow: boolean;
+
+  maxTime: any = 3;
+  hidevalue: boolean;
+  timer: any;
+
+  breatheTime: number;
+  holdTime: number;
+
+  counter: number;
+
+
+  @ViewChild('container', { read: ElementRef }) private container: ElementRef;
   constructor(public modalCtrl: ModalController,
               private http: HttpClient,
               private eventService: EventService,
               private renderer: Renderer2) { 
       this.accessi18nData = JSON.parse(localStorage.getItem('I18N_DICTIONARY'));;
       this.breath = this.accessi18nData['BREATH']['FOQUE_RESPIRACAO'];
-  }
 
+    // this.startTimer();
+    // this.breathAnimation();
+
+    }
+    
   ngOnInit() {
     this.breathSound = JSON.parse(localStorage.getItem('PATH_SOUND'));
-    this.breathSound = this.breathSound[12]['MEDITATION']['NIRVANA-MEDITATION']['path']; //nirvana-meditation
-    this.startSound();
+    this.setSound();
   }
   
   ionViewWillEnter() {
+  }
+
+  setSound() {
+    // this.eventService.publishCloseModal({
+    //   buttonClicked: true
+    // });
+    for(let i = 0; i < this.breathSound.length; i++) {
+      if (this.breathSound[i]['name'] == 'nirvana-meditation'){
+        this.breathSound = 'https://repositoriocalm.s3.amazonaws.com/mp3/nirvana-meditation.webm';
+      }
+    }
+    // this.startSound();
   }
 
   closeModal() {
@@ -56,45 +75,110 @@ export class BreathPage implements OnInit {
   }
 
   verificaStatusPlayer() {
-    this.player.stop();
-    this.player.unload();
-  }
-
-  togglePlayer() {
-    this.isPlaying = !this.isPlaying;
-    if(this.isPlaying) {
-      this.startAnimation();
-    } else {
-      this.stopAnimation();
+    if(this.player) {
+      this.player.stop();
+      this.player.unload();
     }
   }
 
-  startAnimation() {
-    this.labelBreathe = this.accessi18nData['BREATH']['INSPIRE'];
-    this.time = 0;
-    this.renderer.addClass(this.element.nativeElement, 'anim-circle');
-    this.startTimer();
-  }
-  
-  stopAnimation() {
-    this.labelBreathe = '';
-    this.time = 0;
-    this.renderer.removeClass(this.element.nativeElement, 'anim-circle');
-    clearInterval(this.interval);
+  // togglePlayer() {
+  //   this.isPlaying = !this.isPlaying;
+  //   if(this.isPlaying) {
+  //     // this.breathAnimation();
+  //     this.startAnimation();
+  //   } else {
+  //     this.stopAnimation();
+  //   }
+  // }
+
+  toggleCountdown() {
+    // this.playCountdown = !this.playCountdown;
+    // if(this.playCountdown) {
+      this.startCountdown(3);
+    // }
   }
 
-  startTimer() {
-    this.interval = setInterval(() => {
-      if(this.time == 5) {
-          this.labelBreathe = this.accessi18nData['BREATH']['EXPIRE'];
+
+  startAnimation() {
+    this.playAnimation = true;
+    // if(this.playAnimation) {
+      this.breathAnimation();
+      this.startSound();
+      // }else {
+        //   this.stopAnimation();
+        // }
       }
-      if(this.time == 10) {
-        this.labelBreathe = this.accessi18nData['BREATH']['INSPIRE'];
-        this.time = 0;
-      }
-      this.time += 1;
-    },1000);
+      
+  stopAnimation() {
+    this.playAnimation = false;
+    this.labelBreathe = '';
+    clearInterval(this.interval);
+    clearTimeout(this.timeOut);
+    this.stopSound();
   }
+  // toggleAnimation() {
+  //   this.playAnimation = !this.playAnimation;
+  //   if(this.playAnimation) {
+  //     this.breathAnimation();
+  //     this.startSound();
+  //   }else {
+  //     this.stopAnimation();
+  //   }
+  // }
+
+  breathAnimation() {
+    this.labelBreathe = '';
+
+    let totalTime = 7500;
+    this.breatheTime = (totalTime / 5) * 2;
+    this.holdTime = totalTime / 5;
+
+    this.labelBreathe = this.accessi18nData['BREATH']['INSPIRE'];
+    this.grow = true;
+    
+    this.timeOut = setTimeout(() => {
+      this.labelBreathe = this.accessi18nData['BREATH']['SEGURE'];
+      this.timeOut = setTimeout(() => {
+        this.labelBreathe = this.accessi18nData['BREATH']['EXPIRE'];
+        this.grow = false;
+      }, this.holdTime);
+    }, this.breatheTime);
+
+    this.interval = setInterval(() => {
+      clearInterval(this.interval);
+      this.breathAnimation();
+    },totalTime);
+
+  }
+
+  startCountdown(seconds) {
+    this.counter = seconds;
+      
+    const interval = setInterval(() => {
+      console.log(this.counter);
+      this.counter--;
+        
+      if (this.counter < 1 ) {
+        clearInterval(interval);
+        console.log('Ding!');
+        this.startAnimation();
+      }
+    }, 1000);
+    // this.breathAnimation();
+  }
+
+  // startTimer() {
+  //   this.interval = setInterval(() => {
+  //     if(this.time == 5) {
+  //         this.labelBreathe = this.accessi18nData['BREATH']['EXPIRE'];
+  //     }
+  //     if(this.time == 10) {
+  //       this.labelBreathe = this.accessi18nData['BREATH']['INSPIRE'];
+  //       this.time = 0;
+  //     }
+  //     this.time += 1;
+  //   },1000);
+  // }
   
   setStateSound() {
     this.play = !this.play;
