@@ -36,9 +36,21 @@ export class MusicPlayerService {
   idSoundInMemory: number = 0;
   isClick: boolean = false;
   selectedLanguage: string;
+  categoriaRadio: string = '';
+  categoria: string = '';
+  albumValue: string = '';
+  albumValueAntigo: string = '';
+  playingRadio: boolean = false;
   private accessi18nData: any;
+  
+  private _count = 0;
+  posicao: number = 0;
 
+  novaPlayList: boolean = true;
+  
   pathSound: Object = [];
+  // pathSoundList: Object = [];
+  pathSoundList: Array<string> = [];
 
   selectedSound: Track[] = [
     {
@@ -81,6 +93,9 @@ export class MusicPlayerService {
 
   start(track: Track) {
     this.isPlaying = false;
+    track = this.categoria != 'MUSICA' ? track : track[this.posicao];
+
+    console.log(this.pathSoundList);
 
     if(this.player) {
       this.player.stop();
@@ -90,18 +105,27 @@ export class MusicPlayerService {
       src: [track.path],
       html5: true,
       loop: null,
-      // loop: this.isLooping,
+      state: '',
       onload: () => {
         // this.totalSoundDuration = this.formatTime(Math.round(this.player.duration()));
       },
       onplay: () => {
-        this.totalSoundDuration = this.formatTime(Math.round(this.player.duration()));
-        this.selectedSound[0]['totalSoundDuration'] = this.totalSoundDuration;
         this.isPlaying = true;
         this.activeTrack = track;
+        
+        this.totalSoundDuration = this.formatTime(Math.round(this.player.duration()));
+
         // localStorage.setItem('STATUS_PLAYER', this.isPlaying.toString()); // não me lembro por que coloquei essa linha, mas tive que comentá-la
         // estava influenciando no som da Home
-        this.updateProgress();
+        // this.updateProgress(); // descomentar esta linha quando puder arrastar o seek
+
+        this.selectedSound[this.posicao]['totalSoundDuration'] = this.totalSoundDuration;
+        this.selectedSound[this.posicao]['state'] = this.player.state();
+        /** atualiza o player minimizado na tela tabs.page */
+        this.eventService.publishData({
+          activeTrack: this.selectedSound[this.posicao]// Antes era sempre zero
+        });
+
       },
       onend: () => {
         this.activeTrack = track;
@@ -112,14 +136,16 @@ export class MusicPlayerService {
         } else {
           this.player.stop();
         }
+        if(this.categoria == 'MUSICA') {
+          if ((this.posicao + 1) == this.pathSoundList.length) {
+            this.executePlayList(0, this.pathSoundList);
+          } else {
+            this.executePlayList(this.posicao + 1, this.pathSoundList);
+          }
+        }
       }
     });
     this.player.play();
-
-    // this.eventService.publishData({
-    //   activeTrack: this.selectedSound[0]
-    // });
-
   }
 
   stopPlayer() {
@@ -183,26 +209,32 @@ export class MusicPlayerService {
     try {
       let seek = this.player.seek();
       this.progress = (seek / this.player.duration()) * 100 || 0;
-
+      
       // atualiza a barra de progresso quando o player está minimizado
-      this.selectedSound[0]['porcentagemProgresso'] = this.progress < 10 ? '0.0'+this.progress : '0.'+this.progress.toFixed(0);
-      this.selectedSound[0]['isPlaying'] = this.isPlaying;
+      this.selectedSound[this.posicao]['porcentagemProgresso'] = this.progress < 10 ? '0.0'+this.progress : '0.'+this.progress.toFixed(0);
+      this.selectedSound[this.posicao]['isPlaying'] = this.isPlaying;
+      // this.selectedSound[0]['porcentagemProgresso'] = this.progress < 10 ? '0.0'+this.progress : '0.'+this.progress.toFixed(0);
+      // this.selectedSound[0]['isPlaying'] = this.isPlaying;
 
       if(!this.isPlaying) {
-        this.selectedSound[0]['isPlaying'] = false;
+        this.selectedSound[this.posicao]['isPlaying'] = false;
+        // this.selectedSound[0]['isPlaying'] = false;
       }
-      /** atualiza o player minimizado na tela tabs.page */
-      this.eventService.publishData({
-        activeTrack: this.selectedSound[0]
-      });
+
+        /** atualiza o player minimizado na tela tabs.page */
+        this.eventService.publishData({
+          activeTrack: this.selectedSound[this.posicao]// Antes era sempre zero
+          // activeTrack: this.selectedSound[0]// Antes era sempre zero
+        });
 
       this.eventService.publishPorcentagemProgresso({
-        porcentagemProgresso: this.selectedSound[0]['porcentagemProgresso']
+        porcentagemProgresso: this.selectedSound[this.posicao]['porcentagemProgresso']
+        // porcentagemProgresso: this.selectedSound[0]['porcentagemProgresso']
       });
       
-      setTimeout(() => {
-        this.updateProgress();
-      }, 1000);
+      // setTimeout(() => {
+      //   this.updateProgress();
+      // }, 1000);
       
       return this.progress;
     }
@@ -214,11 +246,65 @@ export class MusicPlayerService {
     }
   }
 
+  getMusic(soundValue: string, categoria: string) {
+    this.categoriaRadio = null;
+    this.playingRadio = false;
+    this.categoria = categoria;
+    this.posicao = 0;
+    this.pathSound = JSON.parse(localStorage.getItem('PATH_SOUND'));
+    for(let i in this.pathSound) {
+      this.pathSound[i]['playingRadio'] = this.playingRadio;
+      if(this.pathSound[i]['soundValue'] == soundValue) {
+        this.start(this.pathSound[i]);
+        this.selectedSound[0] = this.pathSound[i];
+        return this.selectedSound[0];
+      }
+    };
+  }
+
+  getPlayList(categoria: any, albumValue: string) {
+    this.categoriaRadio = null;
+    this.playingRadio = false;
+    this.categoria = categoria;
+
+    let song_array = [];
+    this.pathSoundList = JSON.parse(localStorage.getItem('PATH_SOUND'));
+    for(let i in this.pathSoundList) {
+      if(this.pathSoundList[i]['categoria'] == categoria && this.pathSoundList[i]['albumValue'] == albumValue) {
+        song_array.push(this.pathSoundList[i]);
+      }
+    }
+    this.pathSoundList = song_array;
+    this.executePlayList(0, this.pathSoundList);
+  }
+
+  executePlayList(posicao,pathSoundList) {
+    this.posicao = posicao;
+    
+    this.selectedSound[posicao] = pathSoundList[posicao];
+    this.start(pathSoundList);
+  }
+
+  getRadio(nameRadio: string, categoriaRadio: string) {
+    this.categoria = categoriaRadio;
+    console.log(this.categoria);
+    this.playingRadio = true;
+    this.pathSound = JSON.parse(localStorage.getItem('PATH_RADIOS'));
+    for(let i in this.pathSound) {
+      this.pathSound[i]['playingRadio'] = this.playingRadio;
+      if(this.pathSound[i]['nameRadio'] == nameRadio) {
+        this.start(this.pathSound[i]);
+        this.selectedSound[0] = this.pathSound[i];
+        return this.selectedSound[0];
+      }
+    }
+  }
+
   public getJsonFile() {
     try {
       return new Promise((resolve, reject) => {
-        // this.http.get('assets/sons.json')
-        this.http.get('https://repositoriocalm.s3.amazonaws.com/sons.json')
+        this.http.get('assets/sons.json')
+        // this.http.get('https://repositoriocalm.s3.amazonaws.com/sons.json')
         .subscribe(data => {
           resolve(data);
         }, (err) => {
@@ -232,17 +318,22 @@ export class MusicPlayerService {
     }
   }
 
-  getMusic(soundValue: string) {
-    this.pathSound = JSON.parse(localStorage.getItem('PATH_SOUND'));
-
-    for(let i in this.pathSound) {
-      if(this.pathSound[i]['soundValue'] == soundValue) {
-        this.start(this.pathSound[i]);
-        this.selectedSound[0] = this.pathSound[i];
-        return this.selectedSound[0];
+  public getJsonRadioFile() {
+    try {
+      return new Promise((resolve, reject) => {
+        // this.http.get('assets/radios.json')
+        this.http.get('https://repositoriocalm.s3.amazonaws.com/radios.json')
+        .subscribe(data => {
+          resolve(data);
+        }, (err) => {
+          reject(err);
+        });
+      });
+    } catch (e){
+      if(e instanceof RangeError){
+        console.log('out of range');
       }
-    };
-
+    }
   }
 
 }

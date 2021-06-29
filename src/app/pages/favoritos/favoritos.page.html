@@ -1,0 +1,48 @@
+<ion-header class="ion-no-border">
+</ion-header>
+
+<ion-content [fullscreen]="true" style="position: absolute;" 
+    class="card-background-page" 
+    [scrollEvents]="true" (ionScroll)="logScrolling($event)" 
+    [ngClass]="(_scrollDepthTriggered == true)?'nav-colored':'nav-transparent'">
+
+  <div class="control">
+    <div class="img-style" 
+      [ngStyle]="{'background-image': 'url(assets/imgs/fav.webp)'}"
+      [ngClass]="(_scrollDepthTriggered == true)?'hide-img':'show-img'">
+      <h3 class="card-subtitle">{{ 'TABS.FAVORITOS' | translate }}</h3>
+    </div>
+  </div>
+
+  <div id="navi" class="position-radios">
+
+    <ion-grid>
+      <ion-row>
+        <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let item of favoritosList | slice:0:slice">
+          <div class="img-wrapper" [style.background-image]="'url(\'' + item.pathImageJPG + '\')'" (click)="openMusicPlayer(item.soundValue)">
+            <div class="title-style" text-center>{{ item.labelName | translate }}</div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let item of favoritosList | slice:0:slice">
+          <div (click)="openMusicPlayer(item.soundValue)">
+            <img src="{{ item.pathImageJPG }}" class="thumbnail-card-style"/>
+              <div class="title-style" text-center>{{ item.labelName | translate }}</div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+    <ion-card class="card-fake-style">
+    </ion-card>
+  </div>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)" class="spinner">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

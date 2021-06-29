@@ -6,21 +6,49 @@
   </ion-fab>
   
   <div class="control">
-    <!-- <video src="https://repositoriocalm.s3.amazonaws.com/gifs/chuva-calma.mp4" #videoPlayer autoplay="true" loop="true" height="100%" ></video> -->
-    <div class="background" [ngStyle]="{'background-image': 'url(' + pathImage + ')'}"></div>
-    <div class="container" *ngIf="showPlayerButtons">
+    <div class="background" [ngStyle]="{'background-image': 'url(' + pathImage + ')'}" ></div>
+    <div class="center">
+      <ion-spinner name="dots" class="spinner" *ngIf="!loaded"></ion-spinner>
+    </div>
+    <div class="container" *ngIf="showPlayerButtons && loaded">
       <div class="song-info ion-padding">
-        <div class="song-title" *ngIf="activeTrack">
+        <!-- <div class="song-title" *ngIf="activeTrack && !labelAutor"> -->
+        <div class="song-title" *ngIf="activeTrack && categoria != 'MUSICA'">
           {{ selectedSound | translate }}
         </div>
-        <div class="artist-name">
+        <!-- <div class="song-title" *ngIf="activeTrack && labelAutor"> -->
+        <div class="song-title" *ngIf="activeTrack && categoria == 'MUSICA'">
+          {{ labelSong | translate }}
+        </div>
+        <!-- <div class="artist-name" *ngIf="labelAutor"> -->
+        <div class="artist-name" *ngIf="categoria == 'MUSICA'">
+          <ion-text color="medium-contrast">Album - {{ selectedSound | translate }}</ion-text>
+        </div>
+        <div class="artist-name" *ngIf="categoria == 'MUSICA'">
+          <ion-text color="medium-contrast">{{ labelAutor | translate }}</ion-text>
+        </div>
+        <!-- <div class="artist-name" *ngIf="!labelAutor" > -->
+        <div class="artist-name" *ngIf="categoria != 'MUSICA'">
           <ion-text color="medium-contrast">{{ labelCategoria | translate }}</ion-text>
         </div>
       </div>
-      <div class="song-timeline ion-padding">
-        <ion-range #range [(ngModel)]="progress" max="100" color="success" style="pointer-events: none;"></ion-range>
-        <!-- <ion-range #range [(ngModel)]="progress" max="100" color="success" (touchend)="seek()" (mouseup)="seek()"></ion-range> -->
-        <ion-row class="grid-no-padding ion-justify-content-between" style="color: #fff;">
+
+      <!-- <div class="now playing" id="music" *ngIf="loaded && (playingRadio && isPlaying)"> -->
+      <div class="now playing" id="music" *ngIf="loaded && playingRadio">
+        <span class="bar n1">A</span>
+        <span class="bar n2">B</span>
+        <span class="bar n3">c</span>
+        <span class="bar n4">D</span>
+        <span class="bar n5">E</span>
+        <span class="bar n6">F</span>
+        <span class="bar n7">G</span>
+        <span class="bar n8">H</span>
+      </div>
+
+      <div class="song-timeline ion-padding" *ngIf="!playingRadio">
+        <!-- <ion-range #range [(ngModel)]="progress" max="100" color="success" class="range-style"></ion-range> -->
+        <ion-range #range [(ngModel)]="progress" max="100" color="success" (touchend)="seek()" (mouseup)="seek()"></ion-range>
+        <ion-row class="grid-no-padding ion-justify-content-between" style="color: #fff;" >
           <ion-col size="auto">
             {{ currentTimePlayer }}
           </ion-col>
@@ -30,26 +58,30 @@
         </ion-row>
       </div>
 
-      <div class="buttons ion-padding" >
+      <div class="buttons ion-padding" style="text-align: center;">
         <ion-grid>
           <ion-row>
             <ion-col>
               <div>
-                
+                <ion-button fill="clear" (click)="setFavorito()" color="light" *ngIf="!playingRadio">
+                  <ion-icon name="heart-outline" *ngIf="!eFavorito" ></ion-icon>
+                  <ion-icon name="heart" *ngIf="eFavorito"></ion-icon>
+                </ion-button>
               </div>
             </ion-col>
-            <ion-col style="text-align: center;">
+            <ion-col >
               <div>
-                <ion-button fill="clear" (click)="togglePlayer(false)" *ngIf="!isPlaying" color="light">
+                <ion-button fill="clear" (click)="togglePlayer(false)" *ngIf="!isPlaying && soundState == 'loaded'" color="light">
                   <ion-icon slot="icon-only" name="play"></ion-icon>
                 </ion-button>
                 <ion-button fill="clear" (click)="togglePlayer(true)" *ngIf="isPlaying" color="light">
-                  <ion-icon slot="icon-only" name="pause"></ion-icon>
+                  <ion-icon slot="icon-only" name="pause" *ngIf="!playingRadio"></ion-icon>
+                  <ion-icon slot="icon-only" name="stop" *ngIf="playingRadio"></ion-icon>
                 </ion-button>
               </div>
             </ion-col>
             <ion-col>
-              <div>
+              <div *ngIf="!playingRadio">
                 <ion-button fill="clear" (click)="loopPlayer(true)" *ngIf="isLooping" color="light">
                   <ion-icon name="return-up-forward-outline"></ion-icon>
                 </ion-button>

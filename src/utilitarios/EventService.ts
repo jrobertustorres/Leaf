@@ -8,6 +8,7 @@ export class EventService {
 
     private fooSubject = new Subject<any>();
     private buttonClicked = new Subject<any>();
+    private updateList = new Subject<any>();
     private languageChanged = new Subject<any>();
     private porcentagemProgresso = new Subject<any>();
 
@@ -32,6 +33,13 @@ export class EventService {
     }
     getObservableCloseModal() {
         return this.buttonClicked;
+    }
+
+    publishMinimizedModal(data: any) {
+        this.updateList.next(data);
+    }
+    updateFavoritosList() {
+        return this.updateList;
     }
 
     publishChangeLanguage(data: any) {

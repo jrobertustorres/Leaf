@@ -1,0 +1,41 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>{{ 'TABS.MAIS' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="plan-list " >
+    <div class="plan-item color-3" (click)="openAjustes()">
+      <div class="row plan-description" style="height: 62px;">
+        <div class="column left" style="text-align: center;">
+          <p><ion-icon name="cog" style="font-size: 30px;"></ion-icon></p>
+        </div>
+        <div class="column right" style="text-align: left;">
+          <p style="line-height: 30px;">{{ 'AJUSTES' | translate }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="plan-item " (click)="openBreath()">
+      <div class="row plan-description" style="height: 62px;">
+        <div class="column left" style="text-align: center;">
+          <p><ion-icon name="radio-button-on-outline" style="font-size: 30px;"></ion-icon></p>
+        </div>
+        <div class="column right" style="text-align: left;">
+          <p style="line-height: 30px;">{{ 'TABS.EXERCICIO_RESPIRACAO' | translate }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="plan-item color-2" (click)="openParaVocePage()">
+      <div class="row plan-description" style="height: 62px;">
+        <div class="column left" style="text-align: center;">
+          <p><ion-icon name="happy-outline" style="font-size: 30px;"></ion-icon></p>
+        </div>
+        <div class="column right" style="text-align: left;">
+          <p style="line-height: 30px;">{{ 'HOME.PARA_VOCE' | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

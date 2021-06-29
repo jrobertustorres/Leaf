@@ -5,6 +5,8 @@
     "TITLE_INFO_SISTEMA": "Informações do sistema",
     "REPETIR_ATIVADO": "Repetir ligado",
     "REPETIR_DESATIVADO": "Repetir desligado",
+    "TOAST_FAVORITO_ADICIONADO": "Adicionado aos favoritos",
+    "TOAST_FAVORITO_REMOVIDO": "Removido dos favoritos",
     "HOME": {
         "BTN_CANCELAR": "Cancelar",
         "BTN_DESLIGAR": "Desligar",
@@ -26,7 +28,8 @@
         "RETRO1": "Retro 1",
         "TODOS_SONS": "Todos os sons",
         "VENTANIA_NA_MONTANHA": "A montanha nebulosa",
-        "VENTO": "Vento"
+        "VENTO": "Vento",
+        "SLEEP_CYCLES": "Album - Sleep Cycles"
     },
     "TABS": {
         "CATEGORIA": {
@@ -93,7 +96,13 @@
         "MEDITACAO_TROVAO_DISTANTE": "Águas da serenidade",
         "FLUIDEZ": "Fluidez",
         "SONS_BINAURAIS": "Sons Binaurais",
-        "BINAURAL_20_HZ": "Binaural Beta 20 Hz"
+        "BINAURAL_20_HZ": "Binaural Beta 20 Hz",
+        "FAVORITOS": "Favoritos",
+        "MAIS": "Mais",
+        "EXERCICIO_RESPIRACAO": "Exercício de respiração",
+        "RADIOS": "Rádios",
+        "MUSICA": "Músicas",
+        "SLEEP_CYCLES": "Album - Sleep Cycles EP"
     },
     "TAB3": {
         "IDIOMA": "Idioma",
@@ -109,7 +118,9 @@
         "FOQUE_RESPIRACAO": "Foque na sua respiração",
         "INSPIRE": "Inspire!",
         "EXPIRE": "Expire!",
-        "SEGURE": "Segure"
+        "SEGURE": "Segure",
+        "START": "Iniciar",
+        "STOP": "Parar"
     },
     "FRASES": [
         {

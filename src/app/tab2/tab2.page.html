@@ -20,37 +20,38 @@
     </ion-segment-button>
   </ion-segment>
 
-<ion-grid *ngIf="segmentModel === 'ALL'">
-  <ion-row>
-    <ion-col size="6" *ngFor="let item of objectSound | slice:0:slice">
-      <div (click)="openMusicPlayer(item.soundValue)">
-        <img src="{{ item.pathImageJPG }}" class="thumbnail-card-style"/>
-        <div class="label-item-novo" *ngIf="item.novo"><span class="span-novo">{{ 'HOME.NOVO_SOM' | translate }}</span></div>
-        <div class="title-style">{{ item.labelName | translate }}</div>
-      </div>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+  <ion-grid *ngIf="segmentModel === 'ALL'">
+    <ion-row>
+      <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let item of objectSound | slice:0:slice">
+        <div class="img-wrapper" [style.background-image]="'url(\'' + item.pathImageJPG + '\')'" 
+          (click)="openMusicPlayer(item.soundValue, item.categoria, item.albumValue)">
+          <img class="ribbon" src="assets/imgs/new.png" *ngIf="item.novo">
+          <div class="title-style label-album" text-center *ngIf="item.categoria == 'MUSICA'">Album - </div>
+          <div class="title-style" text-center >{{ item.labelName | translate }}</div>
+            <!-- <div class="label-item-novo" *ngIf="item.novo">
+              <span class="span-novo">{{ 'HOME.NOVO_SOM' | translate }}</span>
+            </div> -->
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-<ion-grid>
-  <ion-row>
-    <ion-col size="6" *ngFor="let i of objectSegmentSound">
-      <div *ngIf="segmentModel === i.categoria" (click)="openMusicPlayer(i.soundValue)">
-        <img src="{{ i.pathImageJPG }}" class="thumbnail-card-style"/>
-        <div class="title-style">{{ i.labelName | translate }}</div>
-      </div>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let i of objectSegmentSound  | slice:0:slice">
+        <div class="img-wrapper" [style.background-image]="'url(\'' + i.pathImageJPG + '\')'" 
+          (click)="openMusicPlayer(i.soundValue, i.categoria, i.albumValue)" *ngIf="segmentModel === i.categoria">
+          <div class="title-style label-album" text-center *ngIf="i.categoria == 'MUSICA'">Album - </div>
+          <div class="title-style" text-center>{{ i.labelName | translate }}</div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </div>
 
-<ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+<ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)" class="spinner">
   <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading...">
   </ion-infinite-scroll-content>
 </ion-infinite-scroll>
-
-<!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-  <ion-infinite-scroll-content></ion-infinite-scroll-content>
-</ion-infinite-scroll> -->
 
 </ion-content>

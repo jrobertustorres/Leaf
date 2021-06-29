@@ -1,0 +1,183 @@
+[
+{
+	"id":1,
+	"nameRadio":"a.m.ambient",
+	"labelName":"A.M.Ambient Radio",
+	"labelCategoria":"amambient.com",
+	"path":"https://radio.stereoscenic.com/ama-s",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":8,
+	"nameRadio":"Thistle Radio",
+	"labelName":"Thistle Radio",
+	"labelCategoria":"Exploring music from Celtic roots and branches",
+	"path":"http://ice6.somafm.com/thistle-128-mp3",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":2,
+	"nameRadio":"Nordic Lodge Copenhagen",
+	"labelName":"Nordic Lodge Copenhagen",
+	"labelCategoria":"nordiclodgeradio.com",
+	"path":"https://larry.torontocast.com:2095/stream",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":3,
+	"nameRadio":"Life Chill Music",
+	"labelName":"Life Chill Music",
+	"labelCategoria":"lifechillmusic.com",
+	"path":"http://aska.ru-hoster.com:8053/stream",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":8,
+	"nameRadio":"Digitalis",
+	"labelName":"Digitalis",
+	"labelCategoria":"Analog rock to calm the agitated heart",
+	"path":"http://ice2.somafm.com/digitalis-128-mp3",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":8,
+	"nameRadio":"Underground 80s",
+	"labelName":"Underground 80s",
+	"labelCategoria":"Early 80s UK Synthpop and a bit of New Wave.",
+	"path":"http://ice6.somafm.com/u80s-128-mp3",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":8,
+	"nameRadio":"Groove Salad",
+	"labelName":"Groove Salad",
+	"labelCategoria":"A nicely chilled plate of ambient",
+	"path":"http://ice2.somafm.com/groovesalad-128-mp3",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":8,
+	"nameRadio":"Groove Salad Classic",
+	"labelName":"Groove Salad Classic",
+	"labelCategoria":"The classic (early 2000s)",
+	"path":"http://ice6.somafm.com/gsclassic-128-mp3",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":8,
+	"nameRadio":"Vaporwaves",
+	"labelName":"Vaporwaves",
+	"labelCategoria":"All Vaporwave. All the time.",
+	"path":"http://ice6.somafm.com/vaporwaves-128-mp3",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":8,
+	"nameRadio":"Folk Forward",
+	"labelName":"Folk Forward",
+	"labelCategoria":"Indie Folk",
+	"path":"http://ice6.somafm.com/folkfwd-128-mp3",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":8,
+	"nameRadio":"Illinois Street Lounge",
+	"labelName":"Illinois Street Lounge",
+	"labelCategoria":"Vintage music of tomorrow",
+	"path":"http://ice2.somafm.com/illstreet-128-mp3",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":8,
+	"nameRadio":"Deepspace One",
+	"labelName":"Deepspace One",
+	"labelCategoria":"Deep ambient electronic",
+	"path":"http://ice4.somafm.com/deepspaceone-128-mp3",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":4,
+	"nameRadio":"ChillSky - LoFi HipHop",
+	"labelName":"ChillSky - LoFi HipHop",
+	"labelCategoria":"chillsky.com",
+	"path":"https://lfhh.radioca.st/stream",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":5,
+	"nameRadio":"Chill Free",
+	"labelName":"Chill Free",
+	"labelCategoria":"tunein4.streamguys1.com 🎧",
+	"path":"http://tunein4.streamguys1.com/chrhtfree1",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":6,
+	"nameRadio":"Chill Prem.",
+	"labelName":"Chill Prem.",
+	"labelCategoria":"tunein4.streamguys1.com 🎧",
+	"path":"http://tunein4.streamguys1.com/chillprem1",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":7,
+	"nameRadio":"Chill Free 2",
+	"labelName":"Chill Free 2",
+	"labelCategoria":"tunein4.streamguys1.com 🎧",
+	"path":"http://tunein4.streamguys1.com/chillfree1",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":4,
+	"nameRadio":"Sonic Universe - Jazz",
+	"labelName":"Sonic Universe",
+	"labelCategoria":"Transcending the world of jazz",
+	"path":"http://ice4.somafm.com/sonicuniverse-128-mp3",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+},
+{
+	"id":5,
+	"nameRadio":"Drone zone - Chilled",
+	"labelName":"Drone zone - Chilled",
+	"labelCategoria":"Served best chilled :)",
+	"path":"http://ice6.somafm.com/dronezone-128-mp3",
+	"categoria":"RADIO",
+	"pathImageIcon":"assets/imgs/live.webp",
+	"pathImage":"assets/imgs/tokyo2.webp"
+}
+
+]

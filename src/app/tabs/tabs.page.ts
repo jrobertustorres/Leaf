@@ -22,7 +22,10 @@ export class TabsPage {
   public labelCategoria = '';
   public isPlaying: boolean = false;
   public selectedLanguage:string;
-  private accessi18nData: any;
+  playingRadio: boolean = false;
+  public soundState: string;
+  public labelSong: string = '';
+  public labelAutor: string = '';
 
   constructor(public modalCtrl: ModalController,
               private translateConfigService: TranslateConfigService,
@@ -37,7 +40,11 @@ export class TabsPage {
       this.pathImage = this.activeTrack['activeTrack']['pathImage'];
       this.selectedSound = this.activeTrack['activeTrack']['labelName'];
       this.labelCategoria = this.activeTrack['activeTrack']['labelCategoria'];
+      this.labelSong = this.activeTrack['activeTrack']['labelSong'];
       this.isPlaying = this.activeTrack['activeTrack']['isPlaying'];
+      this.playingRadio = this.activeTrack['activeTrack']['playingRadio'];
+      this.soundState = this.activeTrack['activeTrack']['state'];
+      this.labelAutor = this.activeTrack['activeTrack']['labelAutor'];
     });
 
     // aqui fico atualizando a barra de progresso
@@ -57,6 +64,11 @@ export class TabsPage {
 
    togglePlayer(pause: boolean) {
     this.isPlaying = this.musicService.setStatusPlayer(pause);
+    //usado quando é radio para ativar ou desativar as barras laranjas
+    if(this.playingRadio) {
+      let player = document.getElementById("music");
+      player.classList.toggle("paused");
+    }
   }
 
   goToSounds() {

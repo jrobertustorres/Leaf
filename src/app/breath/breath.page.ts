@@ -1,10 +1,11 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { TranslateConfigService } from '../services/translate-config.service';
 import { HttpClient } from '@angular/common/http';
 import { EventService } from '../../utilitarios/EventService';
 
 import { Howl } from 'howler';
+import { Insomnia } from '@ionic-native/insomnia/ngx';
 
 @Component({
   selector: 'app-breath',
@@ -38,13 +39,9 @@ export class BreathPage implements OnInit {
   constructor(public modalCtrl: ModalController,
               private http: HttpClient,
               private eventService: EventService,
-              private renderer: Renderer2) { 
+              private insomnia: Insomnia) { 
       this.accessi18nData = JSON.parse(localStorage.getItem('I18N_DICTIONARY'));;
-      this.breath = this.accessi18nData['BREATH']['FOQUE_RESPIRACAO'];
-
-    // this.startTimer();
-    // this.breathAnimation();
-
+      // this.breath = this.accessi18nData['BREATH']['FOQUE_RESPIRACAO'];
     }
     
   ngOnInit() {
@@ -53,18 +50,36 @@ export class BreathPage implements OnInit {
   }
   
   ionViewWillEnter() {
+    this.keepAwake();
+  }
+  
+  ionViewWillLeave() {
+    this.allowSleepAgain();
+    this.verificaStatusPlayer();
+  }
+  
+  keepAwake() {
+    this.insomnia.keepAwake()
+    .then(
+      () => console.log('success'),
+      () => console.log('error')
+    );
+  }
+
+  allowSleepAgain() {
+    this.insomnia.allowSleepAgain()
+    .then(
+      () => console.log('success'),
+      () => console.log('error')
+    );
   }
 
   setSound() {
-    // this.eventService.publishCloseModal({
-    //   buttonClicked: true
-    // });
     for(let i = 0; i < this.breathSound.length; i++) {
       if (this.breathSound[i]['name'] == 'nirvana-meditation'){
         this.breathSound = 'https://repositoriocalm.s3.amazonaws.com/mp3/nirvana-meditation.webm';
       }
     }
-    // this.startSound();
   }
 
   closeModal() {
@@ -81,33 +96,16 @@ export class BreathPage implements OnInit {
     }
   }
 
-  // togglePlayer() {
-  //   this.isPlaying = !this.isPlaying;
-  //   if(this.isPlaying) {
-  //     // this.breathAnimation();
-  //     this.startAnimation();
-  //   } else {
-  //     this.stopAnimation();
-  //   }
-  // }
-
   toggleCountdown() {
-    // this.playCountdown = !this.playCountdown;
-    // if(this.playCountdown) {
-      this.startCountdown(3);
-    // }
+    this.startCountdown(3);
   }
 
 
   startAnimation() {
     this.playAnimation = true;
-    // if(this.playAnimation) {
-      this.breathAnimation();
-      this.startSound();
-      // }else {
-        //   this.stopAnimation();
-        // }
-      }
+    this.breathAnimation();
+    this.startSound();
+  }
       
   stopAnimation() {
     this.playAnimation = false;
@@ -116,15 +114,6 @@ export class BreathPage implements OnInit {
     clearTimeout(this.timeOut);
     this.stopSound();
   }
-  // toggleAnimation() {
-  //   this.playAnimation = !this.playAnimation;
-  //   if(this.playAnimation) {
-  //     this.breathAnimation();
-  //     this.startSound();
-  //   }else {
-  //     this.stopAnimation();
-  //   }
-  // }
 
   breathAnimation() {
     this.labelBreathe = '';
@@ -155,31 +144,15 @@ export class BreathPage implements OnInit {
     this.counter = seconds;
       
     const interval = setInterval(() => {
-      console.log(this.counter);
       this.counter--;
         
       if (this.counter < 1 ) {
         clearInterval(interval);
-        console.log('Ding!');
         this.startAnimation();
       }
     }, 1000);
-    // this.breathAnimation();
   }
 
-  // startTimer() {
-  //   this.interval = setInterval(() => {
-  //     if(this.time == 5) {
-  //         this.labelBreathe = this.accessi18nData['BREATH']['EXPIRE'];
-  //     }
-  //     if(this.time == 10) {
-  //       this.labelBreathe = this.accessi18nData['BREATH']['INSPIRE'];
-  //       this.time = 0;
-  //     }
-  //     this.time += 1;
-  //   },1000);
-  // }
-  
   setStateSound() {
     this.play = !this.play;
     if(!this.play) {

@@ -15,24 +15,28 @@
             <div class="song-info">
               <span>{{ selectedSound | translate }}</span>
               <span> · </span>
-              <span><ion-text color="medium">{{ labelCategoria | translate }}</ion-text></span>
+              <span><ion-text color="medium" *ngIf="!labelAutor">{{ labelCategoria | translate }}</ion-text></span>
+              <span><ion-text color="medium" *ngIf="labelAutor" >{{ labelSong | translate }}</ion-text></span>
             </div>
           </div>
         </ion-col>
   
         <ion-col size="auto">
-          <ion-button fill="clear" *ngIf="!isPlaying" color="light" (click)="togglePlayer(false);$event.stopPropagation();">
+          <ion-spinner name="dots" class="spinner" *ngIf="!isPlaying && soundState != 'loaded'"></ion-spinner>
+          <ion-button fill="clear" *ngIf="!isPlaying && soundState == 'loaded'" color="light" 
+            (click)="togglePlayer(false);$event.stopPropagation();">
             <ion-icon slot="icon-only" name="play"></ion-icon>
           </ion-button>
       
-          <ion-button fill="clear" *ngIf="isPlaying" color="light" (click)="togglePlayer(true);$event.stopPropagation();">
-            <ion-icon slot="icon-only" name="pause"></ion-icon>
+          <ion-button fill="clear" *ngIf="isPlaying" color="light" 
+            (click)="togglePlayer(true);$event.stopPropagation();">
+            <ion-icon slot="icon-only" name="pause" *ngIf="!playingRadio"></ion-icon>
+            <ion-icon slot="icon-only" name="stop" *ngIf="playingRadio"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
     </div>
 </div>
-
 
 <ion-fab vertical="bottom" horizontal="center" translucent="true">
   <ion-fab-button (click)="goToSounds()" color="fab">
@@ -45,24 +49,33 @@
     <ion-icon name="leaf-outline"></ion-icon>
     <!-- <ion-label>Home</ion-label> -->
   </ion-tab-button>
-
-  <ion-tab-button (click)="openBreath()" class="comments">
-    <ion-icon name="radio-button-on-outline"></ion-icon>
-    <!-- <ion-label>{{ 'TABS.RESPIRACAO' | translate }}</ion-label> -->
+  
+  <ion-tab-button tab="radios" class="comments">
+    <ion-icon name="radio-outline"></ion-icon>
   </ion-tab-button>
+
+  <!-- <ion-tab-button (click)="openBreath()" class="comments">
+    <ion-icon name="radio-button-on-outline"></ion-icon>
+  </ion-tab-button> -->
 
   <svg height="50" viewBox="0 0 100 50" width="100" xmlns="http://www.w3.org/2000/svg">
     <path d="M100 0v50H0V0c.543 27.153 22.72 49 50 49S99.457 27.153 99.99 0h.01z" fill="red" fill-rule="evenodd"></path>
   </svg>
 
-  <ion-tab-button tab="para-voce" class="notifs">
-    <ion-icon name="happy-outline"></ion-icon>
-    <!-- <ion-label>notifications</ion-label> -->
+  <ion-tab-button tab="favoritos" class="notifs">
+    <ion-icon name="heart-outline"></ion-icon>
   </ion-tab-button>
+  <!-- <ion-tab-button tab="para-voce" class="notifs">
+    <ion-icon name="happy-outline"></ion-icon>
+  </ion-tab-button> -->
 
-  <ion-tab-button tab="tab3">
-    <ion-icon name="cog"></ion-icon>
-    <!-- <ion-label>{{ 'AJUSTES' | translate }}</ion-label> -->
+  <!-- <ion-tab-button tab="tab1">
+    <ion-icon name="heart-outline"></ion-icon>
+  </ion-tab-button> -->
+
+  <!-- <ion-tab-button tab="tab3"> -->
+  <ion-tab-button tab="mais">
+    <ion-icon name="menu-outline"></ion-icon>
   </ion-tab-button>
 </ion-tab-bar>
 

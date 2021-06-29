@@ -5,6 +5,8 @@
     "TITLE_INFO_SISTEMA": "System information",
     "REPETIR_ATIVADO": "Looping on",
     "REPETIR_DESATIVADO": "Looping off",
+    "TOAST_FAVORITO_ADICIONADO": "Added to favorites",
+    "TOAST_FAVORITO_REMOVIDO": "Removed from favorites",
     "HOME": {
         "BTN_CANCELAR": "Cancel",
         "BTN_DESLIGAR": "Turn Off",
@@ -26,7 +28,8 @@
         "RETRO1": "Retro 1",
         "TODOS_SONS": "All sounds",
         "VENTANIA_NA_MONTANHA": "The cloudy mountain",
-        "VENTO": "Wind"
+        "VENTO": "Wind",
+        "SLEEP_CYCLES": "Album - Sleep Cycles"
     },
     "TABS": {
         "CATEGORIA": {
@@ -93,7 +96,12 @@
         "MEDITACAO_TROVAO_DISTANTE": "Waters of serenity",
         "FLUIDEZ": "Fluidity",
         "SONS_BINAURAIS": "Binaural Sounds",
-        "BINAURAL_20_HZ": "Binaural Beta 20 Hz"
+        "BINAURAL_20_HZ": "Binaural Beta 20 Hz",
+        "FAVORITOS": "Favorites",
+        "MAIS": "More",
+        "EXERCICIO_RESPIRACAO": "Breathing exercise",
+        "RADIOS": "Radios",
+        "MUSICA": "Songs"
     },
     "TAB3": {
         "IDIOMA": "Language",
@@ -109,7 +117,9 @@
         "FOQUE_RESPIRACAO": "Focus on your breath",
         "INSPIRE": "Breathe In!",
         "EXPIRE": "Breathe Out!",
-        "SEGURE": "Hold"
+        "SEGURE": "Hold",
+        "START": "Start",
+        "STOP": "Stop"
     },
     "FRASES": [
         {

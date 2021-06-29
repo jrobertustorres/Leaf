@@ -1,11 +1,15 @@
-ion-content {
+  ion-content {
     --background: linear-gradient(to top, #060606, #007988);
     // --background: linear-gradient(to top, #060606, #00695c);
   }
-  
+
   ion-toolbar {
-    --background: #007988;
+    --background: none;
   }
+  
+  // ion-toolbar {
+  //   --background: #007988;
+  // }
 
   h1, h2, h3, h4, h5 {
     ion-icon {
@@ -30,6 +34,7 @@ ion-content {
   .version-position {
     position: fixed; 
     bottom: 10%;
+    margin-left: 16px;
   }
 
   .version-style {

@@ -1,0 +1,38 @@
+<ion-header class="ion-no-border">
+</ion-header>
+
+<ion-content [fullscreen]="true" style="position: absolute;" 
+    class="card-background-page" 
+    [scrollEvents]="true" (ionScroll)="logScrolling($event)" 
+    [ngClass]="(_scrollDepthTriggered == true)?'nav-colored':'nav-transparent'">
+
+  <div class="control">
+    <div class="img-style" 
+      [ngStyle]="{'background-image': 'url(assets/imgs/tokyo.webp)'}"
+      [ngClass]="(_scrollDepthTriggered == true)?'hide-img':'show-img'">
+      <h3 class="card-subtitle">{{ 'TABS.RADIOS' | translate }}</h3>
+    </div>
+  </div>
+
+  <div id="navi" class="position-radios">
+      <ion-card *ngFor="let i of jsonPathRadios | slice:0:slice" class="card-style">
+        <ion-item (click)="openMusicPlayer(i.nameRadio, i.categoria)" class="ion-item-background">
+          <ion-avatar slot="start" class="avatar-style">
+              <img src="{{ i.pathImageIcon }}">
+          </ion-avatar>
+          <ion-label>
+              <h3 class="label-name">{{ i.labelName }}</h3>
+              <p class="p-style">{{ i.labelCategoria }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+      <ion-card class="card-fake-style">
+      </ion-card>
+  </div>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)" class="spinner">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

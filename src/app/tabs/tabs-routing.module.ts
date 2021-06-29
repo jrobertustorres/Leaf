@@ -28,6 +28,18 @@ const routes: Routes = [
         loadChildren: () => import('../para-voce/para-voce.module').then(m => m.ParaVocePageModule)
       },
       {
+        path: 'radios',
+        loadChildren: () => import('../radios/radios.module').then(m => m.RadiosPageModule)
+      },
+      {
+        path: 'favoritos',
+        loadChildren: () => import('../pages/favoritos/favoritos.module').then(m => m.FavoritosPageModule)
+      },
+      {
+        path: 'mais',
+        loadChildren: () => import('../pages/mais/mais.module').then(m => m.MaisPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

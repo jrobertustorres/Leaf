@@ -1,6 +1,6 @@
 <ion-header no-border style="z-index: 1;">
   <ion-title style="text-align: left;">
-      <img height="60" src="assets/imgs/logo.png" class="logo-position" [ngClass]="(scrollDepthTriggered == true)?'hide-img':'show-img'">
+      <img height="60" src="assets/imgs/logo.png" class="logo-position" [ngClass]="(_scrollDepthTriggered == true)?'hide-img':'show-img'">
       <ion-icon name="musical-notes-outline" class="icon-sound-style" (click)="setSoundState()" ></ion-icon>
   </ion-title>
 </ion-header>
@@ -8,31 +8,57 @@
 <ion-content [fullscreen]="true" style="position: absolute;" 
     class="card-background-page" 
     [scrollEvents]="true" (ionScroll)="logScrolling($event)" 
-    [ngClass]="(scrollDepthTriggered == true)?'nav-colored':'nav-transparent'">
+    [ngClass]="(_scrollDepthTriggered == true)?'nav-colored':'nav-transparent'">
 
     <div class="control">
-
       <div class="img-style" 
         [ngStyle]="{'background-image': 'url(' + backgroundImage + ')'}"
-        [ngClass]="(scrollDepthTriggered == true)?'hide-img':'show-img'">
+        [ngClass]="(_scrollDepthTriggered == true)?'hide-img':'show-img'">
       </div>
     </div>
 
   <div id="navi" *ngIf="accessi18nData" >
-    <!-- <ion-label color="light">Light Label</ion-label> -->
 
-    <!-- <p>Destaques</p> -->
-    <!-- <div >
-      <p>Destaques</p> -->
-
-
-    <ion-card class="card-style" (click)="openMusic('breath')">
-      <!-- <video src="assets/imgs/videogular.mp4"  #videoPlayer autoplay="true" loop="true" width="100%" ></video> -->
-      <img src="assets/imgs/respire.jpg" class="img-card-style"/>
-      <div class="card-subtitle">{{ home.RESPIRE }}</div>
+    <!-- <h3 class="destaques">Destaques</h3> -->
+    <ion-card class="new-card-style" style="text-align: left;"
+      (click)="openMusic('breath')">
+      <img src="assets/imgs/respire.webp" class="new-img-style"/>
+      <ion-card-header>
+        <ion-card-title class="new-ion-card-title">{{ home.RESPIRE }}
+        </ion-card-title>
+      </ion-card-header>
     </ion-card>
 
-    <ion-card class="card-style" *ngFor="let item of jsonPathSoundDestaque" 
+    <ion-card class="new-card-style" style="text-align: left;"
+      (click)="openParaVocePage()">
+      <img src="assets/imgs/para-voce2.webp" class="new-img-style"/>
+      <ion-card-header>
+        <ion-card-title class="new-ion-card-title">{{ home.PARA_VOCE }}
+        </ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="new-card-style" style="text-align: left;" *ngFor="let item of jsonPathSoundDestaque" 
+      (click)="openMusic(item.soundValue, item.categoria, item.albumValue)">
+      <img src="{{ item.pathImage }}" class="new-img-style"/>
+      <img class="ribbon" src="assets/imgs/new-home.png" *ngIf="item.novo">
+      <!-- <div class="label-item-novo-home" *ngIf="item.novo" >
+        <span class="span-novo">{{ home.NOVO_SOM }}</span>
+      </div>  -->
+      <ion-card-header>
+        <ion-card-title class="new-ion-card-title">{{ item.labelDestaque }}
+        </ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+
+
+    <!-- <ion-card class="card-style" (click)="openMusic('breath')">
+      <img src="assets/imgs/respire.jpg" class="img-card-style"/>
+      <div class="card-subtitle">{{ home.RESPIRE }}</div>
+    </ion-card> -->
+
+    <!-- <ion-card class="card-style" *ngFor="let item of jsonPathSoundDestaque" 
       (click)="openMusic(item.soundValue)">
       <img src="{{ item.pathImage }}" class="img-card-style"/>
       <div class="card-subtitle">{{ item.labelDestaque }} 
@@ -40,17 +66,15 @@
           <span class="span-novo">{{ home.NOVO_SOM }}</span>
         </div> 
       </div>
-    </ion-card>
+    </ion-card> -->
 
-    <ion-card class="card-style" (click)="openParaVocePage()">
+    <!-- <ion-card class="card-style" (click)="openParaVocePage()">
       <img src="assets/imgs/para-voce2.jpg" class="img-card-style"/>
       <div class="card-subtitle">{{ home.PARA_VOCE }}</div>
-    </ion-card>
+    </ion-card> -->
 
     <ion-card class="card-fake-style">
     </ion-card>
-
-
   </div>
 
 </ion-content>

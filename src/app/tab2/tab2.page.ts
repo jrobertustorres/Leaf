@@ -23,8 +23,7 @@ export class Tab2Page {
   objectSegmentSound: Array<string> = [];
   uniqueObjectLabelSound: Array<string>;
   slice: number = 8;
-
-  maxDateNovo: any;
+  maxDateNovo: string;
 
   constructor(private eventService: EventService,
               private activatedRoute: ActivatedRoute,
@@ -54,7 +53,6 @@ export class Tab2Page {
   }
 
   ionViewDidEnter() {
-    // this.setFocusSegment(this.segmentModel);
   }
 
   doInfinite(infiniteScroll) {
@@ -62,7 +60,7 @@ export class Tab2Page {
      this.slice += 8;
      infiniteScroll.target.complete();
     }, 300);
-   }
+  }
 
   //FUNCTION FOR INTERSTITIAL
   interstitial(){
@@ -92,18 +90,12 @@ export class Tab2Page {
 
   getAllImages() {
     this.objectSound = JSON.parse(localStorage.getItem('PATH_SOUND'));
-    // let objectAux = this.objectSound;
-
-      // if (objectAux[i]['categoria'] == ""){
-      //   objectAux.slice();
-      //   this.objectSound = objectAux;
-      //   console.log(this.objectSound);
-      // }
-    // }
-
     let updatedArray = [];
+    let labelName: string = '';
     for(let i = 0; i < this.objectSound.length; i++) {
-      if (this.objectSound[i]['categoria'] != ""){
+      // if (this.objectSound[i]['categoria'] != ""){
+      if (this.objectSound[i]['categoria'] != "" && labelName != this.objectSound[i]['labelName']){
+        labelName = this.objectSound[i]['labelName'];
         updatedArray.push(this.objectSound[i]);
         if(this.objectSound[i]['maxDateNovo'] >= this.maxDateNovo) {
           this.objectSound[i]['novo'] = true;
@@ -111,7 +103,6 @@ export class Tab2Page {
       }
     }
     this.objectSound = updatedArray;
-
     this.removeSegmentDuplicates();
   }
 
@@ -150,16 +141,8 @@ export class Tab2Page {
     this.getSegmentByCategory(this.segmentModel);
   }
 
-  // async slideChanged() {
-  //   this.activeIndex= await this.slider.getActiveIndex();
-  //     document.getElementById("segment-" + activeIndex).scrollIntoView({
-  //     behavior: 'smooth',
-  //     block: 'center',
-  //     inline: 'center'
-  //   });
-  // }
-  
-  async openMusicPlayer(som: string) {
+  // async openMusicPlayer(som: string) {
+  async openMusicPlayer(som: string, categoria: string, albumValue: string) {
 
     // chamando aqui o publish event informando que é para fechar o modal antes de abrir novamente. 
     // Se não, ficam várias instancias abertas (vários modais).
@@ -171,11 +154,10 @@ export class Tab2Page {
     const modal = await this.modalCtrl.create({
       component: NowPlayingPage,
       cssClass: 'my-custom-modal-css',
-      componentProps: { soundValue: som }
+      componentProps: { soundValue: som, categoria: categoria, albumValue: albumValue }
+      // componentProps: { soundValue: som }
     });
     return await modal.present();
-  
   }
-  
 
 }

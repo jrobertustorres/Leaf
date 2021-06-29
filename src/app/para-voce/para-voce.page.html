@@ -1,16 +1,26 @@
-<!-- <ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>para-voce</ion-title>
+    <ion-buttons slot="start" style="color: #fff;" (click)="myBackButton()">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
-</ion-header> -->
+</ion-header>
 
-<ion-content>
-  <div *ngIf="selectedLanguage == 'pt'">
-    <div class="title">
-      Para seu Equilíbrio Interior
+<ion-content [fullscreen]="true" style="position: absolute;" 
+    class="card-background-page" 
+    [scrollEvents]="true" (ionScroll)="logScrolling($event)" 
+    [ngClass]="(_scrollDepthTriggered == true)?'nav-colored':'nav-transparent'">
+
+    <div class="control" >
+      <div class="img-style" 
+        [ngStyle]="{'background-image': 'url(assets/imgs/para-voce2.webp)'}"
+        [ngClass]="(_scrollDepthTriggered == true)?'hide-img':'show-img'">
+        <h3 class="card-subtitle" *ngIf="selectedLanguage == 'pt'">Para seu Equilíbrio Interior</h3>
+        <h3 class="card-subtitle" *ngIf="selectedLanguage == 'en'">For your Inner Balance</h3>
+      </div>
     </div>
 
-    <div class="plan-list">
+    <div id="navi" class="plan-list position-radios" *ngIf="selectedLanguage == 'pt'">
       <div class="plan-item" (click)="openEquilibrio()">
         <div class="plan-title">
           Curso EQUILIBRE-SE
@@ -38,17 +48,12 @@
         </div>
       </div>
 
-      <ion-card class="card-fake-style">
-      </ion-card>
+      <!-- <ion-card class="card-fake-style">
+      </ion-card> -->
 
     </div>
-  </div>
 
-  <div *ngIf="selectedLanguage == 'en'">
-    <div class="title">
-      For your Inner Balance
-    </div>
-    <div class="plan-list">
+    <div id="navi" class="plan-list position-radios" *ngIf="selectedLanguage == 'en'">
       <div class="plan-item" (click)="openHooponopono()">
         <div class="plan-title">
           Ho'oponopono Class
@@ -63,11 +68,8 @@
           <p class="saiba-mais">Know more</p>
         </div>
       </div>
-
-      <ion-card class="card-fake-style">
-      </ion-card>
-
+      <!-- <ion-card class="card-fake-style">
+      </ion-card> -->
     </div>
-  </div>
 
 </ion-content>

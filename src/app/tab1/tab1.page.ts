@@ -37,14 +37,12 @@ export class Tab1Page {
   arrayFrase: string;
   fraseHoje: string;
   autorHoje: string;
-  private scrollDepthTriggered = false;
+  private _scrollDepthTriggered = false;
   maxDateNovo: any;
   home = {};
 
   constructor(private translateConfigService: TranslateConfigService,
               private http: HttpClient,
-              // private admobService: AdmobService,
-              // private admobFree: AdMobFree,
               private musicService: MusicPlayerService,
               private navCtrl: NavController,
               private router: Router,
@@ -56,16 +54,7 @@ export class Tab1Page {
               private eventService: EventService) {
     this.backgroundMode.enable();
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
-
     this.getLanguageDictionary();
-
-    // this.http.get('https://repositoriocalm.s3.amazonaws.com/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
-    // // this.httpC.get('assets/i18n/'+this.selectedLanguage+'.json').subscribe(data => {
-    //   this.accessi18nData = data;
-    //   localStorage.setItem('I18N_DICTIONARY', JSON.stringify(this.accessi18nData));
-    //   this.home = this.accessi18nData['HOME'];
-    // });
-
     this.getChangeLanguage();
 
     this.eventService.getObservableCloseModal().subscribe((data) => {
@@ -75,7 +64,6 @@ export class Tab1Page {
 
   ngOnInit() {
     this.changeBackground();   
-
     this.verificaNovo();
 
     // localStorage.removeItem('DIA_DA_SEMANA');
@@ -148,7 +136,6 @@ export class Tab1Page {
             }
           }
         }
-
         this.setHomeSound();
       }, (err) => {
         if(err) {
@@ -280,7 +267,6 @@ export class Tab1Page {
           text: this.labelButton,
           handler: () => {
             this.play = !this.play;
-            console.log(this.play);
             localStorage.setItem('STATUS_PLAYER', this.play.toString());
             if(!this.play) {
               this.stopHomeSound();
@@ -313,27 +299,27 @@ export class Tab1Page {
     let triggerDepth = ((scrollHeight / 100) * targetPercent);
     if(currentScrollDepth > triggerDepth) {
       // this ensures that the event only triggers once
-      this.scrollDepthTriggered = true;
+      this._scrollDepthTriggered = true;
     }
     if(currentScrollDepth < triggerDepth) {
       // this ensures that the event only triggers once
-      this.scrollDepthTriggered = false;
+      this._scrollDepthTriggered = false;
     }
   }
 
-  openMusic(soundValue: string) {
+  openMusic(soundValue: string, categoria: string, albumValue: string) {
     if(soundValue == 'para-voce') {
       this.openParaVocePage();
     } else 
       if(soundValue == 'breath') {
       this.openBreath();
     } else {
-      this.openMusicPlayer(soundValue);
+      this.openMusicPlayer(soundValue, categoria, albumValue);
       // this.navCtrl.navigateRoot('/tabs/tab2/'+ segmentModel);
     }
   }
 
-  async openMusicPlayer(som: string) {
+  async openMusicPlayer(som: string, categoria: string, albumValue: string) {
 
     // chamando aqui o publish event informando que é para fechar o modal antes de abrir novamente. 
     // Se não, ficam várias instancias abertas (vários modais).
@@ -345,17 +331,17 @@ export class Tab1Page {
     const modal = await this.modalCtrl.create({
       component: NowPlayingPage,
       cssClass: 'my-custom-modal-css',
-      componentProps: { soundValue: som }
+      componentProps: { soundValue: som, categoria: categoria, albumValue: albumValue }
+      // componentProps: { soundValue: som }
     });
     return await modal.present();
   }
 
   openParaVocePage() {
-    this.navCtrl.navigateRoot('/tabs/para-voce');
+    this.navCtrl.navigateRoot('/para-voce');
   }
 
   async openBreath() {
-
     this.eventService.publishCloseModal({
       buttonClicked: true
     });

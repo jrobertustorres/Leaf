@@ -34,7 +34,7 @@ import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
-
+import { Insomnia } from '@ionic-native/insomnia/ngx';
 
 //IMPORT ADMOB FREE
 import { AdMobFree, AdMobFreeBannerConfig,AdMobFreeInterstitialConfig,AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free/ngx';
@@ -76,6 +76,7 @@ export function LanguageLoader(http: HttpClient) {
     Market,
     AppRate,
     StreamingMedia,
+    Insomnia,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -29,7 +29,7 @@ ion-tab-bar, ion-tab-button{
   border-bottom: 0.55px solid var(--ion-color-light-shade);
 
   border: none !important; 
-  margin-bottom: 15%;
+  margin-bottom: 17%;
 
   .playing-info {
     padding: 4px 12px;
@@ -93,4 +93,8 @@ ion-tabs{
 
 .div-modal-minimized {
 	background-color: var(--ion-color-light)
+}
+
+.spinner {
+	margin-right: 17px;
 }
