@@ -33,9 +33,8 @@ export class RadiosPage implements OnInit {
   //FUNCTION FOR INTERSTITIAL
   interstitial(){
     let interstitialConfig: AdMobFreeInterstitialConfig = {
-      isTesting: true,
-      autoShow: true
-      // id: "ca-app-pub-1449609669530104/3079724176"
+      autoShow: true,
+      id: "ca-app-pub-1449609669530104/3079724176"
     };
       this.admobFree.interstitial.config(interstitialConfig);
       this.admobFree.interstitial.prepare().then(() => {
@@ -85,7 +84,6 @@ export class RadiosPage implements OnInit {
   }
 
   async openMusicPlayer(nameRadio: string, categoria: string) {
-
     // chamando aqui o publish event informando que é para fechar o modal antes de abrir novamente. 
     // Se não, ficam várias instancias abertas (vários modais).
     // pego esse evento lá na página do modal
@@ -96,7 +94,7 @@ export class RadiosPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: NowPlayingPage,
       cssClass: 'my-custom-modal-css',
-      componentProps: { nameRadio: nameRadio, categoriaRadio: categoria }
+      componentProps: { nameRadio: nameRadio, categoria: categoria }
     });
     return await modal.present();
   

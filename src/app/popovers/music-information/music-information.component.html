@@ -1,0 +1,13 @@
+<ion-content padding>
+  <div class="ion-content-style">
+    <ion-grid>
+      <ion-row><ion-col><h6>{{ _titulo.TITLE_SONS_ALBUM }}</h6></ion-col></ion-row>
+      <ion-row>
+        <div class="div-text">
+            <p *ngFor="let list of playListToShow" >{{ list.labelSong }} . {{ list.qtdMinutos }}</p>
+          </div>
+      </ion-row>
+      <ion-row><ion-col class="button"><span (click)="ClosePopover()">Ok</span></ion-col></ion-row>
+    </ion-grid> 
+  </div>
+</ion-content> 

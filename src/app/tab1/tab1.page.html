@@ -1,7 +1,7 @@
 <ion-header no-border style="z-index: 1;">
   <ion-title style="text-align: left;">
       <img height="60" src="assets/imgs/logo.png" class="logo-position" [ngClass]="(_scrollDepthTriggered == true)?'hide-img':'show-img'">
-      <ion-icon name="musical-notes-outline" class="icon-sound-style" (click)="setSoundState()" ></ion-icon>
+      <!-- <ion-icon name="musical-notes-outline" class="icon-sound-style" (click)="setSoundState()" ></ion-icon> -->
   </ion-title>
 </ion-header>
   
@@ -19,7 +19,6 @@
 
   <div id="navi" *ngIf="accessi18nData" >
 
-    <!-- <h3 class="destaques">Destaques</h3> -->
     <ion-card class="new-card-style" style="text-align: left;"
       (click)="openMusic('breath')">
       <img src="assets/imgs/respire.webp" class="new-img-style"/>
@@ -42,36 +41,11 @@
       (click)="openMusic(item.soundValue, item.categoria, item.albumValue)">
       <img src="{{ item.pathImage }}" class="new-img-style"/>
       <img class="ribbon" src="assets/imgs/new-home.png" *ngIf="item.novo">
-      <!-- <div class="label-item-novo-home" *ngIf="item.novo" >
-        <span class="span-novo">{{ home.NOVO_SOM }}</span>
-      </div>  -->
       <ion-card-header>
-        <ion-card-title class="new-ion-card-title">{{ item.labelDestaque }}
+        <ion-card-title class="new-ion-card-title">{{ item.labelName | translate }}
         </ion-card-title>
       </ion-card-header>
     </ion-card>
-
-
-
-    <!-- <ion-card class="card-style" (click)="openMusic('breath')">
-      <img src="assets/imgs/respire.jpg" class="img-card-style"/>
-      <div class="card-subtitle">{{ home.RESPIRE }}</div>
-    </ion-card> -->
-
-    <!-- <ion-card class="card-style" *ngFor="let item of jsonPathSoundDestaque" 
-      (click)="openMusic(item.soundValue)">
-      <img src="{{ item.pathImage }}" class="img-card-style"/>
-      <div class="card-subtitle">{{ item.labelDestaque }} 
-        <div class="label-item-novo-home" *ngIf="item.novo" >
-          <span class="span-novo">{{ home.NOVO_SOM }}</span>
-        </div> 
-      </div>
-    </ion-card> -->
-
-    <!-- <ion-card class="card-style" (click)="openParaVocePage()">
-      <img src="assets/imgs/para-voce2.jpg" class="img-card-style"/>
-      <div class="card-subtitle">{{ home.PARA_VOCE }}</div>
-    </ion-card> -->
 
     <ion-card class="card-fake-style">
     </ion-card>

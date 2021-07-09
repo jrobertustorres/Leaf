@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { Platform, ActionSheetController } from '@ionic/angular';
 import { TranslateConfigService } from '../services/translate-config.service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
@@ -34,9 +34,9 @@ export class Tab3Page {
               private http: HttpClient,
               private market: Market,
               private appRate: AppRate,
+              public actionSheetController: ActionSheetController,
               private socialSharing: SocialSharing) {
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
-
     this.accessi18nData = JSON.parse(localStorage.getItem('I18N_DICTIONARY'));
   }
 
@@ -59,8 +59,57 @@ export class Tab3Page {
     
   }
 
-  shareGeneric(parameter){
-    this.socialSharing.share(this.accessi18nData['TITLE_SOCIAL_SHARING'], 'MEDIUM', this.imgurl, this.link);
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: this.accessi18nData['COMPARTILHAR'],
+      cssClass: 'my-custom-class',
+      buttons: [{
+        text: 'Facebook',
+        icon: 'logo-facebook',
+        handler: () => {
+          this.shareviaFacebook();
+        }
+      }, {
+        text: 'Whatsapp',
+        icon: 'logo-whatsapp',
+        handler: () => {
+          this.shareviaWhatsapp();
+        }
+      }, {
+        text: this.accessi18nData['HOME']['BTN_CANCELAR'],
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+        }
+      }]
+    });
+    await actionSheet.present();
+
+    const { role } = await actionSheet.onDidDismiss();
+  }
+
+  shareviaFacebook() {
+    this.socialSharing.shareViaFacebook(this.accessi18nData['TITLE_SOCIAL_SHARING'],this.imgurl, this.link)
+    .then((success) =>{
+      })
+      .catch((err)=>{
+      });
+  }
+
+  shareviaWhatsapp() {
+    this.socialSharing.shareViaWhatsApp(this.accessi18nData['TITLE_SOCIAL_SHARING'],this.imgurl, this.link)
+      .then((success) =>{
+       })
+        .catch(()=>{
+        });
+  }
+
+  shareviaInstagram() {
+    this.socialSharing.shareViaInstagram(this.accessi18nData['TITLE_SOCIAL_SHARING'],this.imgurl)
+    .then((success) =>{
+      })
+      .catch(()=>{
+      });
   }
 
   sendEmailFeedback() {

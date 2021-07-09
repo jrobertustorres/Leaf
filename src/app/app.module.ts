@@ -27,6 +27,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { MusicInformationComponent } from '../app/popovers/music-information/music-information.component';
+
 import { DatePipe } from '@angular/common';
 
 // import { FCM } from '@ionic-native/fcm/ngx';
@@ -44,8 +46,8 @@ export function LanguageLoader(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, NowPlayingPage],
-  entryComponents: [],
+  declarations: [AppComponent, NowPlayingPage, MusicInformationComponent],
+  entryComponents: [MusicInformationComponent],
   imports: [
     BrowserModule, 
     FormsModule,

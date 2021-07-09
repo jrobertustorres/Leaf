@@ -1,6 +1,7 @@
 {
     "AJUSTES": "Ajustes",
-    "TITLE_SOCIAL_SHARING": "Olá, estou gostando muito do Leaf - Acalme sua mente. Junte-se a nós! :)",
+    "TITLE_SOCIAL_SHARING": "Olá, estou gostando muito do Leaf - Sons para meditar, relaxar e dormir. Junte-se a nós! :)",
+    "COMPARTILHAR": "Compartilhar com",
     "SUBJECT_LEAF": "Leaf - Sons para dormir Feedback",
     "TITLE_INFO_SISTEMA": "Informações do sistema",
     "REPETIR_ATIVADO": "Repetir ligado",
@@ -13,6 +14,7 @@
         "BTN_LIGAR": "Ligar",
         "CHUVA": "Chuva",
         "CHUVA_TROVOADAS": "Ilha das trovoadas",
+        "CHUVA_CALMA": "Chuva calma",
         "ENERGIA": "Energia Positiva",
         "FOGO": "Fogo",
         "FOGUEIRA": "Fogueira a beira mar",
@@ -29,7 +31,8 @@
         "TODOS_SONS": "Todos os sons",
         "VENTANIA_NA_MONTANHA": "A montanha nebulosa",
         "VENTO": "Vento",
-        "SLEEP_CYCLES": "Album - Sleep Cycles"
+        "SLEEP_CYCLES": "Álbum - Sleep Cycles",
+        "HIGH_FLYING": "Álbum - High Flying"
     },
     "TABS": {
         "CATEGORIA": {
@@ -102,7 +105,9 @@
         "EXERCICIO_RESPIRACAO": "Exercício de respiração",
         "RADIOS": "Rádios",
         "MUSICA": "Músicas",
-        "SLEEP_CYCLES": "Album - Sleep Cycles EP"
+        "SLEEP_CYCLES": "Álbum - Sleep Cycles EP",
+        "TITLE_SONS_ALBUM": "Músicas deste Álbum",
+        "LABEL_ALBUM": "Álbum"
     },
     "TAB3": {
         "IDIOMA": "Idioma",
@@ -121,6 +126,12 @@
         "SEGURE": "Segure",
         "START": "Iniciar",
         "STOP": "Parar"
+    },
+    "NOWPLAYING": {
+        "TOCANDO_AGORA": "Tocando agora"
+    },
+    "FAVORITOS_LIST": {
+        "LISTA_VAZIA": "Você não possui nenhum favorito"
     },
     "FRASES": [
         {

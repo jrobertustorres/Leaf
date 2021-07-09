@@ -169,4 +169,19 @@
 
   .sc-ion-label-md-s>p {
     color: #fff;
-}
+  }
+
+  .lista-vazia {
+    color: #fff; position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+  }
+
+  .remove-favorito {
+    position: absolute;
+    color: #fff;
+    font-size: 20px;
+    top: 15px;
+  }

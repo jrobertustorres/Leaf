@@ -12,22 +12,23 @@
     </div>
     <div class="container" *ngIf="showPlayerButtons && loaded">
       <div class="song-info ion-padding">
-        <!-- <div class="song-title" *ngIf="activeTrack && !labelAutor"> -->
         <div class="song-title" *ngIf="activeTrack && categoria != 'MUSICA'">
           {{ selectedSound | translate }}
         </div>
-        <!-- <div class="song-title" *ngIf="activeTrack && labelAutor"> -->
+        <span *ngIf="playListToShow && categoria == 'MUSICA'" class="label-tocando">{{ 'NOWPLAYING.TOCANDO_AGORA' | translate }}</span>
         <div class="song-title" *ngIf="activeTrack && categoria == 'MUSICA'">
           {{ labelSong | translate }}
         </div>
-        <!-- <div class="artist-name" *ngIf="labelAutor"> -->
         <div class="artist-name" *ngIf="categoria == 'MUSICA'">
-          <ion-text color="medium-contrast">Album - {{ selectedSound | translate }}</ion-text>
+          <ion-text color="medium-contrast">{{ 'TABS.LABEL_ALBUM' | translate }} - {{ selectedSound | translate }}</ion-text>
         </div>
         <div class="artist-name" *ngIf="categoria == 'MUSICA'">
           <ion-text color="medium-contrast">{{ labelAutor | translate }}</ion-text>
         </div>
-        <!-- <div class="artist-name" *ngIf="!labelAutor" > -->
+        <!-- <div class="message-alert" *ngIf="playListToShow && categoria == 'MUSICA'" >
+          <p *ngFor="let list of playListToShow" >{{ list.labelSong | translate }}
+          </p>
+        </div> -->
         <div class="artist-name" *ngIf="categoria != 'MUSICA'">
           <ion-text color="medium-contrast">{{ labelCategoria | translate }}</ion-text>
         </div>
@@ -46,8 +47,8 @@
       </div>
 
       <div class="song-timeline ion-padding" *ngIf="!playingRadio">
-        <!-- <ion-range #range [(ngModel)]="progress" max="100" color="success" class="range-style"></ion-range> -->
-        <ion-range #range [(ngModel)]="progress" max="100" color="success" (touchend)="seek()" (mouseup)="seek()"></ion-range>
+        <ion-range #range [(ngModel)]="progress" max="100" color="success" class="range-style"></ion-range>
+        <!-- <ion-range #range [(ngModel)]="progress" max="100" color="success" (touchend)="seek()" (mouseup)="seek()"></ion-range> -->
         <ion-row class="grid-no-padding ion-justify-content-between" style="color: #fff;" >
           <ion-col size="auto">
             {{ currentTimePlayer }}
@@ -63,7 +64,10 @@
           <ion-row>
             <ion-col>
               <div>
-                <ion-button fill="clear" (click)="setFavorito()" color="light" *ngIf="!playingRadio">
+                <ion-button fill="clear" (click)="presentPopover($event)" color="light" *ngIf="categoria == 'MUSICA'">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                </ion-button>
+                <ion-button fill="clear" (click)="setFavorito()" color="light" *ngIf="!playingRadio && categoria != 'MUSICA'">
                   <ion-icon name="heart-outline" *ngIf="!eFavorito" ></ion-icon>
                   <ion-icon name="heart" *ngIf="eFavorito"></ion-icon>
                 </ion-button>

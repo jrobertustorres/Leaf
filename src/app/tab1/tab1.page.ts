@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, AlertController, ModalController } from "@ionic/angular";
+import { Component, ViewChild } from '@angular/core';
+import { NavController, AlertController, ModalController, IonContent } from "@ionic/angular";
 import { Router } from '@angular/router';
 import { Howl } from 'howler';
 import { LoadingController } from '@ionic/angular';
@@ -21,6 +21,7 @@ import { BackgroundMode } from '@ionic-native/background-mode/ngx';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  // @ViewChild(IonContent, undefined) content: IonContent;
   player: Howl = null;
   play: boolean;
   labelButton: string = '';
@@ -54,12 +55,12 @@ export class Tab1Page {
               private eventService: EventService) {
     this.backgroundMode.enable();
     this.selectedLanguage = this.translateConfigService.getDefaultLanguage();
-    this.getLanguageDictionary();
+    // this.getLanguageDictionary();
     this.getChangeLanguage();
 
-    this.eventService.getObservableCloseModal().subscribe((data) => {
-      this.stopHomeSound();
-    });
+    // this.eventService.getObservableCloseModal().subscribe((data) => {
+    //   this.stopHomeSound();
+    // });
   }
 
   ngOnInit() {
@@ -81,15 +82,19 @@ export class Tab1Page {
   }
 
   ionViewWillEnter() {
+    this.getLanguageDictionary();
   }
 
+  ionViewDidEnter(){
+  }
+  
   ionViewWillLeave() {
-    this.labelButton = this.accessi18nData['HOME']['BTN_LIGAR'];
-    if(this.player) {
-      this.player.stop();
-      this.player.unload();
-      this.play = false;
-    }
+    // this.labelButton = this.accessi18nData['HOME']['BTN_LIGAR'];
+    // if(this.player) {
+    //   this.player.stop();
+    //   this.player.unload();
+    //   this.play = false;
+    // }
   }
 
   checkHomeSound(pathSound) {
@@ -128,15 +133,27 @@ export class Tab1Page {
         this.jsonPathSoundDestaque  = [];
         
         for(let i = 0; i < this.jsonPathSound.length; i++) {
-          if (this.jsonPathSound[i]['destaque']){
+          // setar maxDateNovo somente no primeiro registro de cada album
+          if((this.jsonPathSound[i]['maxDateNovo'] >= this.maxDateNovo)) {
             this.jsonPathSound[i]['labelDestaque'] = this.accessi18nData['HOME'][this.jsonPathSound[i]['labelDestaque']];
             this.jsonPathSoundDestaque.push(this.jsonPathSound[i]);
-            if(this.jsonPathSound[i]['maxDateNovo'] >= this.maxDateNovo) {
-              this.jsonPathSoundDestaque[i]['novo'] = true;
-            }
+            this.jsonPathSound[i]['novo'] = true;
+          } else if (this.jsonPathSound[i]['destaque']){
+                    this.jsonPathSound[i]['labelDestaque'] = this.accessi18nData['HOME'][this.jsonPathSound[i]['labelDestaque']];
+                    this.jsonPathSoundDestaque.push(this.jsonPathSound[i]);
           }
         }
-        this.setHomeSound();
+        
+        // for(let i = 0; i < this.jsonPathSound.length; i++) {
+        //   if (this.jsonPathSound[i]['destaque']){
+        //     this.jsonPathSound[i]['labelDestaque'] = this.accessi18nData['HOME'][this.jsonPathSound[i]['labelDestaque']];
+        //     this.jsonPathSoundDestaque.push(this.jsonPathSound[i]);
+        //     if(this.jsonPathSound[i]['maxDateNovo'] >= this.maxDateNovo) {
+                // this.jsonPathSound[i]['novo'] = true;
+        //     }
+        //   }
+        // }
+        // this.setHomeSound();
       }, (err) => {
         if(err) {
           this.soundsAlert();
@@ -208,79 +225,6 @@ export class Tab1Page {
     }
   }
 
-  verificaStatusPlayer() {
-    this.play = JSON.parse(localStorage.getItem('STATUS_PLAYER'));
-    if(localStorage.getItem('STATUS_PLAYER') == null || localStorage.getItem('STATUS_PLAYER') == 'true') {
-      this.startHomeSound();
-    } else {
-      this.labelButton = this.accessi18nData['HOME']['BTN_LIGAR'];
-    }
-  }
-
-  startHomeSound() {
-    this.labelButton = this.accessi18nData['HOME']['BTN_LIGAR'];
-    if(this.player) {
-      this.player.stop();
-      this.player.unload();
-    }
-
-    this.player = new Howl({
-      src: [this.homeSound],
-      html5: true,
-      loop: true,
-      onload: () => {
-      },
-      onplay: () => {
-        this.play = true;
-        localStorage.setItem('STATUS_PLAYER', 'true');
-        this.labelButton = this.accessi18nData['HOME']['BTN_DESLIGAR'];
-      },
-      onend: () => {
-      }
-    });
-    this.player.play();
-  }
-
-  stopHomeSound() {
-    this.labelButton = this.accessi18nData['HOME']['BTN_LIGAR'];
-    localStorage.setItem('STATUS_PLAYER', 'false');
-    if(this.player) {
-      this.play = false;
-      this.player.stop();
-      this.player.unload();
-    }
-  }
-
-  async setSoundState() {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: this.accessi18nData['HOME']['LABEL_SOM_HOME'],
-      message: this.accessi18nData['HOME']['MSG_ALERT'],
-      buttons: [
-        {
-          text: this.accessi18nData['HOME']['BTN_CANCELAR'],
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-          }
-        }, {
-          text: this.labelButton,
-          handler: () => {
-            this.play = !this.play;
-            localStorage.setItem('STATUS_PLAYER', this.play.toString());
-            if(!this.play) {
-              this.stopHomeSound();
-            } else {
-              this.startHomeSound();
-            }
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
   async logScrolling($event) {
 
     if($event.target.localName != "ion-content") {
@@ -294,8 +238,8 @@ export class Tab1Page {
     const scrollHeight = scrollElement.scrollHeight - scrollElement.clientHeight;
     const currentScrollDepth = $event.detail.scrollTop;
     // this.yourToggleFlag = currentScrollDepth < 413 ? true : false; 
-    const targetPercent = 10;
-    // const targetPercent = 20;
+    const targetPercent = 5;
+    // const targetPercent = 10;
     let triggerDepth = ((scrollHeight / 100) * targetPercent);
     if(currentScrollDepth > triggerDepth) {
       // this ensures that the event only triggers once
@@ -365,19 +309,92 @@ export class Tab1Page {
     }
   }
 
-  setHomeSound() {
-    for(let i = 0; i < this.jsonPathSound.length; i++) {
-      if (this.jsonPathSound[i]['useAtHome']){
-        if(new Date().getHours() >= 6 && new Date().getHours() < 18) {
-          this.homeSound = 'https://repositoriocalm.s3.amazonaws.com/mp3/passaros1.webm';
-        } else {
-          this.homeSound = 'https://repositoriocalm.s3.amazonaws.com/mp3/crickets2.webm';
-        }
-      }
-    }
+  // verificaStatusPlayer() {
+  //   this.play = JSON.parse(localStorage.getItem('STATUS_PLAYER'));
+  //   if(localStorage.getItem('STATUS_PLAYER') == null || localStorage.getItem('STATUS_PLAYER') == 'true') {
+  //     this.startHomeSound();
+  //   } else {
+  //     this.labelButton = this.accessi18nData['HOME']['BTN_LIGAR'];
+  //   }
+  // }
 
-    this.verificaStatusPlayer();
-  }
+  // startHomeSound() {
+  //   this.labelButton = this.accessi18nData['HOME']['BTN_LIGAR'];
+  //   if(this.player) {
+  //     this.player.stop();
+  //     this.player.unload();
+  //   }
+
+  //   this.player = new Howl({
+  //     src: [this.homeSound],
+  //     html5: true,
+  //     loop: true,
+  //     onload: () => {
+  //     },
+  //     onplay: () => {
+  //       this.play = true;
+  //       localStorage.setItem('STATUS_PLAYER', 'true');
+  //       this.labelButton = this.accessi18nData['HOME']['BTN_DESLIGAR'];
+  //     },
+  //     onend: () => {
+  //     }
+  //   });
+  //   this.player.play();
+  // }
+
+  // stopHomeSound() {
+  //   this.labelButton = this.accessi18nData['HOME']['BTN_LIGAR'];
+  //   localStorage.setItem('STATUS_PLAYER', 'false');
+  //   if(this.player) {
+  //     this.play = false;
+  //     this.player.stop();
+  //     this.player.unload();
+  //   }
+  // }
+
+  // async setSoundState() {
+  //   const alert = await this.alertController.create({
+  //     cssClass: 'my-custom-class',
+  //     header: this.accessi18nData['HOME']['LABEL_SOM_HOME'],
+  //     message: this.accessi18nData['HOME']['MSG_ALERT'],
+  //     buttons: [
+  //       {
+  //         text: this.accessi18nData['HOME']['BTN_CANCELAR'],
+  //         role: 'cancel',
+  //         cssClass: 'secondary',
+  //         handler: (blah) => {
+  //         }
+  //       }, {
+  //         text: this.labelButton,
+  //         handler: () => {
+  //           this.play = !this.play;
+  //           localStorage.setItem('STATUS_PLAYER', this.play.toString());
+  //           if(!this.play) {
+  //             this.stopHomeSound();
+  //           } else {
+  //             this.startHomeSound();
+  //           }
+  //         }
+  //       }
+  //     ]
+  //   });
+
+  //   await alert.present();
+  // }
+
+  // setHomeSound() {
+  //   for(let i = 0; i < this.jsonPathSound.length; i++) {
+  //     if (this.jsonPathSound[i]['useAtHome']){
+  //       if(new Date().getHours() >= 6 && new Date().getHours() < 18) {
+  //         this.homeSound = 'https://repositoriocalm.s3.amazonaws.com/mp3/passaros1.webm';
+  //       } else {
+  //         this.homeSound = 'https://repositoriocalm.s3.amazonaws.com/mp3/crickets2.webm';
+  //       }
+  //     }
+  //   }
+
+  //   this.verificaStatusPlayer();
+  // }
 
   //FUNCTION FOR INTERSTITIAL
   // Interstitial(){

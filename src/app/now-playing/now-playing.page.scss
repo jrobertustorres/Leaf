@@ -12,19 +12,17 @@
 }
 
 .song-title {
-  font-size: 20px;
-  // font-weight: 700;
+  font-size: 18px;
   letter-spacing: -0.5px;
   margin-bottom: 4px;
-
-  color: #fff; 
-  // text-shadow: 2px 2px #333;
-  
+  color: #fff;
+  font-weight: 600;
+  font-family: 'Orbitron', Verdana, sans-serif;
 }
 
 .artist-name {
   color: #fff; 
-  // text-shadow: 2px 2px #333;
+  font-size: 14px;
 }
 
 .song-timeline {
@@ -260,15 +258,18 @@ button {
   transform: scale(3);
 }
 
-// .button-style {
-//   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-//   border-radius: 20px;
+.list-title {
+  font-size: 14px;
+}
+
+.label-tocando {
+  font-size: 12px;
+}
+
+// .album-title-style {
+//   // color: #6f6;
+//   font-family: 'Orbitron', Verdana, sans-serif;
+//   background: none;
+//   font-weight: 600;
 // }
 
-// .range-style {
-//   box-shadow: rgb(0 0 0 / 25%) 0px 54px 55px, rgb(0 0 0 / 12%) 0px -12px 30px, rgb(0 0 0 / 12%) 0px 4px 6px, rgb(0 0 0 / 17%) 0px 12px 13px, rgb(0 0 0 / 9%) 0px -3px 5px;
-//   border-radius: 15px;
-//   padding: 0px 10px;
-//   margin-bottom: 10px;
-//   height: 25px;
-// }

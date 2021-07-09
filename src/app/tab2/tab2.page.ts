@@ -65,9 +65,8 @@ export class Tab2Page {
   //FUNCTION FOR INTERSTITIAL
   interstitial(){
     let interstitialConfig: AdMobFreeInterstitialConfig = {
-      isTesting: true,
-      autoShow: true
-      // id: "ca-app-pub-1449609669530104/3079724176"
+      autoShow: true,
+      id: "ca-app-pub-1449609669530104/3079724176"
     };
       this.admobFree.interstitial.config(interstitialConfig);
       this.admobFree.interstitial.prepare().then(() => {
@@ -143,7 +142,6 @@ export class Tab2Page {
 
   // async openMusicPlayer(som: string) {
   async openMusicPlayer(som: string, categoria: string, albumValue: string) {
-
     // chamando aqui o publish event informando que é para fechar o modal antes de abrir novamente. 
     // Se não, ficam várias instancias abertas (vários modais).
     // pego esse evento lá na página do modal

@@ -1,13 +1,14 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ModalController, NavParams, ToastController, LoadingController } from '@ionic/angular';
+import { ModalController, NavParams, ToastController, LoadingController, IonRange } from '@ionic/angular';
 import { Howl } from 'howler';
-import { IonRange } from '@ionic/angular';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-
 import { EventService } from '../../utilitarios/EventService';
 import { MusicPlayerService } from '../services/music-player.service';
 import { TranslateConfigService } from '../services/translate-config.service';
 import { HttpClient } from '@angular/common/http';
+
+import { PopoverController } from '@ionic/angular';
+import { MusicInformationComponent } from '../popovers/music-information/music-information.component';
 
 export interface Track {
   id: number;
@@ -54,7 +55,6 @@ export class NowPlayingPage implements OnInit {
   public labelCategoria = '';
   public labelAutor = '';
   public labelSong = '';
-  // public categoria = '';
   public loading;
   public selectedLanguage:string;
   backgroundImage: string;
@@ -66,6 +66,8 @@ export class NowPlayingPage implements OnInit {
   loaded = false;
   // public favoritosList: Object[] = [];
   public favoritosList: Array<string> = [];
+  public playList: Array<string> = [];
+  public playListToShow: Array<string> = [];
 
   selectedSound: Track[] = [
     {
@@ -89,6 +91,7 @@ export class NowPlayingPage implements OnInit {
               public toastController: ToastController,
               public loadingController: LoadingController,
               private httpC: HttpClient,
+              public popoverController: PopoverController,
               private eventService: EventService) {
 
     this.accessi18nData = JSON.parse(localStorage.getItem('I18N_DICTIONARY'));
@@ -116,17 +119,28 @@ export class NowPlayingPage implements OnInit {
       this.showPlayerButtons = this.totalSoundDuration != '' ? true : false;
       this.soundState = this.activeTrack['activeTrack']['state'];
     });
+    
+    this.eventService.getPlaylistToShow().subscribe((dataList) => {
+      this.playListToShow = dataList.playListToShow;
+    });
+
+    this.eventService.updateFavoritoNowPlaying().subscribe((data) => {
+      this.verificaFavorito();
+    });
+
   }
   
   ngOnInit() {
     // localStorage.removeItem('FAVORITOS_LIST');
     // console.log(JSON.parse(localStorage.getItem('FAVORITOS_LIST')));
-    this.playingRadio = this.categoriaRadio ? true : false;
-    if(this.categoriaRadio) {
+    // this.playingRadio = this.categoriaRadio ? true : false;
+    if(this.categoria === 'RADIO') {
+      this.playingRadio = true;
       this.soundState = undefined;
       this.pathImage = 'assets/imgs/tokyo2.webp';//seto direto aqui para carregar imediatamente pois a img já está embarcada
       this.initializeRadioService();
     } else {
+      this.playingRadio = false;
       this.initializeMusicService();
     }
   }
@@ -135,6 +149,19 @@ export class NowPlayingPage implements OnInit {
   }
   
   ionViewDidEnter() {
+  }
+
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component: MusicInformationComponent,
+      componentProps: { playListToShow: this.playListToShow },
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
   }
   
   async dismissLoading() {
@@ -149,7 +176,9 @@ export class NowPlayingPage implements OnInit {
     } else {
       this.musicService.getMusic(this.soundValue, this.categoria);
     }
+    // if(this.isPlaying) {
     this.progress = this.musicService.updateProgress();
+    // }
     this.currentTimePlayer = this.musicService.updateCurrentTime();
 
     // aqui tenho que esperar um pouco para atualizar estes dados na tela
@@ -159,7 +188,9 @@ export class NowPlayingPage implements OnInit {
         //   this.totalSoundDuration = activeTrack.totalSoundDuration;
         // }
         // tenho que atualizar constantemente - em tempo real
+        // if(this.isPlaying) {
         this.progress = this.musicService.updateProgress();
+        // }
         this.currentTimePlayer = this.musicService.updateCurrentTime(); // melhorar aqui para quando o currentTimePlayer zerado, não continuar chamando o metodo.
         
         if(this.currentTimePlayer == '00:00' && this.isLoading) {
@@ -179,7 +210,7 @@ export class NowPlayingPage implements OnInit {
   }
 
   async initializeRadioService() {
-    this.musicService.getRadio(this.nameRadio, this.categoriaRadio);
+    this.musicService.getRadio(this.nameRadio, this.categoria);
     const interval = setInterval(() => {
       if (this.soundState == 'loaded') {
         this.loaded = true;
@@ -190,8 +221,7 @@ export class NowPlayingPage implements OnInit {
 
   togglePlayer(pause: boolean) {
     this.isPlaying = this.musicService.setStatusPlayer(pause);
-    // if(this.categoriaRadio && !this.isPlaying) {
-    if(this.categoriaRadio) {
+    if(this.categoria == 'RADIO') {
       let player = document.getElementById("music");
       player.classList.toggle("paused");
     }
@@ -247,8 +277,15 @@ export class NowPlayingPage implements OnInit {
       for(let i in this.favoritosList) {
         if(this.favoritosList[i]['soundValue'] == this.soundValue) {
           this.eFavorito = true;
+        } else {
+          this.eFavorito = false;
         }
       }
+    } else {
+      this.eFavorito = false;
+      this.eventService.publishUpdateFavoritosList({
+        updateList: true
+      });
     }
   }
 
@@ -260,7 +297,7 @@ export class NowPlayingPage implements OnInit {
     } else {
       this.removeFavorito();
     }
-    this.eventService.publishMinimizedModal({
+    this.eventService.publishUpdateFavoritosList({
       updateList: true
     });
   }
@@ -288,9 +325,6 @@ export class NowPlayingPage implements OnInit {
     }
     this.toastFavorito = this.accessi18nData['TOAST_FAVORITO_REMOVIDO'];
     this.presentToastFavorito();
-    // this.eventService.publishMinimizedModal({
-    //   updateList: true
-    // });
   }
 
   // async presentLoading() {

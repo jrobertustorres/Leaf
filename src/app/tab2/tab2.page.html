@@ -26,11 +26,8 @@
         <div class="img-wrapper" [style.background-image]="'url(\'' + item.pathImageJPG + '\')'" 
           (click)="openMusicPlayer(item.soundValue, item.categoria, item.albumValue)">
           <img class="ribbon" src="assets/imgs/new.png" *ngIf="item.novo">
-          <div class="title-style label-album" text-center *ngIf="item.categoria == 'MUSICA'">Album - </div>
+          <div class="title-style label-album" text-center *ngIf="item.categoria == 'MUSICA'">{{ 'TABS.LABEL_ALBUM' | translate }} - </div>
           <div class="title-style" text-center >{{ item.labelName | translate }}</div>
-            <!-- <div class="label-item-novo" *ngIf="item.novo">
-              <span class="span-novo">{{ 'HOME.NOVO_SOM' | translate }}</span>
-            </div> -->
         </div>
       </ion-col>
     </ion-row>

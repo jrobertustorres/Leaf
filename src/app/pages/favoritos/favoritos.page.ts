@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { ModalController, LoadingController, ToastController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
 
 import { EventService } from '../../../utilitarios/EventService';
@@ -16,12 +16,15 @@ export class FavoritosPage implements OnInit {
   slice: number = 8;
   private _updateList: boolean = false;
   public favoritosList: Object[] = [];
+  toastFavorito: string = '';
+  private _accessi18nData: any;
 
   constructor(private eventService: EventService,
               public datepipe: DatePipe,
               public loadingController: LoadingController,
+              public toastController: ToastController,
               public modalCtrl: ModalController) { 
-
+    this._accessi18nData = JSON.parse(localStorage.getItem('I18N_DICTIONARY'));
     this.eventService.updateFavoritosList().subscribe((data) => {
       this._updateList = data;
       this.getFavoritosList();
@@ -47,6 +50,34 @@ export class FavoritosPage implements OnInit {
       this.loadingFavoritos();
     }
     this.favoritosList = JSON.parse(localStorage.getItem('FAVORITOS_LIST'));
+  }
+  
+  removeFavorito(soundValue: string){
+    this.favoritosList.forEach((element,index)=>{
+      if(element['soundValue'] == soundValue) this.favoritosList.splice(index,1);
+   });
+        
+    if(this.favoritosList.length == 0) {
+      localStorage.removeItem('FAVORITOS_LIST');
+    }
+    else {
+      localStorage.setItem('FAVORITOS_LIST', JSON.stringify(this.favoritosList));
+    }
+    this.toastFavorito = this._accessi18nData['TOAST_FAVORITO_REMOVIDO'];
+    this.presentToastFavorito();
+    this.eventService.publishFavoritoNowPlaying({
+      updateList: true
+    });
+  }
+
+  async presentToastFavorito() {
+    const toast = await this.toastController.create({
+      message: this.toastFavorito,
+      duration: 2000,
+      position: 'bottom',
+      cssClass: 'toast-custom-class',
+    });
+    toast.present();
   }
 
   // criar um service para essa função

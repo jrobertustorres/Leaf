@@ -95,8 +95,6 @@ export class MusicPlayerService {
     this.isPlaying = false;
     track = this.categoria != 'MUSICA' ? track : track[this.posicao];
 
-    console.log(this.pathSoundList);
-
     if(this.player) {
       this.player.stop();
       this.player.unload();
@@ -112,40 +110,59 @@ export class MusicPlayerService {
       onplay: () => {
         this.isPlaying = true;
         this.activeTrack = track;
-        
-        this.totalSoundDuration = this.formatTime(Math.round(this.player.duration()));
 
-        // localStorage.setItem('STATUS_PLAYER', this.isPlaying.toString()); // não me lembro por que coloquei essa linha, mas tive que comentá-la
+        this.totalSoundDuration = this.formatTime(Math.round(this.player.duration()));
+        // não me lembro por que coloquei essa linha abaixo(localStorage), mas tive que comentá-la
         // estava influenciando no som da Home
-        // this.updateProgress(); // descomentar esta linha quando puder arrastar o seek
+        // localStorage.setItem('STATUS_PLAYER', this.isPlaying.toString()); 
+        // esta linha serve também para atualizar o botão de play/pause/stop em tempo real
+        this.updateProgress();
 
         this.selectedSound[this.posicao]['totalSoundDuration'] = this.totalSoundDuration;
         this.selectedSound[this.posicao]['state'] = this.player.state();
-        /** atualiza o player minimizado na tela tabs.page */
+
+        /** atualiza o player minimizado na tela tabs.page e a tela now-playing*/
         this.eventService.publishData({
           activeTrack: this.selectedSound[this.posicao]// Antes era sempre zero
         });
+        
+        if(this.categoria === 'MUSICA') {
+          this.showPlaylist();
+        }
 
       },
       onend: () => {
         this.activeTrack = track;
         this.isPlaying = false;
         let isLooping = JSON.parse(localStorage.getItem('IS_LOOPING'));
-        if(isLooping == true) {
+        if(isLooping == true && this.categoria != 'MUSICA') {
           this.start(this.selectedSound[0]);
         } else {
           this.player.stop();
         }
-        if(this.categoria == 'MUSICA') {
-          if ((this.posicao + 1) == this.pathSoundList.length) {
-            this.executePlayList(0, this.pathSoundList);
+        if(this.categoria === 'MUSICA') {
+          let resultadoPosicao = ((this.posicao + 1) == this.pathSoundList.length) ? 0 : (this.posicao + 1);
+          if(resultadoPosicao == 0 && isLooping == false) {
+            this.stopPlayer();
+            this.posicao = 0;
           } else {
-            this.executePlayList(this.posicao + 1, this.pathSoundList);
+            this.executePlayList(resultadoPosicao, this.pathSoundList);
           }
+          // if ((this.posicao + 1) == this.pathSoundList.length) {
+          //   this.executePlayList(0, this.pathSoundList);
+          // } else {
+          //   this.executePlayList(this.posicao + 1, this.pathSoundList);
+          // }
         }
       }
     });
     this.player.play();
+  }
+
+  showPlaylist() {
+    this.eventService.showPlaylist({
+      playListToShow: this.pathSoundList
+    });
   }
 
   stopPlayer() {
@@ -209,7 +226,7 @@ export class MusicPlayerService {
     try {
       let seek = this.player.seek();
       this.progress = (seek / this.player.duration()) * 100 || 0;
-      
+
       // atualiza a barra de progresso quando o player está minimizado
       this.selectedSound[this.posicao]['porcentagemProgresso'] = this.progress < 10 ? '0.0'+this.progress : '0.'+this.progress.toFixed(0);
       this.selectedSound[this.posicao]['isPlaying'] = this.isPlaying;
@@ -247,7 +264,6 @@ export class MusicPlayerService {
   }
 
   getMusic(soundValue: string, categoria: string) {
-    this.categoriaRadio = null;
     this.playingRadio = false;
     this.categoria = categoria;
     this.posicao = 0;
@@ -263,10 +279,8 @@ export class MusicPlayerService {
   }
 
   getPlayList(categoria: any, albumValue: string) {
-    this.categoriaRadio = null;
     this.playingRadio = false;
     this.categoria = categoria;
-
     let song_array = [];
     this.pathSoundList = JSON.parse(localStorage.getItem('PATH_SOUND'));
     for(let i in this.pathSoundList) {
@@ -280,14 +294,12 @@ export class MusicPlayerService {
 
   executePlayList(posicao,pathSoundList) {
     this.posicao = posicao;
-    
     this.selectedSound[posicao] = pathSoundList[posicao];
     this.start(pathSoundList);
   }
 
-  getRadio(nameRadio: string, categoriaRadio: string) {
-    this.categoria = categoriaRadio;
-    console.log(this.categoria);
+  getRadio(nameRadio: string, categoria: string) {
+    this.categoria = categoria;
     this.playingRadio = true;
     this.pathSound = JSON.parse(localStorage.getItem('PATH_RADIOS'));
     for(let i in this.pathSound) {
@@ -303,8 +315,8 @@ export class MusicPlayerService {
   public getJsonFile() {
     try {
       return new Promise((resolve, reject) => {
-        this.http.get('assets/sons.json')
-        // this.http.get('https://repositoriocalm.s3.amazonaws.com/sons.json')
+        // this.http.get('assets/sons.json')
+        this.http.get('https://repositoriocalm.s3.amazonaws.com/sons.json')
         .subscribe(data => {
           resolve(data);
         }, (err) => {

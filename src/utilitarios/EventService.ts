@@ -9,8 +9,10 @@ export class EventService {
     private fooSubject = new Subject<any>();
     private buttonClicked = new Subject<any>();
     private updateList = new Subject<any>();
+    private updateFavorito = new Subject<any>();
     private languageChanged = new Subject<any>();
     private porcentagemProgresso = new Subject<any>();
+    private playListToShow = new Subject<any>();
 
     publishData(data: any) {
         this.fooSubject.next(data);
@@ -18,6 +20,14 @@ export class EventService {
     
     getObservable(): Subject<any> {
         return this.fooSubject;
+    }
+
+    showPlaylist(data: any) {
+        this.playListToShow.next(data);
+    }
+    
+    getPlaylistToShow(): Subject<any> {
+        return this.playListToShow;
     }
 
     publishPorcentagemProgresso(data: any) {
@@ -35,11 +45,18 @@ export class EventService {
         return this.buttonClicked;
     }
 
-    publishMinimizedModal(data: any) {
+    publishUpdateFavoritosList(data: any) {
         this.updateList.next(data);
     }
     updateFavoritosList() {
         return this.updateList;
+    }
+    
+    publishFavoritoNowPlaying(data: any) {
+        this.updateFavorito.next(data);
+    }
+    updateFavoritoNowPlaying() {
+        return this.updateFavorito;
     }
 
     publishChangeLanguage(data: any) {

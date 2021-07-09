@@ -1,6 +1,7 @@
 {
     "AJUSTES": "Settings",
-    "TITLE_SOCIAL_SHARING": "Hello, I'm really enjoying Leaf - Calm your mind. Join us! :)",
+    "TITLE_SOCIAL_SHARING": "Hello, I'm really enjoying Leaf - Sounds to meditate, relax and sleep. Join us! :)",
+    "COMPARTILHAR": "Share with",
     "SUBJECT_LEAF": "Leaf - Sounds to sleep Feedback",
     "TITLE_INFO_SISTEMA": "System information",
     "REPETIR_ATIVADO": "Looping on",
@@ -13,6 +14,7 @@
         "BTN_LIGAR": "Turn On",
         "CHUVA": "Rain",
         "CHUVA_TROVOADAS": "Thunderstorm Island",
+        "CHUVA_CALMA": "Calm rain",
         "ENERGIA": "Positive Energy",
         "FOGO": "Fire",
         "FOGUEIRA": "Fire pit by the sea",
@@ -29,7 +31,8 @@
         "TODOS_SONS": "All sounds",
         "VENTANIA_NA_MONTANHA": "The cloudy mountain",
         "VENTO": "Wind",
-        "SLEEP_CYCLES": "Album - Sleep Cycles"
+        "SLEEP_CYCLES": "Album - Sleep Cycles",
+        "HIGH_FLYING": "Album - High Flying"
     },
     "TABS": {
         "CATEGORIA": {
@@ -101,7 +104,10 @@
         "MAIS": "More",
         "EXERCICIO_RESPIRACAO": "Breathing exercise",
         "RADIOS": "Radios",
-        "MUSICA": "Songs"
+        "MUSICA": "Songs",
+        "SLEEP_CYCLES": "Album - Sleep Cycles EP",
+        "TITLE_SONS_ALBUM": "Songs from this album",
+        "LABEL_ALBUM": "Album"
     },
     "TAB3": {
         "IDIOMA": "Language",
@@ -120,6 +126,12 @@
         "SEGURE": "Hold",
         "START": "Start",
         "STOP": "Stop"
+    },
+    "NOWPLAYING": {
+        "TOCANDO_AGORA": "Playing now"
+    },
+    "FAVORITOS_LIST": {
+        "LISTA_VAZIA": "You don't have any favorites"
     },
     "FRASES": [
         {
