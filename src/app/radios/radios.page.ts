@@ -33,8 +33,9 @@ export class RadiosPage implements OnInit {
   //FUNCTION FOR INTERSTITIAL
   interstitial(){
     let interstitialConfig: AdMobFreeInterstitialConfig = {
+      isTesting: true,
       autoShow: true,
-      id: "ca-app-pub-1449609669530104/3079724176"
+      // id: "ca-app-pub-1449609669530104/8880852712"
     };
       this.admobFree.interstitial.config(interstitialConfig);
       this.admobFree.interstitial.prepare().then(() => {

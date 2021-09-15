@@ -40,7 +40,7 @@ export class MusicPlayerService {
   categoria: string = '';
   albumValue: string = '';
   albumValueAntigo: string = '';
-  playingRadio: boolean = false;
+  playingRadio: boolean;
   private accessi18nData: any;
   
   private _count = 0;
@@ -115,11 +115,12 @@ export class MusicPlayerService {
         // não me lembro por que coloquei essa linha abaixo(localStorage), mas tive que comentá-la
         // estava influenciando no som da Home
         // localStorage.setItem('STATUS_PLAYER', this.isPlaying.toString()); 
-        // esta linha serve também para atualizar o botão de play/pause/stop em tempo real
-        this.updateProgress();
 
         this.selectedSound[this.posicao]['totalSoundDuration'] = this.totalSoundDuration;
         this.selectedSound[this.posicao]['state'] = this.player.state();
+        // if(this.categoria === 'RADIO') {
+        //   this.selectedSound[this.posicao]['playingRadio'] = true;
+        // }
 
         /** atualiza o player minimizado na tela tabs.page e a tela now-playing*/
         this.eventService.publishData({
@@ -129,6 +130,10 @@ export class MusicPlayerService {
         if(this.categoria === 'MUSICA') {
           this.showPlaylist();
         }
+
+        // esta linha serve também para atualizar o botão de play/pause/stop em tempo real
+        // this.updateProgress(); // esta linha não é mais necessário pois o seek está comentado
+        this.updateButtonPlayer();
 
       },
       onend: () => {
@@ -148,11 +153,6 @@ export class MusicPlayerService {
           } else {
             this.executePlayList(resultadoPosicao, this.pathSoundList);
           }
-          // if ((this.posicao + 1) == this.pathSoundList.length) {
-          //   this.executePlayList(0, this.pathSoundList);
-          // } else {
-          //   this.executePlayList(this.posicao + 1, this.pathSoundList);
-          // }
         }
       }
     });
@@ -178,6 +178,11 @@ export class MusicPlayerService {
     } else {
       this.player.play();
     }
+    /** atualiza o BOTÃO do player */
+    this.eventService.publishUpdateButtonPlayer({
+      buttonPlayerIsPlaying: this.isPlaying
+    });
+    
     return this.isPlaying;
   }
 
@@ -222,6 +227,25 @@ export class MusicPlayerService {
     this.start(this.selectedSound[0]);
   }
     
+  updateButtonPlayer() {
+    try {
+      this.selectedSound[this.posicao]['isPlaying'] = this.isPlaying;
+
+      if(!this.isPlaying) {
+        this.selectedSound[this.posicao]['isPlaying'] = false;
+      }
+
+      /** atualiza o BOTÃO do player */
+      this.eventService.publishUpdateButtonPlayer({
+        buttonPlayerIsPlaying: this.isPlaying
+      });
+    }
+    catch (err){
+      if(err instanceof RangeError){
+      }
+    }
+  }
+
   updateProgress() {
     try {
       let seek = this.player.seek();
@@ -235,7 +259,6 @@ export class MusicPlayerService {
 
       if(!this.isPlaying) {
         this.selectedSound[this.posicao]['isPlaying'] = false;
-        // this.selectedSound[0]['isPlaying'] = false;
       }
 
         /** atualiza o player minimizado na tela tabs.page */
@@ -246,12 +269,11 @@ export class MusicPlayerService {
 
       this.eventService.publishPorcentagemProgresso({
         porcentagemProgresso: this.selectedSound[this.posicao]['porcentagemProgresso']
-        // porcentagemProgresso: this.selectedSound[0]['porcentagemProgresso']
       });
-      
+      // tenho que ficar verificando em tempo real para manter a sincronia entre os botões de play, pause e stop do mini player e now-playing
       // setTimeout(() => {
       //   this.updateProgress();
-      // }, 1000);
+      // }, 100);
       
       return this.progress;
     }
@@ -264,12 +286,12 @@ export class MusicPlayerService {
   }
 
   getMusic(soundValue: string, categoria: string) {
-    this.playingRadio = false;
+    // this.playingRadio = false;
     this.categoria = categoria;
     this.posicao = 0;
     this.pathSound = JSON.parse(localStorage.getItem('PATH_SOUND'));
     for(let i in this.pathSound) {
-      this.pathSound[i]['playingRadio'] = this.playingRadio;
+      this.pathSound[i]['playingRadio'] = false;
       if(this.pathSound[i]['soundValue'] == soundValue) {
         this.start(this.pathSound[i]);
         this.selectedSound[0] = this.pathSound[i];
@@ -279,11 +301,12 @@ export class MusicPlayerService {
   }
 
   getPlayList(categoria: any, albumValue: string) {
-    this.playingRadio = false;
+    // this.playingRadio = false;
     this.categoria = categoria;
     let song_array = [];
     this.pathSoundList = JSON.parse(localStorage.getItem('PATH_SOUND'));
     for(let i in this.pathSoundList) {
+      this.pathSoundList[i]['playingRadio'] = false;
       if(this.pathSoundList[i]['categoria'] == categoria && this.pathSoundList[i]['albumValue'] == albumValue) {
         song_array.push(this.pathSoundList[i]);
       }
@@ -292,18 +315,13 @@ export class MusicPlayerService {
     this.executePlayList(0, this.pathSoundList);
   }
 
-  executePlayList(posicao,pathSoundList) {
-    this.posicao = posicao;
-    this.selectedSound[posicao] = pathSoundList[posicao];
-    this.start(pathSoundList);
-  }
-
   getRadio(nameRadio: string, categoria: string) {
+    // this.playingRadio = true;
     this.categoria = categoria;
-    this.playingRadio = true;
+    this.posicao = 0;
     this.pathSound = JSON.parse(localStorage.getItem('PATH_RADIOS'));
     for(let i in this.pathSound) {
-      this.pathSound[i]['playingRadio'] = this.playingRadio;
+      this.pathSound[i]['playingRadio'] = true;
       if(this.pathSound[i]['nameRadio'] == nameRadio) {
         this.start(this.pathSound[i]);
         this.selectedSound[0] = this.pathSound[i];
@@ -312,11 +330,17 @@ export class MusicPlayerService {
     }
   }
 
+  executePlayList(posicao,pathSoundList) {
+    this.posicao = posicao;
+    this.selectedSound[posicao] = pathSoundList[posicao];
+    this.start(pathSoundList);
+  }
+
   public getJsonFile() {
     try {
       return new Promise((resolve, reject) => {
-        // this.http.get('assets/sons.json')
-        this.http.get('https://repositoriocalm.s3.amazonaws.com/sons.json')
+        this.http.get('assets/sons.json')
+        // this.http.get('https://repositoriocalm.s3.amazonaws.com/sons.json')
         .subscribe(data => {
           resolve(data);
         }, (err) => {

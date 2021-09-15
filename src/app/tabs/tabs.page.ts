@@ -19,10 +19,12 @@ export class TabsPage {
   public selectedSound = '';
   public pathImage = '';
   public porcentagemProgresso = 0;
+  buttonPlayerIsPlaying: boolean = false;
   public labelCategoria = '';
   public isPlaying: boolean = false;
+  shouldDisable: boolean = false;
   public selectedLanguage:string;
-  playingRadio: boolean = false;
+  playingRadio: boolean;
   public soundState: string;
   public labelSong: string = '';
   public labelAutor: string = '';
@@ -52,6 +54,10 @@ export class TabsPage {
       this.porcentagemProgresso = porcentagemProgresso.porcentagemProgresso;
     });
 
+    this.eventService.getObservableButtonPlayer().subscribe((dataButton) => {
+      this.isPlaying = dataButton.buttonPlayerIsPlaying;
+    });
+
   }
 
   ngOnInit() {
@@ -64,11 +70,17 @@ export class TabsPage {
 
    togglePlayer(pause: boolean) {
     this.isPlaying = this.musicService.setStatusPlayer(pause);
+
     //usado quando é radio para ativar ou desativar as barras laranjas
     if(this.playingRadio) {
       let player = document.getElementById("music");
       player.classList.toggle("paused");
     }
+
+    this.shouldDisable = true;
+    setTimeout(() => {
+      this.shouldDisable = false;
+    }, 500);
   }
 
   goToSounds() {

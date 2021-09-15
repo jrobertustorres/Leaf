@@ -8,6 +8,7 @@ export class EventService {
 
     private fooSubject = new Subject<any>();
     private buttonClicked = new Subject<any>();
+    private buttonPlayerIsPlaying = new Subject<any>();
     private updateList = new Subject<any>();
     private updateFavorito = new Subject<any>();
     private languageChanged = new Subject<any>();
@@ -43,6 +44,13 @@ export class EventService {
     }
     getObservableCloseModal() {
         return this.buttonClicked;
+    }
+
+    publishUpdateButtonPlayer(data: any) {
+        this.buttonPlayerIsPlaying.next(data);
+    }
+    getObservableButtonPlayer() {
+        return this.buttonPlayerIsPlaying;
     }
 
     publishUpdateFavoritosList(data: any) {

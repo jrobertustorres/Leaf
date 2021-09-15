@@ -108,6 +108,7 @@ export class Tab1Page {
       this.translateConfigService.getI18nData(this.selectedLanguage)
       .then((data) => {
         this.accessi18nData = data;
+        console.log(this.accessi18nData);
         localStorage.setItem('I18N_DICTIONARY', JSON.stringify(this.accessi18nData));
         this.home = this.accessi18nData['HOME'];
         this.getSoundPathJsonFile();
@@ -137,12 +138,14 @@ export class Tab1Page {
           if((this.jsonPathSound[i]['maxDateNovo'] >= this.maxDateNovo)) {
             this.jsonPathSound[i]['labelDestaque'] = this.accessi18nData['HOME'][this.jsonPathSound[i]['labelDestaque']];
             this.jsonPathSoundDestaque.push(this.jsonPathSound[i]);
+            console.log(this.jsonPathSoundDestaque);
             this.jsonPathSound[i]['novo'] = true;
           } else if (this.jsonPathSound[i]['destaque']){
                     this.jsonPathSound[i]['labelDestaque'] = this.accessi18nData['HOME'][this.jsonPathSound[i]['labelDestaque']];
                     this.jsonPathSoundDestaque.push(this.jsonPathSound[i]);
           }
         }
+
         
         // for(let i = 0; i < this.jsonPathSound.length; i++) {
         //   if (this.jsonPathSound[i]['destaque']){

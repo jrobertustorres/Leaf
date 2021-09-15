@@ -23,13 +23,12 @@
   
         <ion-col size="auto">
           <ion-spinner name="dots" class="spinner" *ngIf="!isPlaying && soundState != 'loaded'"></ion-spinner>
-          <ion-button fill="clear" *ngIf="!isPlaying && soundState == 'loaded'" color="light" 
+          <ion-button fill="clear" [disabled]="shouldDisable" *ngIf="!isPlaying && soundState == 'loaded'" color="light" 
             (click)="togglePlayer(false);$event.stopPropagation();">
             <ion-icon slot="icon-only" name="play"></ion-icon>
           </ion-button>
       
-          <ion-button fill="clear" *ngIf="isPlaying" color="light" 
-            (click)="togglePlayer(true);$event.stopPropagation();">
+          <ion-button fill="clear" (click)="togglePlayer(true);$event.stopPropagation();" [disabled]="shouldDisable" *ngIf="isPlaying" color="light">
             <ion-icon slot="icon-only" name="pause" *ngIf="!playingRadio"></ion-icon>
             <ion-icon slot="icon-only" name="stop" *ngIf="playingRadio"></ion-icon>
           </ion-button>

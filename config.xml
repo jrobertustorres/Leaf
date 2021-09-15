@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.logiicstudio.leaf" version="0.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.logiicstudio.leaf" version="0.0.14" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Leaf</name>
-    <description>An awesome Logiic Studio app.</description>
-    <author email="jrtorresfaria@gmail.com" href="http://logiicstudio.com/">Logiic Studio Team</author>
+    <description>An awesome Logiic Softworks app.</description>
+    <author email="jrtorresfaria@gmail.com" href="http://logiicstudio.com/">Logiic Softworks Team</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -25,7 +25,7 @@
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="FadeSplashScreenDuration" value="1000" />
+    <preference name="FadeSplashScreenDuration" value="3000" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="StatusBarOverlaysWebView" value="true" />

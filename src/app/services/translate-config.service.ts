@@ -48,6 +48,7 @@ export class TranslateConfigService {
       return new Promise((resolve, reject) => {
         this.http.get('https://repositoriocalm.s3.amazonaws.com/i18n/'+languageEvent+'.json')
         .subscribe(data => {
+          console.log(data);
           resolve(data);
         }, (err) => {
           reject(err);

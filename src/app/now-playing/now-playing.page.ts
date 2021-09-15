@@ -29,13 +29,14 @@ export interface Track {
 export class NowPlayingPage implements OnInit {
   @Input() soundValue: string;
   @Input() nameRadio: string;
-  @Input() categoriaRadio: string;
+  // @Input() categoriaRadio: string;
   @Input() categoria: string;
   @Input() albumValue: string;
   
   activeTrack: Track = null;
   player: Howl = null;
   isPlaying: boolean = true;
+  shouldDisable: boolean = false;
   isLooping: boolean = false;
   progress: number = 0;
   timePlayed: number = 0;
@@ -44,6 +45,7 @@ export class NowPlayingPage implements OnInit {
   idSoundInMemory: number = 0;
   isClick: boolean = false;
   buttonClicked: boolean = false;
+  buttonPlayerIsPlaying: boolean = false;
   loopToast: string = '';
   toastFavorito: string = '';
   doSpinner: boolean = true;
@@ -59,7 +61,7 @@ export class NowPlayingPage implements OnInit {
   public selectedLanguage:string;
   backgroundImage: string;
   private accessi18nData: any;
-  playingRadio: boolean = false;
+  playingRadio: boolean;
   eFavorito: boolean = false;
   public soundState: string;
   isLoading = false;
@@ -103,7 +105,7 @@ export class NowPlayingPage implements OnInit {
         this.closeModal();
       }
     });
-
+    
     // aqui pego quando muda de som
     this.eventService.getObservable().subscribe((data) => {
       this.activeTrack = data;
@@ -115,6 +117,7 @@ export class NowPlayingPage implements OnInit {
       this.labelSong = this.activeTrack['activeTrack']['labelSong'];
       this.soundValue = this.activeTrack['activeTrack']['soundValue'];
       this.isPlaying = this.activeTrack['activeTrack']['isPlaying'];
+      this.playingRadio = this.activeTrack['activeTrack']['playingRadio'];
       this.totalSoundDuration = this.activeTrack['activeTrack']['totalSoundDuration'];
       this.showPlayerButtons = this.totalSoundDuration != '' ? true : false;
       this.soundState = this.activeTrack['activeTrack']['state'];
@@ -128,11 +131,14 @@ export class NowPlayingPage implements OnInit {
       this.verificaFavorito();
     });
 
+    this.eventService.getObservableButtonPlayer().subscribe((dataButton) => {
+      this.isPlaying = dataButton.buttonPlayerIsPlaying;
+    });
+
   }
   
   ngOnInit() {
     // localStorage.removeItem('FAVORITOS_LIST');
-    // console.log(JSON.parse(localStorage.getItem('FAVORITOS_LIST')));
     // this.playingRadio = this.categoriaRadio ? true : false;
     if(this.categoria === 'RADIO') {
       this.playingRadio = true;
@@ -149,6 +155,9 @@ export class NowPlayingPage implements OnInit {
   }
   
   ionViewDidEnter() {
+  }
+
+  ionViewWillEnter() {
   }
 
   async presentPopover(ev: any) {
@@ -221,10 +230,16 @@ export class NowPlayingPage implements OnInit {
 
   togglePlayer(pause: boolean) {
     this.isPlaying = this.musicService.setStatusPlayer(pause);
+    //usado quando é radio para ativar ou desativar as barras laranjas
     if(this.categoria == 'RADIO') {
       let player = document.getElementById("music");
       player.classList.toggle("paused");
     }
+
+    this.shouldDisable = true;
+    setTimeout(() => {
+      this.shouldDisable = false;
+      }, 500);
   }
 
   loopPlayer(looping: boolean) {

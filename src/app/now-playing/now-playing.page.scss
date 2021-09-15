@@ -85,12 +85,10 @@ ion-content {
 
 .background{
   height: 100%; 
-  // background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  // opacity: 0.6;
-  -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0.5)));
+  -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0.3)));
 }
 
 .control {

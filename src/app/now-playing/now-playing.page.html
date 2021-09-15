@@ -15,7 +15,6 @@
         <div class="song-title" *ngIf="activeTrack && categoria != 'MUSICA'">
           {{ selectedSound | translate }}
         </div>
-        <span *ngIf="playListToShow && categoria == 'MUSICA'" class="label-tocando">{{ 'NOWPLAYING.TOCANDO_AGORA' | translate }}</span>
         <div class="song-title" *ngIf="activeTrack && categoria == 'MUSICA'">
           {{ labelSong | translate }}
         </div>
@@ -75,10 +74,10 @@
             </ion-col>
             <ion-col >
               <div>
-                <ion-button fill="clear" (click)="togglePlayer(false)" *ngIf="!isPlaying && soundState == 'loaded'" color="light">
+                <ion-button fill="clear" (click)="togglePlayer(false)" [disabled]="shouldDisable" *ngIf="!isPlaying && soundState == 'loaded'" color="light">
                   <ion-icon slot="icon-only" name="play"></ion-icon>
                 </ion-button>
-                <ion-button fill="clear" (click)="togglePlayer(true)" *ngIf="isPlaying" color="light">
+                <ion-button fill="clear" (click)="togglePlayer(true)" [disabled]="shouldDisable" *ngIf="isPlaying" color="light">
                   <ion-icon slot="icon-only" name="pause" *ngIf="!playingRadio"></ion-icon>
                   <ion-icon slot="icon-only" name="stop" *ngIf="playingRadio"></ion-icon>
                 </ion-button>

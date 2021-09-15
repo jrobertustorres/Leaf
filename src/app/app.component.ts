@@ -64,8 +64,9 @@ export class AppComponent {
 
   banner(){
     let bannerConfig: AdMobFreeBannerConfig = {
+      isTesting: true,
       autoShow: true,
-      id: "ca-app-pub-1449609669530104/7972958203"
+      // id: "ca-app-pub-1449609669530104/7972958203"
     };
     this.admobFree.banner.config(bannerConfig);
 
